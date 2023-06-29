@@ -9,7 +9,8 @@ namespace _14._List
     {
         static void Main(string[] args)
         {
-            IntList();
+            StringList();
+            //IntList();
 
         }
 
@@ -53,7 +54,7 @@ namespace _14._List
             int length = 0;
             foreach (var item in userList)
             {
-                sum += userList.Count();
+                sum += item.length();
                 length++;
             }
             return sum / length;
@@ -140,10 +141,5 @@ namespace _14._List
                 return numberMoreTenResult;
             }
             return "Sarase nera skaiciu, kurie didesni uz 10";
-            
-
         }
-
-
-
     }
