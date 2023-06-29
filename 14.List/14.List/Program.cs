@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -8,9 +9,13 @@ namespace _14._List
     {
         static void Main(string[] args)
         {
-            StringList();
+            //StringList();
             //IntList();
+            //ASCII();
+            //Factorial();
+            Prime();
 
+        
         }
 
         // pirmos skaidres 1 uzduotys grazina sarasa su elemento ilgi ir papildomai elementu ilgio vidurki
@@ -46,7 +51,7 @@ namespace _14._List
             return listFromInput;
         }
 
-        // Metodas kuris apskaiciuoja string ilgi vidurki
+        // Metodas kuris apskaiciuoja string ilgiu vidurki
         static int ListLengthAverage(List<string> userList)
         {
             int sum = 0;
@@ -137,6 +142,135 @@ namespace _14._List
                 return numberMoreTenResult;
             }
             return "Sarase nera skaiciu, kurie didesni uz 10";
+        }
+
+        //ASCII uzduotys
+        static void ASCII()
+        {
+            List<string> userList = GetStringListFromInput();
+            List<string> evenAsciiList = AsciiBytesSum(userList);
+            if (evenAsciiList.Count()>0)
+            foreach (string item in evenAsciiList)
+            {
+                Console.WriteLine(item);
+            }
+            else { Console.WriteLine("nera zodzio, kurių raidžių suma yra lyginis skaičius"); }
+           
+        }
+
+        //Grazina ASCII  zodziu lygine suma
+        static List<string> AsciiBytesSum(List<string> userList)
+        {
+            List<string> evenAsciiList = new List<string>();
+            foreach (string item in userList)
+            {
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(item);
+                int asciiSum = 0;
+                foreach (byte b in asciiBytes)
+                {
+                    asciiSum += b;
+                }
+                if (asciiSum % 2 == 0)
+                {
+                    evenAsciiList.Add(item);
+                }
+            }
+            return evenAsciiList;
+        }
+       
+        //Faktorialas
+        static void Factorial()
+        {
+           List<int> userInt = GetIntListFromInput();
+           List<int> FactorialList = new List<int>();
+            int count = 0;
+            foreach (int item in userInt)
+            {
+                int factorialMultiplyResult = FactorialMultiply(item);
+                FactorialList.Add(factorialMultiplyResult);  
+            }
+            if (FactorialList.Count() > 0)
+            {
+                foreach (var item in userInt)
+                {   
+                    Console.Write($"Faktorialas skaiciaus {item} yra ");
+                    for (int i = count; i < FactorialList.Count; i++) 
+                    {
+                        Console.WriteLine(FactorialList[i]);
+                        break;
+                    }
+                    count++;
+                }
+            }
+
+        }
+
+        //Skaiciuoja faktoriala
+        static int FactorialMultiply(int number)
+        {
+            int factorialMuliply = 1;
+            for (int i = 1; i <= number; i++)
+            {
+                factorialMuliply *= i;
+            }
+            return factorialMuliply;
+        }
+
+        //ASCII kodo pirmine skaiciu suma
+        static void Prime()
+        {
+            List<string> userList = GetStringListFromInput();
+            List<string> primeAsciiList =AsciiBytesPrimeSum(userList);
+            if(primeAsciiList.Count > 0)
+            {
+                foreach (var item in primeAsciiList)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nerado pirminiu skaiciu");
+            }
+        }
+
+        //Skaiciuoja ASCII
+        static List<string> AsciiBytesPrimeSum(List<string> userList)
+        {
+            List<string> primeAsciiList = new List<string>();
+            foreach (string item in userList)
+            {
+                byte[] asciiBytes = Encoding.ASCII.GetBytes(item);
+                int asciiSum = 0;
+                foreach (byte b in asciiBytes)
+                {
+                    asciiSum += b;
+                }
+                if (CheckIsPrime(asciiSum)  == true)
+                {
+                    primeAsciiList.Add(item);
+                }
+            }
+            return primeAsciiList;
+        }
+
+
+        //Tikrina ar pirminis 
+        static bool CheckIsPrime(int checkOfPrimeNumber)
+        {
+            for (int i = 2;i < checkOfPrimeNumber; i++)
+            {
+                if (checkOfPrimeNumber % i == 0)
+                {
+                    return false;
+                }
+                if (checkOfPrimeNumber % i != 0)
+                {
+                    continue;
+                }
+
+            }
+            return true;
         }
     }
 }
