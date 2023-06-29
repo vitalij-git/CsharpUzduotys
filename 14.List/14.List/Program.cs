@@ -1,4 +1,3 @@
-
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,19 +48,19 @@ namespace _14._List
 
         // Metodas kuris apskaiciuoja string ilgi vidurki
         static int ListLengthAverage(List<string> userList)
-        {   
-            int sum= 0;
+        {
+            int sum = 0;
             int length = 0;
             foreach (var item in userList)
             {
-                sum += item.length();
+                sum += item.Count();
                 length++;
             }
             return sum / length;
 
         }
         static void IntList()
-        {   
+        {
             StringBuilder sb = new StringBuilder();
             sb.Append("Skaiciu sarasas: ");
             List<int> userIntList = GetIntListFromInput();
@@ -77,7 +76,7 @@ namespace _14._List
         }
         //Metodas kur priima sveikosius skaicius nuo inputo
         static List<int> GetIntListFromInput()
-        {      
+        {
             List<int> intListFromInput = new List<int>();
             string userAnswerFromInput = "";
             while (true)
@@ -107,9 +106,9 @@ namespace _14._List
                     break;
                 }
             }
-            return intListFromInput;    
+            return intListFromInput;
 
-        }   
+        }
         // Pirmos skaidres 2 uzuodotys grazina saraso elemento vidurki
         static int IntListAverage(List<int> intList)
         {
@@ -141,3 +140,4 @@ namespace _14._List
             return "Sarase nera skaiciu, kurie didesni uz 10";
         }
     }
+}
