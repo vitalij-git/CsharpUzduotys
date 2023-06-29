@@ -114,13 +114,11 @@ namespace _14._List
         static int IntListAverage(List<int> intList)
         {
             int sum = 0;
-            int length = 0;
             foreach (int item in intList)
             {
                 sum += item;
-                length++;
             }
-            return sum / length;
+            return sum / intList.Count();
         }
 
         //Pirmos skaidres 3 Uzd metodas kuris grazina elementus kurie didesni uz 10
