@@ -1,3 +1,4 @@
+
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace _14._List
 
         }
 
+        // pirmos skaidres 1 uzduotys grazina sarasa su elemento ilgi ir papildomai elementu ilgio vidurki
         static void StringList()
         {
             List<string> userList = GetStringListFromInput();
@@ -22,6 +24,8 @@ namespace _14._List
             int userListElementsAverage = ListLengthAverage(userList);
             Console.WriteLine($"Saraso elementu vidurkis: {userListElementsAverage}");
         }
+
+        //Metodas kuris priima string nuo inputo
         static List<string> GetStringListFromInput()
         {
             List<string> listFromInput = new List<string>();
@@ -41,6 +45,8 @@ namespace _14._List
             }
             return listFromInput;
         }
+
+        // Metodas kuris apskaiciuoja string ilgi vidurki
         static int ListLengthAverage(List<string> userList)
         {   
             int sum= 0;
@@ -54,7 +60,7 @@ namespace _14._List
 
         }
         static void IntList()
-        {
+        {   
             StringBuilder sb = new StringBuilder();
             sb.Append("Skaiciu sarasas: ");
             List<int> userIntList = GetIntListFromInput();
@@ -65,29 +71,12 @@ namespace _14._List
             string result = sb.ToString().Remove(sb.ToString().LastIndexOf(','));
             Console.WriteLine(result);
             Console.WriteLine("Saraso skaiciu vidurkis yra: " + IntListAverage(userIntList));
-            StringBuilder numberMore10 = new StringBuilder();
-            numberMore10.Append("Skaiciu sarasas, kurie daugiau uz 10: ");
-            foreach (var item in userIntList)
-            {   
-                if (item > 10)
-                {
-                    numberMore10.Append(item + ",");
-                }
-            }
-            if (numberMore10.ToString().Length > 38)
-            {
-                string numberMoreTenResult = numberMore10.ToString().Remove(numberMore10.ToString().LastIndexOf(','));
-                Console.WriteLine(numberMoreTenResult);
-            }
-            else
-            {
-                Console.WriteLine("Sarase nera skaiciu, kurie didesni uz 10");
-            }
-            
-
+            string result2 = UserNumberWhichMoreTen(userIntList);
+            Console.WriteLine(result2);
         }
+        //Metodas kur priima sveikosius skaicius nuo inputo
         static List<int> GetIntListFromInput()
-        {
+        {      
             List<int> intListFromInput = new List<int>();
             string userAnswerFromInput = "";
             while (true)
@@ -120,7 +109,7 @@ namespace _14._List
             return intListFromInput;    
 
         }   
-        
+        // Pirmos skaidres 2 uzuodotys grazina saraso elemento vidurki
         static int IntListAverage(List<int> intList)
         {
             int sum = 0;
@@ -133,7 +122,82 @@ namespace _14._List
             return sum / length;
         }
 
+        //Pirmos skaidres 3 Uzd metodas kuris grazina elementus kurie didesni uz 10
+        static string UserNumberWhichMoreTen(List<int> userIntList)
+        {
+            StringBuilder numberMore10 = new StringBuilder();
+            numberMore10.Append("Skaiciu sarasas, kurie daugiau uz 10: ");
+            foreach (var item in userIntList)
+            {
+                if (item > 10)
+                {
+                    numberMore10.Append(item + ",");
+                }
+            }
+            if (numberMore10.ToString().Length > 38)
+            {
+                string numberMoreTenResult = numberMore10.ToString().Remove(numberMore10.ToString().LastIndexOf(','));
+                return numberMoreTenResult;
+            }
+            return "Sarase nera skaiciu, kurie didesni uz 10";
+            
 
-        
+        }
+
+
+
     }
+=======
+﻿namespace _14._List
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> userList= GetListFromInput();
+            List<int> stringLength = GetElementLengthInList(userList);
+            int length = 0;
+            foreach (string item in userList)
+            {
+                Console.Write ($"Zodis is saraso: {item} ");
+                for( int i =length; i<stringLength.Count; i++)
+                {
+                    Console.WriteLine ($"ilgis: {stringLength[i]}");
+                    break;
+                }
+                length++;    
+            }
+           
+        }
+        static List<string> GetListFromInput()
+        {
+            List<string> listFromInput = new List<string>();
+            Console.WriteLine("Sarasas:");
+            bool whileStatus = true;
+            while (whileStatus)
+            {
+                Console.WriteLine("Ivesikte norima zodi, kuris prides i sarasa");
+                listFromInput.Add(Console.ReadLine());
+                Console.WriteLine("Ar noresite dar papilditi sarasa?(taip/ne)");
+                var userChoose = Console.ReadLine();
+                if (userChoose == "taip")
+                {
+                    continue;
+                }
+                whileStatus = false;
+            }
+            return listFromInput;
+        }
+
+        static List<int> GetElementLengthInList(List<string> userList) 
+        { 
+            List<int> userListEveryStringLength = new List<int>();  
+        foreach (string stringLength in userList) 
+            { 
+                userListEveryStringLength.Add(stringLength.Length);
+            }
+           return userListEveryStringLength;
+        }
+    }
+>>>>>>> 02d247832b258f2c9ed1419b5a871661633c8722
 }
