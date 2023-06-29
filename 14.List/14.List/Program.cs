@@ -50,13 +50,12 @@ namespace _14._List
         static int ListLengthAverage(List<string> userList)
         {
             int sum = 0;
-            int length = 0;
             foreach (var item in userList)
             {
                 sum += item.Count();
-                length++;
+                
             }
-            return sum / length;
+            return sum / userList.Count();
 
         }
         static void IntList()
