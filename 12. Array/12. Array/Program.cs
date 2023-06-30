@@ -8,7 +8,7 @@
             Task1_2();
            // Task1_3();
             //Task1_4();
-
+            Console.ReadKey();
         }
 
         static void Task1_1()
@@ -47,7 +47,7 @@
             List<int> list = new List<int>();
             string userAnswerFromInput="";
             bool whileStatus = true;
-            while (whileStatus != false)
+            while (whileStatus)
             {
                 Console.WriteLine("Iveskite sveikaji skaiciu");
                 if(int.TryParse(Console.ReadLine(), out int number))
