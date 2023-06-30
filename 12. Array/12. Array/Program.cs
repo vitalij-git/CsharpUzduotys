@@ -44,9 +44,10 @@
 
         static int[] ArrayFromInput()
         {   
-            var list = new List<int>();
-            var userAnswerFromInput="";
-            while (true)
+            List<int> list = new List<int>();
+            string userAnswerFromInput="";
+            bool whileStatus = true;
+            while (whileStatus != false)
             {
                 Console.WriteLine("Iveskite sveikaji skaiciu");
                 if(int.TryParse(Console.ReadLine(), out int number))
@@ -59,7 +60,7 @@
                     {
                         continue;
                     }
-                    break;
+                    whileStatus = false;
                 }
                 else
                 {
@@ -70,7 +71,7 @@
                     {
                         continue;
                     }
-                    break;
+                    whileStatus = false;
                 }    
             }
             int[] userArrayFromInput = list.ToArray();
