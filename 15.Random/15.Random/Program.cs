@@ -62,22 +62,26 @@
 
         static void RandomNumberGame(Random random)
         {
-            int random1_100 = random.Next(101);
+            int random1_100 = random.Next(101);  
             Console.WriteLine("Spekite paslepta skaiciu nuo 1 iki 100");
             while (true)
-            {   
-                int userTry = int.Parse(Console.ReadLine());
-                if (userTry == random1_100 )
+            {
+                var userAnswer= Console.ReadLine(); 
+                if(!int.TryParse(userAnswer, out int answer))
                 {
-                    Console.WriteLine("Sveikinome jus spejote paslepta skaiciu, kuris buvo " + random1_100);
-                    
+                    continue;
                 }
-                else if (userTry > random1_100)
+                if (answer == random1_100)
+                {
+                    Console.WriteLine("Sveikinome jus spejote paslepta skaiciu, kuris yra " + random1_100);
+                    break; 
+                }
+                else if (answer > random1_100)
                 {
                     Console.WriteLine("Pasleptas skaicus yra mazesnis");
                     continue;
                 }
-                else if (userTry < random1_100)
+                else if (answer < random1_100)
                 {
                     Console.WriteLine("Pasleptas skaicus yra didesnis");
                     continue;
