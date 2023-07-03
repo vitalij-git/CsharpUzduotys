@@ -19,13 +19,13 @@
             };
             foreach (var user in users)
             {
-                Console.WriteLine($"{user.Key} {user.Value}");
+                Console.WriteLine($"vardas {user.Key} amzius {user.Value}");
             }
         }
 
         static void RetrieveTownPopuliation()
         {
-            Dictionary<string, int> townDictonary = new Dictionary<string, int>
+            Dictionary<string, int> townDictionary = new Dictionary<string, int>
             {
                 {"vilnius", 500000 },
                 {"kaunas", 400000 },
@@ -34,9 +34,9 @@
             Console.WriteLine("Iveskite miesta: ");
             string town = Console.ReadLine().ToLower();
 
-            if(townDictonary.ContainsKey(town)) 
+            if(townDictionary.ContainsKey(town)) 
             {
-                Console.WriteLine($"Gyventoju skaicius {townDictonary[town]}");
+                Console.WriteLine($"Gyventoju skaicius {townDictionary[town]}");
             }
             else
             {
