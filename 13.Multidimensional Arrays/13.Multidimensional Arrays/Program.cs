@@ -7,6 +7,7 @@ namespace _13.Multidimensional_Arrays
         static void Main(string[] args)
         {
            CreateMDArrayFromInput();
+            Console.ReadKey();  
         }
 
         static void CreateMDArrayFromInput()
@@ -89,7 +90,7 @@ namespace _13.Multidimensional_Arrays
                     duplicateList.Add(item);               
                 }
             }
-            HashSet<int> unique = new HashSet<int>(duplicateList);
+            HashSet<int> unique = new HashSet<int>();
             foreach (int item in duplicateList)
             {
                 if (unique.Add(item))
@@ -97,7 +98,8 @@ namespace _13.Multidimensional_Arrays
                     duplicatesNumbers.Append(item + ",");
                 }
             }
-            return duplicatesNumbers.ToString();    
+            
+            return duplicatesNumbers.ToString().Remove(duplicatesNumbers.ToString().LastIndexOf(',')); ;    
         }
     }
 }
