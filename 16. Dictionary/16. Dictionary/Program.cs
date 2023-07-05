@@ -42,9 +42,23 @@
             {
                 Console.WriteLine("Tokio miesto nera bazeje");
             }
-           
+        }
+        static void HomeTownOutput()
+        {
+            Console.Write("Iveskite sostine: ");
+            string userCountry = Console.ReadLine();
+            CountryDictionary();
+        }
+        static void CountryDictionary()
+        {
+            Dictionary<string,string> hometownCountry = new Dictionary<string,string>
+            {
+                {"lietuva","vilnius" },
+                {"latvija","riga" },
+                {"estija","talinas" }
+            }
 
-
+                 
         }
 
     }
