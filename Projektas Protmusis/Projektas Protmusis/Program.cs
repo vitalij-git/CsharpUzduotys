@@ -464,7 +464,7 @@ namespace Projektas_Protmusis
                 }
                 else
                 {
-                    Console.WriteLine("\nPaspadete bloga mygtuka");
+                    Console.WriteLine("\nPaspaudete bloga mygtuka");
                     continue;
                 }
 
@@ -505,7 +505,9 @@ namespace Projektas_Protmusis
 
                 }
                 Console.WriteLine($"Surinkote {userPoints} taškų");
-                
+                Console.WriteLine("Paspauksite bet koki mygtuka, kad grįžti meniu");
+                Console.ReadKey();
+                Menu();
             }
         }
         static void RandomGameWithArithmeticWithTime()
@@ -545,7 +547,10 @@ namespace Projektas_Protmusis
             while (timer.Elapsed.TotalSeconds < 60);
             timer.Stop();
             Console.WriteLine($"Laikas baigesi, Surinkote {userPoints} taškų");
+            Console.WriteLine();
+            Console.WriteLine("Paspauksite bet koki mygtuka, kad grįžti meniu");
             Console.ReadKey();
+            Menu();
         }
     }   
 
