@@ -103,6 +103,7 @@ namespace Projektas_Protmusis
                 "3 - Statistika\n" +
                 "4 - Žaidimo taisyklių atvaizdavimas\n" +
                 "5 - Išėjimas iš žaidimo");
+            List<int> usersFinalResults = new List<int>();
             while (true)
             {
                button = Console.ReadKey();
@@ -112,11 +113,11 @@ namespace Projektas_Protmusis
                 }
                else if (button.Key == ConsoleKey.D2)
                 {
-                    StartGame();
+                    usersFinalResults.Add(StartGame());
                 }
                else if (button.Key == ConsoleKey.D3)
                 {
-                    //statistika
+                    Statistic(usersFinalResults);
                 }
                else if (button.Key == ConsoleKey.D4)
                 {
@@ -162,12 +163,13 @@ namespace Projektas_Protmusis
 
         }
 
-        static void StartGame()
+        static int StartGame()
         {
             Dictionary<string, List<string>> gameQuests = GameCategory();
             Dictionary<string, string> userCorrectAnswers = new Dictionary<string, string>();
             Dictionary<string, string> userWrongAnswers = new Dictionary<string, string>();
-            List<string> chosenWrongAnswer=new List<string>();  
+            List<string> chosenWrongAnswer=new List<string>(); 
+            List<int> usersFinalResult = new List<int>();
             int number = 1;
             int correctAnswer = 0;
             string userAnswer="";
@@ -194,8 +196,9 @@ namespace Projektas_Protmusis
             }
             string questsResult = CorrectAnswerOutput(userCorrectAnswers, userWrongAnswers, chosenWrongAnswer);
             Console.WriteLine(questsResult);
-            Console.WriteLine("teisingu atsakymu: "+correctAnswer);
-
+            Console.WriteLine("\nteisingu atsakymu: "+correctAnswer);
+            return correctAnswer;
+            Menu();        
         }
         static string UserAnswers(KeyValuePair<string,List<string>> item)
         {
@@ -210,6 +213,7 @@ namespace Projektas_Protmusis
                 userAnswer += item.Value[1];
             }
             else if (button.Key == ConsoleKey.D3)
+
             {
                 userAnswer += item.Value[2];
             }
@@ -220,7 +224,10 @@ namespace Projektas_Protmusis
             else if (button.Key == ConsoleKey.Q)
             {
                 Menu();
+                userAnswer = null;
+                return userAnswer;
             }
+            
         return userAnswer;
         }
 
@@ -364,6 +371,28 @@ namespace Projektas_Protmusis
                 };
                 return funny;
             }
+
+            static void Statistic(List<int> usersFinalResults)
+        {
+            Console.Clear();
+            Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
+            usersFinalResults.Sort();
+            usersFinalResults.Reverse();
+            foreach (var item in usersFinalResults)
+            {
+                Console.WriteLine(item);
+            }
+           
+            button = Console.ReadKey();
+            if (button.Key == ConsoleKey.Q)
+            {
+                Menu();
+            }
+            else if (button.Key == ConsoleKey.E)
+            {
+                ExitGame();
+            }
+        }
 
             static void LogOut()
             {
