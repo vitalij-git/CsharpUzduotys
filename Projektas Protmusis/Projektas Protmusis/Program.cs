@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Diagnostics;
 
 namespace Projektas_Protmusis
 {
@@ -103,7 +104,8 @@ namespace Projektas_Protmusis
                 "2 - Pradeti zaidima\n" +
                 "3 - Statistika\n" +
                 "4 - Žaidimo taisyklių atvaizdavimas\n" +
-                "5 - Išėjimas iš žaidimo");
+                "5 - Aritmetikos zaidimas\n" +
+                "6 - Išėjimas iš žaidimo");
            
             
             if (usersFinalResults != null)
@@ -130,7 +132,11 @@ namespace Projektas_Protmusis
                 {
                     Rules();
                 }
-               else if  (button1.Key == ConsoleKey.D5)
+               else if(button1.Key == ConsoleKey.D5)
+                {
+                    ArithmeticGames();
+                }
+               else if  (button1.Key == ConsoleKey.D6)
                 {
                     ExitGame();
                 }
@@ -390,28 +396,28 @@ namespace Projektas_Protmusis
             }
 
             static void Statistic(Dictionary<string,string> usersFinalResults)
-        {
-            Console.Clear();
-            Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
-            var sortedKeyValuePairs = usersFinalResults.OrderBy(x => x.Value).ToList();
-            int i = 1;
-            //usersFinalResults.;
-            foreach (var item in  sortedKeyValuePairs)
             {
-                Console.WriteLine($"{i}. {item}");
-                i++;
-            }
+                Console.Clear();
+                Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
+                var sortedKeyValuePairs = usersFinalResults.OrderBy(x => x.Value).ToList();
+                int i = 1;
+                //usersFinalResults.;
+                foreach (var item in  sortedKeyValuePairs)
+                {
+                    Console.WriteLine($"{i}. {item}");
+                    i++;
+                }
            
-            button = Console.ReadKey();
-            if (button.Key == ConsoleKey.Q)
-            {
-                Menu();
+                button = Console.ReadKey();
+                if (button.Key == ConsoleKey.Q)
+                {
+                    Menu();
+                }
+                else if (button.Key == ConsoleKey.E)
+                {
+                    ExitGame();
+                }
             }
-            else if (button.Key == ConsoleKey.E)
-            {
-                ExitGame();
-            }
-        }
 
             static void LogOut()
             {
@@ -429,7 +435,118 @@ namespace Projektas_Protmusis
                 System.Threading.Thread.Sleep(3000);
                 Environment.Exit(0);
             }
+        static void ArithmeticGames()
+        {
+            Console.Clear();
+            Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
+            Console.WriteLine("Pasirinkite žaidimo kategorija");
+            Console.WriteLine("1 - Paparastas\n" +
+                "2 - 60 sek");
 
+            while (true)
+            {
+                button = Console.ReadKey();
+                if (button.Key == ConsoleKey.D1)
+                {
+                    RandomGameWithArithmetic();
+                }
+                else if (button.Key == ConsoleKey.D2)
+                {
+                    RandomGameWithArithmeticWithTime();
+                }
+                if (button.Key == ConsoleKey.Q)
+                {
+                    Menu();
+                }
+                else if (button.Key == ConsoleKey.E)
+                {
+                    ExitGame();
+                }
+                else
+                {
+                    Console.WriteLine("\nPaspadete bloga mygtuka");
+                    continue;
+                }
+
+
+            }
+            static void RandomGameWithArithmetic()
+            {
+                Console.Clear();
+                Random rand = new Random();
+                List<string> arithemticSymbol = new List<string> { "+", "-", };
+                int userAnswer = 0;
+                int result = 0;
+                int userPoints = 0;
+                for (int i = 1; i <= 10; i++)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{i}/10");
+                    int number1 = rand.Next(1, 10);
+                    int number2 = rand.Next(1, 10);
+                    int symbol = rand.Next(arithemticSymbol.Count);
+                    string selectedSymbol = arithemticSymbol[symbol];
+                    switch (selectedSymbol)
+                    {
+                        case "+":
+                            result = number1 + number2;
+                            break;
+                        case "-":
+                            result = number1 - number2;
+                            break;
+                    }
+                    Console.WriteLine($"{number1} {selectedSymbol} {number2}=...");
+                    userAnswer = Convert.ToInt32(Console.ReadLine());
+                    if (userAnswer == result)
+                    {
+                        userPoints++;
+                    }
+
+
+                }
+                Console.WriteLine($"Surinkote {userPoints} taškų");
+                
+            }
+        }
+        static void RandomGameWithArithmeticWithTime()
+        {
+            Console.Clear();
+            Random rand = new Random();
+            List<string> arithemticSymbol = new List<string> { "+", "-", };
+            int userAnswer = 0;
+            int result = 0;
+            int userPoints = 0;
+            Stopwatch timer = new Stopwatch();
+            TimeSpan ts = timer.Elapsed;
+            timer.Start();
+            do
+            {
+                Console.Clear();
+                int number1 = rand.Next(1, 10);
+                int number2 = rand.Next(1, 10);
+                int symbol = rand.Next(arithemticSymbol.Count);
+                string selectedSymbol = arithemticSymbol[symbol];
+                switch (selectedSymbol)
+                {
+                    case "+":
+                        result = number1 + number2;
+                        break;
+                    case "-":
+                        result = number1 - number2;
+                        break;
+                }
+                Console.WriteLine($"{number1} {selectedSymbol} {number2}=...");
+                userAnswer = Convert.ToInt32(Console.ReadLine());
+                if (userAnswer == result)
+                {
+                    userPoints++;
+                }
+            }
+            while (timer.Elapsed.TotalSeconds < 60);
+            timer.Stop();
+            Console.WriteLine($"Laikas baigesi, Surinkote {userPoints} taškų");
+            Console.ReadKey();
+        }
     }   
 
 }
