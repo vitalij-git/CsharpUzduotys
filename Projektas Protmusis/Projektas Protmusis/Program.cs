@@ -6,6 +6,7 @@ namespace Projektas_Protmusis
     internal class Program
     {
         static ConsoleKeyInfo button;
+        static Dictionary<string, string> allUsersResults = new Dictionary<string, string>();
         static void Main()
         {
             bool connectStatus = UserLogin();
@@ -104,7 +105,7 @@ namespace Projektas_Protmusis
                 "4 - Žaidimo taisyklių atvaizdavimas\n" +
                 "5 - Išėjimas iš žaidimo");
            
-            Dictionary<string,string> allUsersResults = new Dictionary<string,string>();
+            
             if (usersFinalResults != null)
             {
                 allUsersResults.Add(usersFinalResults[0], usersFinalResults[1]);
@@ -162,6 +163,7 @@ namespace Projektas_Protmusis
                 }
                 else
                 {
+                    Console.WriteLine("\nPaspadete bloga mygtuka");
                     continue;
                 }
             }
@@ -184,7 +186,7 @@ namespace Projektas_Protmusis
             {
                 Console.Clear();
                 Console.WriteLine($"{number}/10");
-                Console.WriteLine("Jeigu norite grįžti  meniu, spauskite Q");
+                Console.WriteLine("Jeigu norite grįžti meniu, spauskite Q");
                 Console.WriteLine($"\n{item.Key} \n 1.{item.Value[0]}\n 2.{item.Value[1]}\n 3.{item.Value[2]}\n 4.{item.Value[3]}");
                 userAnswer = UserAnswers(item);
                 if (userAnswer == item.Value[4])
@@ -204,6 +206,7 @@ namespace Projektas_Protmusis
             Console.WriteLine(questsResult);
             Console.WriteLine("\nteisingu atsakymu: "+correctAnswer);
             userResult.Add(correctAnswer.ToString());
+            Console.WriteLine("Paspauksite bet koki mygtuka, kad grįžti meniu");
             Console.ReadKey();
             Menu(userResult);
             return userResult;
@@ -235,6 +238,10 @@ namespace Projektas_Protmusis
                 Menu();
                 userAnswer = null;
                 return userAnswer;
+            }
+            else
+            {
+                userAnswer += item.Value[0];
             }
             
         return userAnswer;
@@ -301,6 +308,7 @@ namespace Projektas_Protmusis
                 }
                 else
                 {
+                    Console.WriteLine("\nPaspadete bloga mygtuka");
                     continue;
                 }
                 
@@ -385,11 +393,13 @@ namespace Projektas_Protmusis
         {
             Console.Clear();
             Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
-            usersFinalResults.Order();
+            var sortedKeyValuePairs = usersFinalResults.OrderBy(x => x.Value).ToList();
+            int i = 1;
             //usersFinalResults.;
-            foreach (var item in usersFinalResults)
+            foreach (var item in  sortedKeyValuePairs)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"{i}. {item}");
+                i++;
             }
            
             button = Console.ReadKey();
