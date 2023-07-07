@@ -95,7 +95,7 @@ namespace Projektas_Protmusis
             Environment.Exit(0);
         }
 
-        static void Menu()
+        static void Menu(List<string> usersFinalResults=null)
         {
             Console.Clear();
             Console.WriteLine("1 - Atsijungimas\n" +
@@ -103,32 +103,39 @@ namespace Projektas_Protmusis
                 "3 - Statistika\n" +
                 "4 - Žaidimo taisyklių atvaizdavimas\n" +
                 "5 - Išėjimas iš žaidimo");
-            List<int> usersFinalResults = new List<int>();
+           
+            Dictionary<string,string> allUsersResults = new Dictionary<string,string>();
+            if (usersFinalResults != null)
+            {
+                allUsersResults.Add(usersFinalResults[0], usersFinalResults[1]);
+            }
+            
             while (true)
             {
-               button = Console.ReadKey();
-               if (button.Key == ConsoleKey.D1)
+               var button1 = Console.ReadKey();
+               if (button1.Key == ConsoleKey.D1)
                 {
                     LogOut();
                 }
-               else if (button.Key == ConsoleKey.D2)
+               else if (button1.Key == ConsoleKey.D2)
                 {
-                    usersFinalResults.Add(StartGame());
+                    usersFinalResults=StartGame();
                 }
-               else if (button.Key == ConsoleKey.D3)
+               else if (button1.Key == ConsoleKey.D3)
                 {
-                    Statistic(usersFinalResults);
+                    Statistic(allUsersResults);
                 }
-               else if (button.Key == ConsoleKey.D4)
+               else if (button1.Key == ConsoleKey.D4)
                 {
                     Rules();
                 }
-               else if  (button.Key == ConsoleKey.D5)
+               else if  (button1.Key == ConsoleKey.D5)
                 {
                     ExitGame();
                 }
                 else
                 {
+                    Console.WriteLine("\nPaspadete bloga mygtuka");
                     continue;
                 }
                 
@@ -157,23 +164,22 @@ namespace Projektas_Protmusis
                 {
                     continue;
                 }
-               
             }
-            
-
         }
 
-        static int StartGame()
+        static List<string> StartGame()
         {
+            Console.WriteLine("\nIveskite savo varda: ");
+            string userName = Console.ReadLine();
             Dictionary<string, List<string>> gameQuests = GameCategory();
             Dictionary<string, string> userCorrectAnswers = new Dictionary<string, string>();
             Dictionary<string, string> userWrongAnswers = new Dictionary<string, string>();
             List<string> chosenWrongAnswer=new List<string>(); 
-            List<int> usersFinalResult = new List<int>();
+            List<string> userResult=new List<string>();
+            userResult.Add(userName);
             int number = 1;
             int correctAnswer = 0;
             string userAnswer="";
-
             foreach (var item in gameQuests)
             {
                 Console.Clear();
@@ -197,8 +203,11 @@ namespace Projektas_Protmusis
             string questsResult = CorrectAnswerOutput(userCorrectAnswers, userWrongAnswers, chosenWrongAnswer);
             Console.WriteLine(questsResult);
             Console.WriteLine("\nteisingu atsakymu: "+correctAnswer);
-            return correctAnswer;
-            Menu();        
+            userResult.Add(correctAnswer.ToString());
+            Console.ReadKey();
+            Menu(userResult);
+            return userResult;
+                    
         }
         static string UserAnswers(KeyValuePair<string,List<string>> item)
         {
@@ -372,12 +381,12 @@ namespace Projektas_Protmusis
                 return funny;
             }
 
-            static void Statistic(List<int> usersFinalResults)
+            static void Statistic(Dictionary<string,string> usersFinalResults)
         {
             Console.Clear();
             Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
-            usersFinalResults.Sort();
-            usersFinalResults.Reverse();
+            usersFinalResults.Order();
+            //usersFinalResults.;
             foreach (var item in usersFinalResults)
             {
                 Console.WriteLine(item);
