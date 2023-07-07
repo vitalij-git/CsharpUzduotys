@@ -8,6 +8,7 @@ namespace Projektas_Protmusis
     {
         static ConsoleKeyInfo button;
         static Dictionary<string, string> allUsersResults = new Dictionary<string, string>();
+        
         static void Main()
         {
             bool connectStatus = UserLogin();
@@ -26,8 +27,8 @@ namespace Projektas_Protmusis
 
         static bool UserLogin()
         {
-            var username = "1";
-            var password = "1";
+            var username = "user";
+            var password = "admin";
             int loginTryAmount = 1;
 
             while (loginTryAmount<=3)
@@ -179,12 +180,15 @@ namespace Projektas_Protmusis
         {
             Console.WriteLine("\nIveskite savo varda: ");
             string userName = Console.ReadLine();
+            Console.WriteLine("\nIveskite savo pavarde: ");
+            string userSurname = Console.ReadLine();
+            string fullname = userName + " " + userSurname;
             Dictionary<string, List<string>> gameQuests = GameCategory();
             Dictionary<string, string> userCorrectAnswers = new Dictionary<string, string>();
             Dictionary<string, string> userWrongAnswers = new Dictionary<string, string>();
             List<string> chosenWrongAnswer=new List<string>(); 
             List<string> userResult=new List<string>();
-            userResult.Add(userName);
+            userResult.Add(fullname);
             int number = 1;
             int correctAnswer = 0;
             string userAnswer="";
@@ -218,6 +222,8 @@ namespace Projektas_Protmusis
             return userResult;
                     
         }
+
+        //Vartotojo atsakymo pasirinkimas
         static string UserAnswers(KeyValuePair<string,List<string>> item)
         {
             string userAnswer = "";
@@ -253,6 +259,7 @@ namespace Projektas_Protmusis
         return userAnswer;
         }
 
+        //Rezultato isvedimas
         static string CorrectAnswerOutput(Dictionary<string,string> userCorrectAnswers, Dictionary<string, string> userWrongAnswers, List<string> chosenWrongAnswer)
         {   StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("\nAtsakyta teisingai");
@@ -271,6 +278,7 @@ namespace Projektas_Protmusis
            
         }
 
+        //Zaidimo kategorijos pasirinikmas
         static Dictionary<string, List<string>> GameCategory()
         {
             Console.Clear();
@@ -359,9 +367,10 @@ namespace Projektas_Protmusis
             };
             return history;
         }
+        
         static Dictionary<string, List<string>> GeneralQuestions()
              {
-                Dictionary<string, List<string>> geography = new Dictionary<string, List<string>>()
+                return  new Dictionary<string, List<string>>()
                 {
                     { "Kokia religija yra dominuojanti Indijoje?", new List<string>() { "Krikščionybė", "Islamas", "Hinduizmas", "Budizmas", "Hinduizmas" } },
                     { "Kuri šalis yra gimtoji Albertui Einsteinui?", new List<string>() { "Vokietija", "Jungtinė Karalystė", "Austrija", "Šveicarija", "Austrija" } },
@@ -374,10 +383,10 @@ namespace Projektas_Protmusis
                     { "Kuri valstybė yra \"Laimės šalis\"?", new List<string>() { "Kosta Rika", "Šveicarija", "Danija", "Norvegija", "Kosta Rika" } },
                     { "Kuri šalis yra garsi dėl tulpių ir vėjo malūnų?", new List<string>() { "Nyderlandai", "Norvegija", "Suomija", "Vokietija", "Nyderlandai" } }
                 };
-                return geography;
+                
             }
 
-            static Dictionary<string, List<string>> FunnyQuestions()
+        static Dictionary<string, List<string>> FunnyQuestions()
             {
                 Dictionary<string, List<string>> funny = new Dictionary<string, List<string>>()
                 {
@@ -395,19 +404,21 @@ namespace Projektas_Protmusis
                 return funny;
             }
 
-            static void Statistic(Dictionary<string,string> usersFinalResults)
+        //Statistika
+        static void Statistic(Dictionary<string, string> usersFinalResults)
+        {
+            Console.Clear();
+            Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
+            var sortedKeyValuePairs = usersFinalResults.OrderBy(x => x.Value).ToList();
+            int i = 1;
+            //usersFinalResults.;
+            foreach (var item in sortedKeyValuePairs)
             {
-                Console.Clear();
-                Console.WriteLine("paspauskite Q jei norite grižti meniu arba E išeiti iš žaidimo");
-                var sortedKeyValuePairs = usersFinalResults.OrderBy(x => x.Value).ToList();
-                int i = 1;
-                //usersFinalResults.;
-                foreach (var item in  sortedKeyValuePairs)
-                {
-                    Console.WriteLine($"{i}. {item}");
-                    i++;
-                }
-           
+                Console.WriteLine($"{i}. {item}");
+                i++;
+            }
+            while (true)
+            {
                 button = Console.ReadKey();
                 if (button.Key == ConsoleKey.Q)
                 {
@@ -417,9 +428,15 @@ namespace Projektas_Protmusis
                 {
                     ExitGame();
                 }
+                else
+                {
+                    Console.WriteLine("\nPaspadete bloga mygtuka");
+                    continue;
+                }
             }
+        }
 
-            static void LogOut()
+        static void LogOut()
             {
                 Console.Clear();
                 Console.WriteLine("Vyksta atsijungimas...");
@@ -428,13 +445,15 @@ namespace Projektas_Protmusis
                 Main();
             }
 
-            public static void ExitGame()
+        public static void ExitGame()
             {
                 Console.Clear();
                 Console.WriteLine("Vyksta žaidimo uždarymas...");
                 System.Threading.Thread.Sleep(3000);
                 Environment.Exit(0);
             }
+
+        //Aritmetikos meniu
         static void ArithmeticGames()
         {
             Console.Clear();
@@ -470,11 +489,14 @@ namespace Projektas_Protmusis
 
 
             }
-            static void RandomGameWithArithmetic()
+        }
+            
+        //Aritmetikos paprastas zaidimas
+        static void RandomGameWithArithmetic()
             {
                 Console.Clear();
                 Random rand = new Random();
-                List<string> arithemticSymbol = new List<string> { "+", "-", };
+                List<string> arithemticSymbol = new List<string> { "+", "-" };
                 int userAnswer = 0;
                 int result = 0;
                 int userPoints = 0;
@@ -509,12 +531,13 @@ namespace Projektas_Protmusis
                 Console.ReadKey();
                 Menu();
             }
-        }
+
+        //aritmetika su laiku
         static void RandomGameWithArithmeticWithTime()
         {
             Console.Clear();
             Random rand = new Random();
-            List<string> arithemticSymbol = new List<string> { "+", "-", };
+            List<string> arithemticSymbol = new List<string> { "+", "-" };
             int userAnswer = 0;
             int result = 0;
             int userPoints = 0;
