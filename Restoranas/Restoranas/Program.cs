@@ -82,7 +82,7 @@ namespace Restoranas
 
         }
 
-        //Paduodam kiek klientu ir Bando Su tryparse tikrinti ar paduodamas skaisius mums tinka
+        //Paduodam stringa. Su tryparse tikrina ar paduodamas skaisius mums tinka
         static int GetClientsNumberFromInput(out string input)
         {
             while (true)
@@ -118,11 +118,12 @@ namespace Restoranas
         static void GetOrderFromTable(List<Dictionary<string, string>> menu, List<int> orderWaiting)
         {
             MenuOuput(menu);
-            Console.WriteLine("Pridėkite norima patiekala prie užskayma, paspaudžius pagal patiekalo ID");
+            Console.WriteLine("Pridėkite norima patiekala prie užskayma, parašius pagal patiekalo ID");
             int dishID = GetClientsNumberFromInput(out string input);
-            Console.WriteLine(dishID);
+            ChosenDish(menu, dishID);
         }
 
+        //Menu isvedimas
         static void MenuOuput(List<Dictionary<string, string>> menu)
         {
             Console.Clear();
@@ -134,5 +135,17 @@ namespace Restoranas
                 i++;
             }
         }
+
+        //Patiekalo pridėjimas
+        static void ChosenDish(List<Dictionary<string, string>> menu, int dishID)
+        {
+           switch (dishID.ToString())
+            {
+                case "1":
+                        
+                    break;
+            }
+
+        }               
     }
 }
