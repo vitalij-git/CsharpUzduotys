@@ -5,7 +5,9 @@ namespace Restoranas
     internal class Program
     {
         static void Main(string[] args)
-        {   List<int> orderWaiting = new List<int>();   
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            List<int> orderWaiting = new List<int>();   
             Dictionary<int, int> tableList = TableList();
             int tableID = TableRezervation(tableList);
             tableList[tableID]--;
@@ -115,16 +117,22 @@ namespace Restoranas
         //Gauti menu uzsakyma is klientu
         static void GetOrderFromTable(List<Dictionary<string, string>> menu, List<int> orderWaiting)
         {
+            MenuOuput(menu);
+            Console.WriteLine("Pridėkite norima patiekala prie užskayma, paspaudžius pagal patiekalo ID");
+            int dishID = GetClientsNumberFromInput(out string input);
+            Console.WriteLine(dishID);
+        }
+
+        static void MenuOuput(List<Dictionary<string, string>> menu)
+        {
             Console.Clear();
             int i = 1;
-            char euro = '€';
             foreach (var item in menu)
             {
-                Console.WriteLine($"{i}.{item["Patiekalas"]} .........................{item["Kaina"]} {euro}");
+                Console.WriteLine($"{i}.{item["Patiekalas"]} .........................{item["Kaina"]} \u20AC");
                 Console.WriteLine($"Patiekalo aprašymas: {item["Aprašymas"]}");
                 i++;
             }
-            Console.WriteLine();
         }
     }
 }
