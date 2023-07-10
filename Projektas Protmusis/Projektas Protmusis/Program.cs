@@ -106,14 +106,7 @@ namespace Projektas_Protmusis
                 "3 - Statistika\n" +
                 "4 - Žaidimo taisyklių atvaizdavimas\n" +
                 "5 - Aritmetikos zaidimas\n" +
-                "6 - Išėjimas iš žaidimo");
-           
-            
-            if (usersFinalResults != null)
-            {
-                allUsersResults.Add(usersFinalResults[0], usersFinalResults[1]);
-            }
-            
+                "6 - Išėjimas iš žaidimo");    
             while (true)
             {
                var button1 = Console.ReadKey();
@@ -124,6 +117,8 @@ namespace Projektas_Protmusis
                else if (button1.Key == ConsoleKey.D2)
                 {
                     usersFinalResults=StartGame();
+                    allUsersResults.Add(usersFinalResults[0], usersFinalResults[1]);
+                    usersFinalResults = null;
                 }
                else if (button1.Key == ConsoleKey.D3)
                 {
@@ -352,7 +347,7 @@ namespace Projektas_Protmusis
 
         static Dictionary<string, List<string>> AQuestionsOfHistory()
         {
-            Dictionary<string, List<string>> history = new Dictionary<string, List<string>>()
+            return  new Dictionary<string, List<string>>()
             {
                 { "Kuri šalis buvo Europos kolonizatorė didžiojoje dalį Afrikos?", new List<string>() { "Didžioji Britanija", "Prancūzija", "Portugalija", "Vokietija", "Portugalija" } },
                 { "Kas buvo Amerikos pilietinio karo prezidentas?", new List<string>() { "Abrahamas Linkolnas", "Džefersonas Deivisas", "Andrew Johnsonas", "Ulysses Grantas", "Abrahamas Linkolnas" } },
@@ -365,7 +360,7 @@ namespace Projektas_Protmusis
                 { "Kas vadovavo JAV per Kubos raketų krizę?", new List<string>() { "Johnas F. Kenedis", "Lyndonas B. Johnsonas", "Richardas Nixonas", "Ronaldas Reaganas", "Johnas F. Kenedis" } },
                 { "Kada įvyko Berlyno sienos griuvimas?", new List<string>() { "1945 m.", "1956 m.", "1989 m.", "1991 m.", "1989 m." } }
             };
-            return history;
+            
         }
         
         static Dictionary<string, List<string>> GeneralQuestions()
