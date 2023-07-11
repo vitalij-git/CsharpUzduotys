@@ -15,6 +15,7 @@ namespace Restoranas
             orderWaiting.Add(tableID);
             List<Dictionary<string, string>> menu = RestaurantMenu();
             clientOrder = GetOrderFromTable(menu, orderWaiting, clientOrder);
+            OrderReceipt(clientOrder);
             Console.ReadKey();  
         }
 
@@ -204,6 +205,16 @@ namespace Restoranas
             }  
             return clientOrder;
 
-        }               
+        }  
+        
+        //kvitas
+        static void OrderReceipt(List<Dictionary<string, double>> clientOrder)
+        {  
+            foreach(List<KeyValuePair<string, double>> item in clientOrder)
+            {
+                Console.WriteLine(item.Key);
+               
+            }
+        }
     }
 }
