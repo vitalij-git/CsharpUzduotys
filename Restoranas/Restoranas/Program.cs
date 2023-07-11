@@ -15,7 +15,11 @@ namespace Restoranas
             orderWaiting.Add(tableID);
             List<Dictionary<string, string>> menu = RestaurantMenu();
             clientOrder = GetOrderFromTable(menu, orderWaiting, clientOrder);
-            OrderReceipt(clientOrder);
+            bool orderReceiptStatus = OrderReceipt(clientOrder);
+            if (orderReceiptStatus == true) 
+            {
+                tableList[tableID]++;
+            }
             Console.ReadKey();  
         }
 
@@ -208,13 +212,22 @@ namespace Restoranas
         }  
         
         //kvitas
-        static void OrderReceipt(List<Dictionary<string, double>> clientOrder)
-        {  
-            foreach(List<KeyValuePair<string, double>> item in clientOrder)
+        static bool OrderReceipt(List<Dictionary<string, double>> clientOrder)
+        {
+            Console.Clear();
+            Console.WriteLine("Jusu kvitas");
+            double orderPriceResult = 0;
+            foreach(var list in clientOrder)
             {
-                Console.WriteLine(item.Key);
+                foreach(var item in list)
+                {
+                    Console.WriteLine(item.Key + "........" + item.Value);
+                    orderPriceResult+=item.Value;
+                }
                
             }
+            Console.WriteLine($"Viso........................{orderPriceResult}");
+            return true;
         }
     }
 }
