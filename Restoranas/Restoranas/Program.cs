@@ -7,20 +7,80 @@ namespace Restoranas
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            List<int> orderWaiting = new List<int>();
-            List<Dictionary<string,double>> clientOrder = new List<Dictionary<string,double>>();  
-            Dictionary<int, int> tableList = TableList();
-            int tableID = TableRezervation(tableList);
-            tableList[tableID]--;
-            orderWaiting.Add(tableID);
-            List<Dictionary<string, string>> menu = RestaurantMenu();
-            clientOrder = GetOrderFromTable(menu, orderWaiting, clientOrder);
-            bool orderReceiptStatus = OrderReceipt(clientOrder);
-            if (orderReceiptStatus == true) 
-            {
-                tableList[tableID]++;
-            }
+            RestaurantTerminal();
             Console.ReadKey();  
+        }
+
+        static void RestaurantTerminal()
+        {
+            Dictionary<string,List<Dictionary<string,string>>> orderID = new Dictionary<string, List<Dictionary<string,string>>>();
+            //List<int> clientsID = new List<int>();
+           // List<int> receiptID = new List<int>();
+            List<Dictionary<string, double>> clientOrder = new List<Dictionary<string, double>>();
+            Dictionary<int, int> tableList = TableList();
+            List<Dictionary<string, string>> menu = RestaurantMenu();
+            int tableID=0;
+            
+            while (true)
+            {   
+                Console.Clear();
+                RestaurantTerminalMenu();
+                var chosenTerminalOption = GetClientsNumberFromInput(out string input);
+                switch (chosenTerminalOption)
+                {
+                    case 1:
+                        tableID = TableRezervation(tableList);     
+                        if (tableID != 0)
+                        {
+                            string clientName = ClientName();
+                            List<Dictionary<string, string>> orderDetails = new List<Dictionary<string, string>>();
+                            orderDetails.Add(new Dictionary<string, string>()
+                            { {"StaliukoID", tableID.ToString()} });
+                            orderID.Add(clientName, orderDetails);         
+                            tableList[tableID]--;
+                        }
+                        break;
+                    case 2:
+                        WaitingOrders(orderID);
+                        Console.ReadKey();
+                        if (orderID.Count() >= 1)
+                        {
+                            clientOrder = GetOrderFromTable(menu, clientOrder, orderID);
+                        }
+                        break;
+                    case 3:
+                        IssueReceipt(orderID);
+                        Console.ReadKey();
+                        //if (orderReceiptStatus == true)
+                        //{
+                        //    tableList[tableID]++;
+                        //}
+                        break;
+                     case 4:
+                        AddDishToMenu(menu);
+                        break;
+                     case 5:
+                         MenuOutput(menu);
+                        Console.WriteLine("Paspauskite bet kokį mygtuką, kad grižtį į menu");
+                        Console.ReadKey();
+                        break;
+                    default:
+                        Console.WriteLine("Error");
+                        break;
+                }
+            }
+            
+        }
+        
+        static void RestaurantTerminalMenu()
+        {
+            Console.WriteLine("Pasirinkite norima opcija:" +
+                "\n1 - Pasodinti klienta" +
+                "\n2 - Priimti užsakyma" +
+                "\n3 - Išrašyti čekį" +
+                "\n4 - Pridėti Patiekala" +
+                "\n5 - Peržiūrėti meniu");
+
         }
 
         static List<Dictionary<string, string>> RestaurantMenu()
@@ -72,20 +132,21 @@ namespace Restoranas
         {
             return new Dictionary<int, int>()
             {
-                { 1, 4 },
-                { 2, 0 },
-                { 3, 6 },
-                { 4, 6 },
-                { 5, 4 },
+                { 1, 3 },
+                { 2, 5 },
+                { 3, 5 },
+                { 4, 4 },
+                { 5, 3 },
+                { 6, 2 },
             };
         }
 
+        //Priskirti staliuka
         static int TableRezervation(Dictionary<int, int> tableList)
         {
             Console.WriteLine("Kiek žmonių reikia pasodinti prie staliuko");
             int numberOfClients = GetClientsNumberFromInput(out string input);
-            int chosenTableID = CheckFreeTable(tableList, numberOfClients);
-            return chosenTableID;
+            return CheckFreeTable(tableList, numberOfClients);
 
         }
 
@@ -110,49 +171,142 @@ namespace Restoranas
         {
             if (tableList.ContainsKey(numberOfClients) && tableList[numberOfClients]>0)
             {
-                Console.WriteLine($"Yra laisvas staliukas {numberOfClients} klientams");
+                Console.WriteLine($"Yra laisvas staliukas {numberOfClients} klientams, Patvirnkite paspaude mygtuka");
+                Console.ReadKey();
                 return numberOfClients;
             }
             else if (tableList.ContainsKey(numberOfClients+1) && tableList[numberOfClients+1] > 0)
             {
-                Console.WriteLine($"Yra galimybė pasodinti prie {numberOfClients+1} vietų staliuko");
+                Console.WriteLine($"Yra galimybė pasodinti prie {numberOfClients+1} vietų staliuko,Patvirnkite paspaude mygtuka");
+                Console.ReadKey();
                 return numberOfClients+1;
             }
-            return numberOfClients=0;
+            else
+            {
+                Console.WriteLine("Per daug klientų, Reikia sujungti stalų, patvirnti spauskite bet kokį mygtuką");
+                Console.ReadKey();
+                while (numberOfClients > 0)
+                {
+                    if (tableList[6] > 0 && numberOfClients>=6) 
+                    {
+                        numberOfClients = numberOfClients - 6;
+                        tableList[6]--;
+                        continue;
+                    }
+                    else if (tableList[5] > 0 && numberOfClients >= 5)
+                    {
+                        numberOfClients = numberOfClients -5;
+                        tableList[5]--;
+                        continue;
+                    }
+                    else if (tableList[4] > 0 && numberOfClients >= 4)
+                    {
+                        numberOfClients = numberOfClients - 4;
+                        tableList[4]--;
+                        continue;
+                    }
+                    else if (tableList[3] > 0 && numberOfClients >= 3)
+                    {
+                        numberOfClients = numberOfClients - 3;
+                        tableList[3]--;
+                        continue;
+                    }
+                    else if (tableList[2] > 0 && numberOfClients >= 2)
+                    {
+                        numberOfClients = numberOfClients - 2;
+                        tableList[2]--;
+                        continue;
+                    }
+                    else if (tableList[1] > 0)
+                    {
+                        numberOfClients = numberOfClients - 1;
+                        tableList[1]--;
+                        continue;
+                    }
+                    else if (numberOfClients>0)
+                    {
+                        Console.WriteLine("Per didelis klientų skaičius, tiek šiuo metų ne turim vietų");
+                        Console.ReadKey();
+                        break;
+                    }
+                }
+                
+            }
+           return numberOfClients=0;
         }
 
-        //Gauti menu uzsakyma is klientu
-        static List<Dictionary<string, double>> GetOrderFromTable(List<Dictionary<string, string>> menu, List<int> orderWaiting, List<Dictionary<string, double>> clientOrder)
+        //Laukiami uzsakymai
+        static void WaitingOrders(Dictionary<string, List<Dictionary<string, string>>> orderID)
         {
-            bool orderStatus = true;
-            while (orderStatus == true)
-            {   Console.Clear();
-                MenuOuput(menu);
-                Console.WriteLine("Pridėkite norima patiekala prie užskayma, parašius pagal patiekalo ID");
-                int dishID = GetClientsNumberFromInput(out string input);
-                clientOrder = ChosenDish(menu, dishID, clientOrder);
-                Console.WriteLine("Ar norite dar pridėti patiekalą?\n1 - taip\n2 - ne");
-                dishID = GetClientsNumberFromInput(out input);
-                switch (dishID)
+            StringBuilder builder = new StringBuilder();
+            if (orderID.Count()==1)
+            {
+                foreach (var item in orderID)
                 {
-                    case 1:
-                        continue;
-                    case 2:
-                        orderStatus = false;
-                        break;
-                    default:
-                        Console.WriteLine("Ivyko klaida");
-                        continue;
+                    builder.Append(($"{item.Key}  staliukas vardu staliukas laukia užsakymo"));
+                    
                 }
             }
+            else if (orderID.Count() >= 1)
+            {
+                foreach (var item in orderID)
+                {
+                    builder.Append(($"{item.Key},"));
+                    
+                }
+                builder.Append(" vardu satliukai laukia užsakymų");
+            }
+            else
+            {
+                Console.WriteLine("Nera užaskymu");
+                Console.ReadKey();
+            }
+            Console.WriteLine(builder.ToString());
+              
+        }
+        //Gauti menu uzsakyma is klientu
+        static List<Dictionary<string, double>> GetOrderFromTable(List<Dictionary<string, string>> menu, List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID)
+        {
+            foreach(var order in orderID)
+            {
+                bool orderStatus = true;
+                while (orderStatus == true)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Užsisako {order.Key} vardu");
+                    MenuOutput(menu);
+                    Console.WriteLine("Pridėkite norima patiekala prie užskayma, parašius pagal patiekalo ID");
+                    int dishID = GetClientsNumberFromInput(out string input);
+                    clientOrder = ChosenDish(menu, dishID, clientOrder);
+                    Console.WriteLine("Ar norite dar pridėti patiekalą?\n1 - taip\n2 - ne");
+                    dishID = GetClientsNumberFromInput(out input);
+                    switch (dishID)
+                    {
+                        case 1:
+                            continue;
+                        case 2:
+                            orderStatus = false;
+                            break;
+                        default:
+                            Console.WriteLine("Ivyko klaida");
+                            continue;
+                    }
+                }
+                orderID[order.Key].Add(new Dictionary<string, string>()
+                {
+                    {
+                        "Kvitas", OrderReceipt(clientOrder)
+                    }
+                 });
+            }
+
             return clientOrder;
-            
         }
 
         //Menu isvedimas
-        static void MenuOuput(List<Dictionary<string, string>> menu)
+        static void MenuOutput(List<Dictionary<string, string>> menu)
         {
-            Console.Clear();
+            
             int i = 1;
             foreach (var item in menu)
             {
@@ -212,22 +366,68 @@ namespace Restoranas
         }  
         
         //kvitas
-        static bool OrderReceipt(List<Dictionary<string, double>> clientOrder)
+        static string OrderReceipt(List<Dictionary<string, double>> clientOrder)
         {
             Console.Clear();
-            Console.WriteLine("Jusu kvitas");
+            StringBuilder receipt = new StringBuilder();
+            receipt.Append("Jusu kvitas");
             double orderPriceResult = 0;
             foreach(var list in clientOrder)
             {
                 foreach(var item in list)
                 {
-                    Console.WriteLine(item.Key + "........" + item.Value);
+                    receipt.Append("\n"+item.Key + "........" + item.Value);
                     orderPriceResult+=item.Value;
                 }
                
             }
-            Console.WriteLine($"Viso........................{orderPriceResult}");
-            return true;
+            receipt.Append($"\nViso........................{orderPriceResult}");
+            return receipt.ToString();
         }
+
+        static List<Dictionary<string, string>> AddDishToMenu(List<Dictionary<string, string>> menu)
+        {
+            Console.Clear ();
+            Console.WriteLine("Patiekalo pavadinimas");
+            string dishName = Console.ReadLine();
+            Console.WriteLine("Patiekalo kaina");
+            string dishPrice = Console.ReadLine();
+            Console.WriteLine("Patiekalo aprašymas");
+            string dishDescription = Console.ReadLine();
+            menu.Add(new Dictionary<string, string>()
+            {
+                {"Patiekalas", dishName},
+                {"Kaina", dishPrice },
+                {"Aprašymas", dishDescription }
+            });
+            return menu;
+        }
+
+        //Kliento vardas
+        static string ClientName()
+        {
+            Console.WriteLine("Parašykite kieno vardu užrašysim staliuka");
+            return Console.ReadLine();
+            
+        }
+
+        //Isduoti kvita
+        static void IssueReceipt(Dictionary<string, List<Dictionary<string, string>>> orderID)
+        {
+            foreach (var list in orderID)
+            {
+                Console.WriteLine(list.Key);
+                foreach(var item in list.Value)
+                {
+
+                    if (item.ContainsKey("Kvitas"))
+                    {
+                        Console.WriteLine(item["Kvitas"]);
+                    }
+                    
+                }
+            }
+        }
+       
     }
 }
