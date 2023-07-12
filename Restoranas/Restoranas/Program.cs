@@ -14,9 +14,8 @@ namespace Restoranas
         static void RestaurantTerminal()
         {
             Dictionary<string,List<Dictionary<string,string>>> orderID = new Dictionary<string, List<Dictionary<string,string>>>();
-            //List<int> clientsID = new List<int>();
-           // List<int> receiptID = new List<int>();
             List<Dictionary<string, double>> clientOrder = new List<Dictionary<string, double>>();
+            List<Dictionary<string, double>> restaurantOrder = new List<Dictionary<string, double>>();
             Dictionary<int, int> tableList = TableList();
             List<Dictionary<string, string>> menu = RestaurantMenu();
             int tableID=0;
@@ -45,7 +44,7 @@ namespace Restoranas
                         Console.ReadKey();
                         if (orderID.Count() >= 1)
                         {
-                            clientOrder = GetOrderFromTable(menu, clientOrder, orderID);
+                            clientOrder = GetOrderFromTable(menu, clientOrder, orderID, restaurantOrder);
                         }
                         break;
                     case 3:
@@ -64,6 +63,10 @@ namespace Restoranas
                         Console.WriteLine("Paspauskite bet kokį mygtuką, kad grižtį į menu");
                         Console.ReadKey();
                         break;
+                     case 6:
+                        RestaurantReceipt(restaurantOrder);
+                        Console.ReadKey();
+                        break;
                     default:
                         Console.WriteLine("Error");
                         break;
@@ -79,7 +82,8 @@ namespace Restoranas
                 "\n2 - Priimti užsakyma" +
                 "\n3 - Išrašyti čekį" +
                 "\n4 - Pridėti Patiekala" +
-                "\n5 - Peržiūrėti meniu");
+                "\n5 - Peržiūrėti meniu" +
+                "\n6 - Restorano kvitas");
 
         }
 
@@ -265,7 +269,7 @@ namespace Restoranas
               
         }
         //Gauti menu uzsakyma is klientu
-        static List<Dictionary<string, double>> GetOrderFromTable(List<Dictionary<string, string>> menu, List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID)
+        static List<Dictionary<string, double>> GetOrderFromTable(List<Dictionary<string, string>> menu, List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID, List<Dictionary<string, double>> restaurantOrder)
         {
             foreach(var order in orderID)
             {
@@ -277,7 +281,7 @@ namespace Restoranas
                     MenuOutput(menu);
                     Console.WriteLine("Pridėkite norima patiekala prie užskayma, parašius pagal patiekalo ID");
                     int dishID = GetClientsNumberFromInput(out string input);
-                    clientOrder = ChosenDish(menu, dishID, clientOrder);
+                    clientOrder = ChosenDish(menu, dishID, clientOrder, restaurantOrder);
                     Console.WriteLine("Ar norite dar pridėti patiekalą?\n1 - taip\n2 - ne");
                     dishID = GetClientsNumberFromInput(out input);
                     switch (dishID)
@@ -317,12 +321,16 @@ namespace Restoranas
         }
 
         //Patiekalo pridėjimas
-        static List<Dictionary<string, double>> ChosenDish(List<Dictionary<string, string>> menu, int dishID, List<Dictionary<string, double>> clientOrder)
+        static List<Dictionary<string, double>> ChosenDish(List<Dictionary<string, string>> menu, int dishID, List<Dictionary<string, double>> clientOrder, List<Dictionary<string, double>> restaurantOrder)
         {
            switch (dishID.ToString())
             {
                 case "1":
                     clientOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
+                    });
+                    restaurantOrder.Add(new Dictionary<string, double>()
                     {
                         {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
                     });
@@ -332,9 +340,17 @@ namespace Restoranas
                     {
                         {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
                     });
+                    restaurantOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
+                    });
                     break;
                 case "3":
                     clientOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
+                    });
+                    restaurantOrder.Add(new Dictionary<string, double>()
                     {
                         {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
                     });
@@ -344,15 +360,27 @@ namespace Restoranas
                     {
                         {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
                     });
+                    restaurantOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
+                    });
                     break;
                 case "5":
                     clientOrder.Add(new Dictionary<string, double>()
                     {
                         {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
                     });
+                    restaurantOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
+                    });
                     break;
                 case "6":
                     clientOrder.Add(new Dictionary<string, double>()
+                    {
+                        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
+                    });
+                    restaurantOrder.Add(new Dictionary<string, double>()
                     {
                         {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
                     });
@@ -428,6 +456,26 @@ namespace Restoranas
                 }
             }
         }
-       
+
+        //Restorano kvitas
+        static void RestaurantReceipt(List<Dictionary<string, double>> restaurantOrder)
+        {
+            Console.Clear();
+            StringBuilder receipt = new StringBuilder();
+            receipt.Append("Jusu kvitas");
+            double orderPriceResult = 0;
+            foreach (var list in restaurantOrder)
+            {
+                foreach (var item in list)
+                {
+                    receipt.Append("\n" + item.Key + "........" + item.Value);
+                    orderPriceResult += item.Value;
+                }
+
+            }
+            receipt.Append($"\nViso........................{orderPriceResult}");
+            Console.WriteLine(receipt.ToString()); 
+        }
+
     }
 }
