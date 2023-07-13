@@ -13,7 +13,7 @@ namespace Restoranas
 
         static void RestaurantTerminal()
         {
-            Dictionary<string,List<Dictionary<string,string>>> orderID = new Dictionary<string, List<Dictionary<string,string>>>();
+            Dictionary<string,List<Dictionary<string,string>>>  orderID = new Dictionary<string, List<Dictionary<string,string>>>();
             List<Dictionary<string, double>> clientOrder = new List<Dictionary<string, double>>();
             List<Dictionary<string, double>> restaurantOrder = new List<Dictionary<string, double>>();
             List<string> orderDishes = new List<string>();
@@ -32,7 +32,7 @@ namespace Restoranas
                         tableID = TableRezervation(tableList);     
                         if (tableID != 0)
                         {
-                            string clientName = ClientName();
+                            string clientName = ClientName(orderID);
                             List<Dictionary<string, string>> orderDetails = new List<Dictionary<string, string>>();
                             orderDetails.Add(new Dictionary<string, string>()
                             { {"StaliukoID", tableID.ToString()} });
@@ -51,7 +51,7 @@ namespace Restoranas
                     case 3:
                         if (orderID.Count() >= 1)
                         {
-                            IssueReceipt(orderID);
+                            IssueReceipt(orderID, tableList);
                         }
                         else
                         {
@@ -193,7 +193,7 @@ namespace Restoranas
 
         //Pagal klientu skaiciu, ieskom staliuko, jeigu nerandma grazinam 0
         static int CheckFreeTable(Dictionary<int, int> tableList, int numberOfClients)
-        {
+        { 
             if (tableList.ContainsKey(numberOfClients) && tableList[numberOfClients]>0)
             {
                 Console.WriteLine($"Yra laisvas staliukas {numberOfClients} klientams, Patvirnkite paspaude mygtuka");
@@ -208,53 +208,54 @@ namespace Restoranas
             }
             else
             {
-                Console.WriteLine("Per daug klientų, Reikia sujungti stalų, patvirnti spauskite bet kokį mygtuką");
+                Console.WriteLine("Apgailestaujame, bet siuo momentu negalime priimti tiek zmoniu");
+                //Console.WriteLine("Per daug klientų, Reikia sujungti stalų, patvirnti spauskite bet kokį mygtuką");
                 Console.ReadKey();
-                while (numberOfClients > 0)
-                {
-                    if (tableList[6] > 0 && numberOfClients>=6) 
-                    {
-                        numberOfClients = numberOfClients - 6;
-                        tableList[6]--;
-                        continue;
-                    }
-                    else if (tableList[5] > 0 && numberOfClients >= 5)
-                    {
-                        numberOfClients = numberOfClients -5;
-                        tableList[5]--;
-                        continue;
-                    }
-                    else if (tableList[4] > 0 && numberOfClients >= 4)
-                    {
-                        numberOfClients = numberOfClients - 4;
-                        tableList[4]--;
-                        continue;
-                    }
-                    else if (tableList[3] > 0 && numberOfClients >= 3)
-                    {
-                        numberOfClients = numberOfClients - 3;
-                        tableList[3]--;
-                        continue;
-                    }
-                    else if (tableList[2] > 0 && numberOfClients >= 2)
-                    {
-                        numberOfClients = numberOfClients - 2;
-                        tableList[2]--;
-                        continue;
-                    }
-                    else if (tableList[1] > 0)
-                    {
-                        numberOfClients = numberOfClients - 1;
-                        tableList[1]--;
-                        continue;
-                    }
-                    else if (numberOfClients>0)
-                    {
-                        Console.WriteLine("Per didelis klientų skaičius, tiek šiuo metų ne turim vietų");
-                        Console.ReadKey();
-                        break;
-                    }
-                }
+                //while (numberOfClients > 0)
+                //{
+                //    if (tableList[6] > 0 && numberOfClients>=6) 
+                //    {
+                //        numberOfClients = numberOfClients - 6;
+                //        tableList[6]--;
+                //        continue;
+                //    }
+                //    else if (tableList[5] > 0 && numberOfClients >= 5)
+                //    {
+                //        numberOfClients = numberOfClients -5;
+                //        tableList[5]--;
+                //        continue;
+                //    }
+                //    else if (tableList[4] > 0 && numberOfClients >= 4)
+                //    {
+                //        numberOfClients = numberOfClients - 4;
+                //        tableList[4]--;
+                //        continue;
+                //    }
+                //    else if (tableList[3] > 0 && numberOfClients >= 3)
+                //    {
+                //        numberOfClients = numberOfClients - 3;
+                //        tableList[3]--;
+                //        continue;
+                //    }
+                //    else if (tableList[2] > 0 && numberOfClients >= 2)
+                //    {
+                //        numberOfClients = numberOfClients - 2;
+                //        tableList[2]--;
+                //        continue;
+                //    }
+                //    else if (tableList[1] > 0)
+                //    {
+                //        numberOfClients = numberOfClients - 1;
+                //        tableList[1]--;
+                //        continue;
+                //    }
+                //    else if (numberOfClients>0)
+                //    {
+                //        Console.WriteLine("Per didelis klientų skaičius, tiek šiuo metų ne turim vietų");
+                //        Console.ReadKey();
+                //        break;
+                //    }
+                //}
                 
             }
            return numberOfClients=0;
@@ -321,7 +322,7 @@ namespace Restoranas
                         orderID[order.Key].Add(new Dictionary<string, string>()
                         {
                             {
-                             "Kvitas", OrderReceipt(clientOrder)
+                             "Kvitas", OrderReceipt(clientOrder, orderID)
                             }
                         });
                     }
@@ -432,7 +433,7 @@ namespace Restoranas
         }  
         
         //kvitas
-        static string OrderReceipt(List<Dictionary<string, double>> clientOrder)
+        static string OrderReceipt(List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID)
         {
             
             StringBuilder receipt = new StringBuilder();
@@ -447,6 +448,16 @@ namespace Restoranas
                 }
                
             }
+            foreach (var order in orderID)
+            {
+                orderID[order.Key].Add(new Dictionary<string, string>()
+                        {
+                            {
+                             "Suma", orderPriceResult.ToString()
+                            }
+                        });
+            }
+            
             receipt.Append($"\nViso........................{orderPriceResult}");
             return receipt.ToString();
         }
@@ -470,33 +481,76 @@ namespace Restoranas
         }
 
         //Kliento vardas
-        static string ClientName()
+        static string ClientName(Dictionary<string, List<Dictionary<string, string>>> orderID)
         {
             Console.WriteLine("Parašykite kieno vardu užrašysim staliuka");
-            return Console.ReadLine();
-            
+            bool getNameStatus = false;
+            var clientName="";
+            while (getNameStatus == false)
+            {
+                clientName = Console.ReadLine();
+                if (!String.IsNullOrEmpty(clientName) && !orderID.ContainsKey(clientName))
+                {
+                    getNameStatus=true;
+                   
+                }
+                else if (String.IsNullOrEmpty(clientName))
+                {
+                    Console.WriteLine("Nealima palikti tuscia vieta, pabandykite dar karta");
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Toks vardas jau ezgistuoja dabar, pabandykite kita");
+                    continue;
+                }
+            }
+            return clientName;
         }
 
         //Isduoti kvita
-        static void IssueReceipt(Dictionary<string, List<Dictionary<string, string>>> orderID)
+        static void IssueReceipt(Dictionary<string, List<Dictionary<string, string>>> orderID, Dictionary<int, int> tableList)
         {
+            double clientOrderSum = 0;
+            bool receiptStatus=false;
             foreach (var list in orderID)
             {
                 Console.WriteLine(list.Key);
                 foreach(var item in list.Value)
                 {
-
+                    if (item.ContainsKey("Suma"))
+                    {
+                        clientOrderSum = Convert.ToDouble(item["Suma"]);
+                    }
                     if (item.ContainsKey("Kvitas"))
                     {
                         Console.WriteLine(item["Kvitas"]);
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Kolkas nera kvitu");
+                        receiptStatus = true;
                     }
                     
                 }
+                if(receiptStatus == true)
+                {
+                    SelectPaymant();
+                    var clientSelectPayment = GetClientsNumberFromInput(out string input);
+                    bool clientOrderPaymentStatus = ClientOrderPayment(clientSelectPayment, clientOrderSum);
+                    if (clientOrderPaymentStatus == true)
+                    {
+                        foreach (var item in list.Value)
+                        {
+                            if (item.ContainsKey("Stalas"))
+                            {
+                                tableList[Convert.ToInt32(item)]++;
+                            }
+                        }
+                        orderID.Remove(list.Key);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Kolkas nera kvitu");
+                }
+               
             }
         }
 
@@ -524,14 +578,70 @@ namespace Restoranas
         static void TopDishes(List<string> orderDishes)
         {   
             Console.Clear();
-            orderDishes.Sort();
+            List<string> sortedOrder = orderDishes
+            .GroupBy(x => x) 
+            .OrderByDescending(group => group.Count()) 
+            .SelectMany(group => group) 
+            .ToList();
             int i = 1;
-            foreach (var dish in orderDishes.Distinct())
+            foreach (var dish in sortedOrder.Distinct())
             {
                 orderDishes.Count(x => x == dish);
                 Console.WriteLine($"{i}.{dish}");
                 i++;
             }
+        }
+
+        static void SelectPaymant()
+        {
+            Console.WriteLine("Pasirnkite atsiskaitymo buda" +
+                "\n1 - Kortele" +
+                "\n2 - Grynaisiais");
+        }
+
+        //mokejimo pasirinkimas
+        static bool ClientOrderPayment(int clientSelectPayment, double clientOrderSum)
+        {
+            switch (clientSelectPayment)
+            {
+                case 1:
+                    Console.WriteLine("Ačiū, kad atsiskaitėte su banko kortelė");
+                    return true;
+                case 2:
+                    bool paymentCashStatus = ClientPaymentWithCash(clientOrderSum);
+                    if(paymentCashStatus == true)
+                    {
+                        return true;
+                    }
+                    return false;
+                    break;
+            }
+            return false;
+        }
+
+        //mokejimas grynaisiais
+        static bool ClientPaymentWithCash(double clientOrderSum)
+        {
+            Console.WriteLine("Iveskite Kliento duota pinigu suma");
+            
+            bool orderPaymentStatus = false;
+            while (orderPaymentStatus == false)
+            {
+                double cashSum = Convert.ToDouble(Console.ReadLine());
+                if (cashSum < clientOrderSum)
+                {
+                    clientOrderSum -= cashSum;
+                    Console.WriteLine($"Jums dar truksta {clientOrderSum} Euru, prasome sumoketi");
+                    continue;
+                }
+                else if(cashSum > clientOrderSum) 
+                { 
+                    double monetaryChange = cashSum - clientOrderSum;
+                    Console.WriteLine($"Jus sumokejote {cashSum} euru, jums priklauso {monetaryChange} euru grazos");
+                    orderPaymentStatus = true;  
+                }
+            }
+            return true;    
         }
 
     }
