@@ -353,81 +353,102 @@ namespace Restoranas
         //Patiekalo pridėjimas
         static List<Dictionary<string, double>> ChosenDish(List<Dictionary<string, string>> menu, int dishID, List<Dictionary<string, double>> clientOrder, List<Dictionary<string, double>> restaurantOrder, List<string> orderDishes)
         {
-                switch (dishID.ToString())
+           for(int i = 0; i <= menu.Count(); i++)
+           {
+                if (dishID == 0)
                 {
-                    case "0":
-                        break;
-                    case "1":
-                        clientOrder.Add(new Dictionary<string, double>()
+                    break;
+                }
+                else if (dishID == i)
+                {
+                    clientOrder.Add(new Dictionary<string, double>()
                     {
-                        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
+                        {menu[i-1]["Patiekalas"], Convert.ToDouble(menu[i-1]["Kaina"]) }
                     });
-                        restaurantOrder.Add(new Dictionary<string, double>()
+                    restaurantOrder.Add(new Dictionary<string, double>()
                     {
-                        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
+                        {menu[i-1]["Patiekalas"], Convert.ToDouble(menu[i-1]["Kaina"]) }
                     });
-                        orderDishes.Add(menu[0]["Patiekalas"]);
-                        break;
-                    case "2":
-                        clientOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
-                    });
-                        restaurantOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
-                    });
-                        orderDishes.Add(menu[1]["Patiekalas"]);
-                        break;
-                    case "3":
-                        clientOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
-                    });
-                        restaurantOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
-                    });
-                        orderDishes.Add(menu[2]["Patiekalas"]);
-                        break;
-                    case "4":
-                        clientOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
-                    });
-                        restaurantOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
-                    });
-                        orderDishes.Add(menu[3]["Patiekalas"]);
-                        break;
-                    case "5":
-                        clientOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
-                    });
-                        restaurantOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
-                    });
-                        orderDishes.Add(menu[4]["Patiekalas"]);
-                        break;
-                    case "6":
-                        clientOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
-                    });
-                        restaurantOrder.Add(new Dictionary<string, double>()
-                    {
-                        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
-                    });
-                        orderDishes.Add(menu[5]["Patiekalas"]);
-                        break;
-                    default:
-                        Console.WriteLine("Ivyko klaida");
-                        break;
+                    orderDishes.Add(menu[i-1]["Patiekalas"]);
+                }
                 
+
             }
+            //switch (dishID.ToString())
+            //{
+            //    case "0":
+            //        break;
+            //    case "1":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[0]["Patiekalas"]);
+            //        break;
+            //    case "2":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[1]["Patiekalas"]);
+            //        break;
+            //    case "3":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[2]["Patiekalas"]);
+            //        break;
+            //    case "4":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[3]["Patiekalas"]);
+            //        break;
+            //    case "5":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[4]["Patiekalas"]);
+            //        break;
+            //    case "6":
+            //        clientOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
+            //    });
+            //        restaurantOrder.Add(new Dictionary<string, double>()
+            //    {
+            //        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
+            //    });
+            //        orderDishes.Add(menu[5]["Patiekalas"]);
+            //        break;
+            //    default:
+            //        Console.WriteLine("Ivyko klaida");
+            //        break;
+
+            //}
             return clientOrder;
 
         }  
