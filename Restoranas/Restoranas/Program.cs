@@ -371,8 +371,6 @@ namespace Restoranas
                     });
                     orderDishes.Add(menu[i-1]["Patiekalas"]);
                 }
-                
-
             }
             //switch (dishID.ToString())
             //{
