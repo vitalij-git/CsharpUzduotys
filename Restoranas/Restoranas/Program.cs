@@ -6,14 +6,14 @@ namespace Restoranas
     {
         static void Main(string[] args)
         {
+            Dictionary<string, List<Dictionary<string, string>>> orderID = new Dictionary<string, List<Dictionary<string, string>>>();
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            RestaurantTerminal();
+            RestaurantTerminal(orderID);
             Console.ReadKey();  
         }
 
-        static void RestaurantTerminal()
+        static void RestaurantTerminal(Dictionary<string, List<Dictionary<string, string>>> orderID)
         {
-            Dictionary<string,List<Dictionary<string,string>>>  orderID = new Dictionary<string, List<Dictionary<string,string>>>();
             List<Dictionary<string, double>> clientOrder = new List<Dictionary<string, double>>();
             List<Dictionary<string, double>> restaurantOrder = new List<Dictionary<string, double>>();
             List<string> orderDishes = new List<string>();
