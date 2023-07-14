@@ -6,14 +6,15 @@ namespace Restoranas
     {
         static void Main(string[] args)
         {
-            Dictionary<string, List<Dictionary<string, string>>> orderID = new Dictionary<string, List<Dictionary<string, string>>>();
+            
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            RestaurantTerminal(orderID);
+            RestaurantTerminal();
             Console.ReadKey();  
         }
 
-        static void RestaurantTerminal(Dictionary<string, List<Dictionary<string, string>>> orderID)
+        static void RestaurantTerminal()
         {
+            Dictionary<string, List<Dictionary<string, string>>> orderID = new Dictionary<string, List<Dictionary<string, string>>>();
             List<Dictionary<string, double>> clientOrder = new List<Dictionary<string, double>>();
             List<Dictionary<string, double>> restaurantOrder = new List<Dictionary<string, double>>();
             List<string> orderDishes = new List<string>();
@@ -45,7 +46,7 @@ namespace Restoranas
                         Console.ReadKey();
                         if (orderID.Count() >= 1)
                         {
-                            clientOrder = GetOrderFromTable(menu, clientOrder, orderID, restaurantOrder, orderDishes);
+                            GetOrderFromTable(menu, clientOrder, orderID, restaurantOrder, orderDishes);
                         }
                         break;
                     case 3:
@@ -209,53 +210,8 @@ namespace Restoranas
             else
             {
                 Console.WriteLine("Apgailestaujame, bet siuo momentu negalime priimti tiek zmoniu");
-                //Console.WriteLine("Per daug klientų, Reikia sujungti stalų, patvirnti spauskite bet kokį mygtuką");
                 Console.ReadKey();
-                //while (numberOfClients > 0)
-                //{
-                //    if (tableList[6] > 0 && numberOfClients>=6) 
-                //    {
-                //        numberOfClients = numberOfClients - 6;
-                //        tableList[6]--;
-                //        continue;
-                //    }
-                //    else if (tableList[5] > 0 && numberOfClients >= 5)
-                //    {
-                //        numberOfClients = numberOfClients -5;
-                //        tableList[5]--;
-                //        continue;
-                //    }
-                //    else if (tableList[4] > 0 && numberOfClients >= 4)
-                //    {
-                //        numberOfClients = numberOfClients - 4;
-                //        tableList[4]--;
-                //        continue;
-                //    }
-                //    else if (tableList[3] > 0 && numberOfClients >= 3)
-                //    {
-                //        numberOfClients = numberOfClients - 3;
-                //        tableList[3]--;
-                //        continue;
-                //    }
-                //    else if (tableList[2] > 0 && numberOfClients >= 2)
-                //    {
-                //        numberOfClients = numberOfClients - 2;
-                //        tableList[2]--;
-                //        continue;
-                //    }
-                //    else if (tableList[1] > 0)
-                //    {
-                //        numberOfClients = numberOfClients - 1;
-                //        tableList[1]--;
-                //        continue;
-                //    }
-                //    else if (numberOfClients>0)
-                //    {
-                //        Console.WriteLine("Per didelis klientų skaičius, tiek šiuo metų ne turim vietų");
-                //        Console.ReadKey();
-                //        break;
-                //    }
-                //}
+               
                 
             }
            return numberOfClients=0;
@@ -291,7 +247,7 @@ namespace Restoranas
               
         }
         //Gauti menu uzsakyma is klientu
-        static List<Dictionary<string, double>> GetOrderFromTable(List<Dictionary<string, string>> menu, List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID, List<Dictionary<string, double>> restaurantOrder, List<string> orderDishes)
+        static void GetOrderFromTable(List<Dictionary<string, string>> menu, List<Dictionary<string, double>> clientOrder, Dictionary<string, List<Dictionary<string, string>>> orderID, List<Dictionary<string, double>> restaurantOrder, List<string> orderDishes)
         {
             foreach(var order in orderID)
             {
@@ -331,10 +287,11 @@ namespace Restoranas
                         orderStatus= false;
                     }
                 }
-               
+
+               clientOrder.Clear();
             }
 
-            return clientOrder;
+            
         }
 
         //Menu isvedimas
@@ -372,81 +329,7 @@ namespace Restoranas
                     orderDishes.Add(menu[i-1]["Patiekalas"]);
                 }
             }
-            //switch (dishID.ToString())
-            //{
-            //    case "0":
-            //        break;
-            //    case "1":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[0]["Patiekalas"], Convert.ToDouble(menu[0]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[0]["Patiekalas"]);
-            //        break;
-            //    case "2":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[1]["Patiekalas"], Convert.ToDouble(menu[1]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[1]["Patiekalas"]);
-            //        break;
-            //    case "3":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[2]["Patiekalas"], Convert.ToDouble(menu[2]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[2]["Patiekalas"]);
-            //        break;
-            //    case "4":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[3]["Patiekalas"], Convert.ToDouble(menu[3]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[3]["Patiekalas"]);
-            //        break;
-            //    case "5":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[4]["Patiekalas"], Convert.ToDouble(menu[4]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[4]["Patiekalas"]);
-            //        break;
-            //    case "6":
-            //        clientOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
-            //    });
-            //        restaurantOrder.Add(new Dictionary<string, double>()
-            //    {
-            //        {menu[5]["Patiekalas"], Convert.ToDouble(menu[5]["Kaina"]) }
-            //    });
-            //        orderDishes.Add(menu[5]["Patiekalas"]);
-            //        break;
-            //    default:
-            //        Console.WriteLine("Ivyko klaida");
-            //        break;
-
-            //}
+           
             return clientOrder;
 
         }  
@@ -568,7 +451,7 @@ namespace Restoranas
                             }
                             else if (item.ContainsKey("Kvitas"))
                             {
-                                item.Remove("Kvitas");
+                                item.Clear();
                             }
                         }
                         orderID.Remove(list.Key);
@@ -622,7 +505,7 @@ namespace Restoranas
 
         static void SelectPaymant()
         {
-            Console.WriteLine("Pasirnkite atsiskaitymo buda" +
+            Console.WriteLine("Pasirinkite atsiskaitymo buda" +
                 "\n1 - Kortele" +
                 "\n2 - Grynaisiais");
         }
