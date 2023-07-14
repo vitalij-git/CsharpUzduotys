@@ -541,7 +541,7 @@ namespace Restoranas
                     {
                         clientOrderSum = Convert.ToDouble(item["Suma"]);
                     }
-                    if (item.ContainsKey("Kvitas"))
+                    else if (item.ContainsKey("Kvitas"))
                     {
                         Console.WriteLine(item["Kvitas"]);
                         receiptStatus = true;
@@ -557,9 +557,18 @@ namespace Restoranas
                     {
                         foreach (var item in list.Value)
                         {
-                            if (item.ContainsKey("Stalas"))
+                            if (item.ContainsKey("StaliukoID"))
                             {
-                                tableList[Convert.ToInt32(item)]++;
+                                int table = Convert.ToInt32(item["StaliukoID"]);
+                                tableList[table]++;
+                            }
+                            else if (item.ContainsKey("Suma"))
+                            {
+                                item.Remove("Suma");
+                            }
+                            else if (item.ContainsKey("Kvitas"))
+                            {
+                                item.Remove("Kvitas");
                             }
                         }
                         orderID.Remove(list.Key);
