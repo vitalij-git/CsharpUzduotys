@@ -23,5 +23,12 @@ namespace _2.Class_metods.Metods
             }
             return Books;
         }
+        public void PrintBooks()
+        { 
+            foreach (string book in Books)
+            {
+                Console.WriteLine(book + " ");
+            }
+        }
     }
 } 

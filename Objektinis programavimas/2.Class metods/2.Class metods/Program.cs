@@ -56,5 +56,25 @@ namespace _2.Class_metods
             var circle = new Circle(radius);
             Console.WriteLine(circle.CircleArea());
         }
+
+        static void BooksLibrary()
+        {
+            var booksLibrary = new Library();
+            AddBook(booksLibrary);
+            booksLibrary.PrintBooks();
+            RemoveBook(booksLibrary);
+            booksLibrary.PrintBooks();
+        }
+        static void AddBook(Library booksLibrary)
+        {
+            var book= Console.ReadLine();
+            booksLibrary.Books.Add(book);
+        }
+
+        static void RemoveBook(Library booksLibrary)
+        {
+            var book = Console.ReadLine();
+            booksLibrary.RemoveBook(book);
+        }
     }
 }
