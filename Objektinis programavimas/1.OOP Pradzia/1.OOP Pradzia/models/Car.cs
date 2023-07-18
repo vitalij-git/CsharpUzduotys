@@ -8,6 +8,11 @@ namespace _1.OOP_Pradzia.models
 {
     internal class Car
     {
+
+        public Car()
+        {
+            
+        }
         public string Brand { get; set; }
         public int Doors { get; set; }
         public double MaxSpeed { get; set; }

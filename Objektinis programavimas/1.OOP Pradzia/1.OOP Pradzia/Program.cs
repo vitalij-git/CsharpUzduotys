@@ -25,6 +25,11 @@ namespace _1.OOP_Pradzia
         {
             Console.WriteLine($"{car.Brand} {car.Doors} {car.MaxSpeed} {car.CreationDate}");
         }
+
+        static Person CreatePerson()
+        {
+            Person person = new Person(Console.ReadLine(), Convert.ToInt32(Console.ReadLine()));
+            return person;
        
     }
 }

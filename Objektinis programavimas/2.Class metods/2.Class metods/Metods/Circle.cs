@@ -8,15 +8,15 @@ namespace _2.Class_metods.Metods
 {
     internal class Circle
     {
-        public double radius { get; set; }
+        public double Radius { get; set; }
 
         public Circle(double radius)
         {
-            this.radius = radius;
+            Radius = radius;
         }
         public double CircleArea()
         {
-            return radius * radius * Math.PI;
+            return Radius * Radius * Math.PI;
         }
     }
 }

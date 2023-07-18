@@ -16,7 +16,7 @@ namespace _2.Class_metods
             var numbers = new ListOfNumbers(new List<int>());
             for(int i = 0; i < 10; i++)
             {
-                numbers.numbers.Add(GetInteger());
+                numbers.Numbers.Add(GetInteger());
             }
             
             numbers.PrintNumbers();

@@ -8,24 +8,24 @@ namespace _2.Class_metods.Metods
 {
     internal class ListOfNumbers
     {
-        public List<int> numbers { get; set; }
+        public List<int> Numbers { get; set; }
 
         public ListOfNumbers(List<int> numbers)
         {
-            this.numbers = numbers;
+            this.Numbers = numbers;
             
             
         }
 
         public List<int> AddNumberToList(int number)
         {
-            numbers.Add(number);
-            return numbers;
+            Numbers.Add(number);
+            return Numbers;
         }
 
         public void PrintNumbers()
         {
-            foreach (int number in numbers)
+            foreach (int number in Numbers)
             {
                 Console.Write(number + " ");
             }

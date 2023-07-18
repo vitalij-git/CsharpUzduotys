@@ -8,16 +8,16 @@ namespace _2.Class_metods.Metods
 {
     internal class Rectangle
     {
-        public int x { get; set; }
-        public int y { get; set; }
+        public int Heigth { get; set; }
+        public int Width { get; set; }
         public Rectangle(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.Heigth = x;
+            this.Width = y;
         }
         public int RectangleArea()
         {
-            return x * y;
+            return Heigth * Width;
         }
     }
 }
