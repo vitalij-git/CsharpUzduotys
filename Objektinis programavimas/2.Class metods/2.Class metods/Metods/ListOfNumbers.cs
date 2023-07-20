@@ -12,7 +12,7 @@ namespace _2.Class_metods.Metods
 
         public ListOfNumbers(List<int> numbers)
         {
-            this.Numbers = numbers;
+            Numbers = numbers;
             
             
         }

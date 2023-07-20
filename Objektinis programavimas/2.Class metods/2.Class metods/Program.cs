@@ -8,7 +8,8 @@ namespace _2.Class_metods
         {
             //Numbers();
            // RectangleArea();
-            CircleArea();
+            //CircleArea();
+            BooksLibrary();
         }
 
         static void Numbers()
@@ -68,13 +69,13 @@ namespace _2.Class_metods
         static void AddBook(Library booksLibrary)
         {
             var book= Console.ReadLine();
-            booksLibrary.Books.Add(book);
+            booksLibrary.Books.Add(new Book(book));
         }
 
         static void RemoveBook(Library booksLibrary)
         {
             var book = Console.ReadLine();
-            booksLibrary.RemoveBook(book);
+            booksLibrary.RemoveBook(new Book(book));
         }
     }
 }

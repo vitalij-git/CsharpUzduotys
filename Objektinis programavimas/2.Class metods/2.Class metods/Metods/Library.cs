@@ -8,26 +8,27 @@ namespace _2.Class_metods.Metods
 {
     internal class Library
     {
-        public List<string> Books { get; set; } = new List<string>();
+        public List<Book> Books { get; set; } = new List<Book>();
+        
 
-        public List<string> AddBook(string book)
+        public void AddBook(Book book)
         {
             Books.Add(book);
-            return Books;
+            
         }
-        public List<string> RemoveBook(string book)
+        public void RemoveBook(Book book)
         {
             if (Books.Contains(book))
             {
                 Books.Remove(book);
             }
-            return Books;
+            
         }
         public void PrintBooks()
         { 
-            foreach (string book in Books)
+            foreach (var book in Books)
             {
-                Console.WriteLine(book + " ");
+                Console.WriteLine(book.ToString() + " ");
             }
         }
     }
