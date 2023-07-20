@@ -8,14 +8,16 @@ namespace _4._Abstrakcijos.models
 {
     internal class Triangle : GeometricShape
     {
-        
-
-        public Triangle(double height, double width, double rightSide, double leftSide) : base(height, width)
+        public Triangle(double height, double width, double rightSide, double leftSide)
         {
+            Height = height;
+            Width = width;
             RightSide = rightSide;
             LeftSide = leftSide;
         }
 
+        public double Height { get; set; }
+        public double Width { get; set; }
         public double RightSide { get; set; }
         public double LeftSide { get; set; }
         public override double GetArea()

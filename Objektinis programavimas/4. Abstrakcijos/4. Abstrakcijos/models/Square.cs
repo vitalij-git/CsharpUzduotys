@@ -8,10 +8,14 @@ namespace _4._Abstrakcijos.models
 {
     internal class Square : GeometricShape
     {
-        public Square(double height, double width) : base(height, width)
+        public Square(double height, double width)
         {
+            Height = height;
+            Width = width;
         }
 
+        public double Height { get; set; }
+        public double Width { get; set; }
         public override double GetArea()
         {
             return Width * Height;
