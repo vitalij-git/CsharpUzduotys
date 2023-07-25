@@ -6,9 +6,11 @@ namespace _1.OOP_Pradzia
     {
         static void Main(string[] args)
         {
-            CreateCar("Tayota");
-            Car car1 = CreateCar("Lexus");
-            PrintCarDetails(car1);
+            //CreateCar("Tayota");
+            //Car car1 = CreateCar("Lexus");
+            //PrintCarDetails(car1);
+            CreatePerson();
+            Console.ReadKey();
         }
 
         static Car CreateCar(string brand)
@@ -26,10 +28,13 @@ namespace _1.OOP_Pradzia
             Console.WriteLine($"{car.Brand} {car.Doors} {car.MaxSpeed} {car.CreationDate}");
         }
 
-        static Person CreatePerson()
+        static void CreatePerson()
         {
-            Person person = new Person(Console.ReadLine(), Convert.ToInt32(Console.ReadLine()));
-            return person;
-       
+           var person = new Person("Jonas",25);
+           person.ShowPerson();
+           var student = new Person("John", 19, 1.85);
+            student.ShowPersonWithHeight();
+
+        }
     }
 }

@@ -6,9 +6,12 @@ namespace _4._Abstrakcijos
     {
         static void Main(string[] args)
         {
+            var vehicleList = new List<Vehicle>();
             FigureOfSquare();
             FigureOfTriangle();
             AnimalNoise();
+            TransportBrakingDistance(vehicleList);
+
         }
 
         static void FigureOfSquare()
@@ -35,6 +38,22 @@ namespace _4._Abstrakcijos
             dog.MakeNoise();
             Console.Write("Cat say: ");
             cat.MakeNoise();
+        }
+
+        static void TransportBrakingDistance(List<Vehicle> vehicleList)
+        {
+            var car = new Car(90,1500,3);
+            vehicleList.Add(car);
+            var truck = new Truck(70,30000,6);
+            vehicleList.Add(truck);
+            var bus = new Bus(80,10000,4);
+            vehicleList.Add(bus);
+            var carBrakingDistance = car.BrakingDistance();
+            var truckBrakingDistance = truck.BrakingDistance();
+            var busBrakingDistance = bus.BrakingDistance();
+            Console.WriteLine($"Car braking distance: {carBrakingDistance}\n" +
+                $"Truck braking distance: {truckBrakingDistance}\n" +
+                $"Bus brakin distance: {busBrakingDistance}");
         }
     }
 }
