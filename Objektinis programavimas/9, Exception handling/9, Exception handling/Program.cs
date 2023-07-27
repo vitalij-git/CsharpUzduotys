@@ -9,6 +9,7 @@
         }
         static void TryConvertToDouble()
         {
+            //1
             var number = "10a";
             try
             {
@@ -23,6 +24,7 @@
 
         static void TryArray()
         {
+            //2
             int[] arr = { 1, 2, 3, 4, 5 };
             for (int i = 0; i < arr.Length; i++)
             {
@@ -36,6 +38,7 @@
             {
                 Console.WriteLine(errorMessage.Message.ToString());     
             }
+            //3
             var result = 0;
             int[] arr1 = { 19, 0, 75, 52 };
             for(int i=0; i<arr1.Length; i++)
