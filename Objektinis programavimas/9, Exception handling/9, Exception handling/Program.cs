@@ -20,7 +20,7 @@ namespace _9__Exception_handling
             }
             catch (SystemException errorMessage) 
             {
-                Console.WriteLine(errorMessage.Message.ToString()); 
+                Console.WriteLine(errorMessage.Message); 
             }
 
         }
@@ -39,7 +39,7 @@ namespace _9__Exception_handling
             }
             catch (SystemException errorMessage)
             {
-                Console.WriteLine(errorMessage.Message.ToString());     
+                Console.WriteLine(errorMessage.Message);     
             }
             //3
             var result = 0;
@@ -52,18 +52,19 @@ namespace _9__Exception_handling
                 }
                 catch(DivideByZeroException errorMessage)
                 {
-                    Console.WriteLine(errorMessage.Message.ToString()); 
+                    Console.WriteLine(errorMessage.Message); 
                 }
                 catch ( SystemException errorMessage )
                 {
-                    Console.WriteLine(errorMessage.Message.ToString());
+                    Console.WriteLine(errorMessage.Message);
                 }
             }
         }
 
+        //4
         static void GetFile()
         {
-            var file = new ReadFile(@"C:\Users\Vitalis\Desktop\HashSet.txt");
+            var file = new ReadFile(@"C:\Users\Vitalis\Desktop\HashSet1.txt");
             file.TryReadFile();
 
         }

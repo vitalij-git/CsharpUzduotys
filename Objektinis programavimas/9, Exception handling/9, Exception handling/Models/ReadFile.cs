@@ -29,11 +29,11 @@ namespace _9__Exception_handling.Models
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine("The file or directory cannot be found.");
+                Console.WriteLine("The file  cannot be found.");
             }
             catch (DirectoryNotFoundException)
             {
-                Console.WriteLine("The file or directory cannot be found.");
+                Console.WriteLine("The directory cannot be found.");
             }
             catch (DriveNotFoundException)
             {
