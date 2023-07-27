@@ -10,7 +10,9 @@ namespace _6._Generics
             //InputValidate();
             //ValidatesMoreOne();
             //GenericsMethod();
-            Types();
+            //Types();
+            GeometricFigures();
+            Console.ReadKey();
         }
         
         static void InputValidate()
@@ -49,6 +51,17 @@ namespace _6._Generics
             var types = new Type<int,string>();
             types.GetTypeOfFirstInput();
             types.GetTypeOfSecondInput();
+        }
+
+        static void GeometricFigures()
+        {
+            var figure = new FourSideGeometricFigure("figure1", 15, 25);
+            Generator<FourSideGeometricFigure>.Show(figure);
+        }
+
+        public void Sports()
+        {
+
         }
 
     }

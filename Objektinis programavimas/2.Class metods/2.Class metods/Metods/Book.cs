@@ -13,5 +13,6 @@ namespace _2.Class_metods.Metods
         public Book(string title) { 
             Title = title;
         }
+       
     }
 }

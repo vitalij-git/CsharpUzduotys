@@ -28,8 +28,10 @@ namespace _2.Class_metods.Metods
         { 
             foreach (var book in Books)
             {
-                Console.WriteLine(book.ToString() + " ");
+                Console.WriteLine(book + " ");
             }
         }
+
+       
     }
 } 
