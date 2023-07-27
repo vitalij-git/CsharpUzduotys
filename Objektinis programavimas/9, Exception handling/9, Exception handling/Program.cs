@@ -1,11 +1,14 @@
-﻿namespace _9__Exception_handling
+﻿using _9__Exception_handling.Models;
+
+namespace _9__Exception_handling
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             //TryConvertToDouble();
-            TryArray();
+            //TryArray();
+            GetFile();
         }
         static void TryConvertToDouble()
         {
@@ -56,6 +59,13 @@
                     Console.WriteLine(errorMessage.Message.ToString());
                 }
             }
+        }
+
+        static void GetFile()
+        {
+            var file = new ReadFile(@"C:\Users\Vitalis\Desktop\HashSet.txt");
+            file.TryReadFile();
+
         }
     }
 }
