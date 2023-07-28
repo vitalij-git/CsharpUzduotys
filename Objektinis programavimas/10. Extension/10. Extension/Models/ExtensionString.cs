@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace _10._Extension.Models
 {
-    internal class ExtensionString
+   public static class ExtensionString
     {
+        public static bool CheckSpaceInString(this string str)
+        {
+            if(str.Contains(" ")) return true; return false;
+        }
+
+        public static string BuildEmail(this string fullname, string yearOfBirth, string domain)
+        {
+            return fullname + yearOfBirth + domain;
+        }
     }
 }

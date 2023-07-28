@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace _10._Extension.Models
 {
-    internal class ExtensionList
+    public static class ExtensionList<T>
     {
+        //public static List<T> FindAndReturnIfEqualList() 
+        //{
+        //    return
+        //}
+
     }
 }
