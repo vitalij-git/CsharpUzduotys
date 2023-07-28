@@ -8,10 +8,10 @@ namespace _10._Extension.Models
 {
     public static class ExtensionList<T>
     {
-        //public static List<T> FindAndReturnIfEqualList() 
-        //{
-        //    return
-        //}
+        public static List<T> FindAndReturnIfEqualList() 
+        { 
+            return
+        }
 
     }
 }

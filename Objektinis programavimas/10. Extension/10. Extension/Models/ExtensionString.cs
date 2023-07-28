@@ -15,7 +15,7 @@ namespace _10._Extension.Models
 
         public static string BuildEmail(this string fullname, string yearOfBirth, string domain)
         {
-            return fullname + yearOfBirth + domain;
+            return fullname + yearOfBirth + "@" + domain;
         }
     }
 }
