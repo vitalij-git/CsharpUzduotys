@@ -35,31 +35,7 @@ namespace _9__Exception_handling.Models
             {
                 Console.WriteLine("The directory cannot be found.");
             }
-            catch (DriveNotFoundException)
-            {
-                Console.WriteLine("The drive specified in 'path' is invalid.");
-            }
-            catch (PathTooLongException)
-            {
-                Console.WriteLine("'path' exceeds the maximum supported path length.");
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Console.WriteLine("You do not have permission to create this file.");
-            }
-            catch (IOException e) when ((e.HResult & 0x0000FFFF) == 32)
-            {
-                Console.WriteLine("There is a sharing violation.");
-            }
-            catch (IOException e) when ((e.HResult & 0x0000FFFF) == 80)
-            {
-                Console.WriteLine("The file already exists.");
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine($"An exception occurred:\nError code: " +
-                                  $"{e.HResult & 0x0000FFFF}\nMessage: {e.Message}");
-            }
+
 
         }
     }
