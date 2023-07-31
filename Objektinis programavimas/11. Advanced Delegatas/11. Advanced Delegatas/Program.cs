@@ -40,8 +40,16 @@ namespace _11._Advanced_Delegatas
                 return IsChild(person);
             };
             DisplayPeople("Children", persons, isChild);
-            
-                
+            Filter isAdult = delegate (Person person)
+            {
+                return IsAdult(person);
+            };
+            DisplayPeople("Adult", persons, isAdult);
+            Filter isSenior = delegate (Person person)
+            {
+                return IsSenior(person);
+            };
+            DisplayPeople("Senior", persons, isSenior);
         }
 
         static string ShowPerson(string firstName, string lastName, int age) 
@@ -113,7 +121,7 @@ namespace _11._Advanced_Delegatas
         {
             foreach (var item in persons)
             {
-                Console.WriteLine(person(item)); 
+                Console.WriteLine(title + " " +item.Name + " " + person(item)); 
             }
             
         }
