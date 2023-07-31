@@ -27,6 +27,7 @@ namespace _11._Advanced_Delegatas
                 return $"Frist name is {firstName}, last name is {lastName} and age is {age}";
             };
             Console.WriteLine(human("Jonas","Jonaitis",13));
+            //3
             List<Person> persons = new List<Person>();
             var person = new Person("Simas", 25);
             persons.Add(person);
@@ -77,6 +78,7 @@ namespace _11._Advanced_Delegatas
             return typeof(T).ToString();
         }
 
+        //3
         static bool IsChild (Person person)
         {
             if (person.Age < 18)
@@ -86,6 +88,7 @@ namespace _11._Advanced_Delegatas
             return false;
         }
 
+        //3
         static bool IsAdult(Person person)
         {
             if (person.Age>=18 && person.Age < 65)
@@ -95,6 +98,7 @@ namespace _11._Advanced_Delegatas
             return false;
         }
         
+        //3
         static bool IsSenior(Person person)
         {
             if (person.Age >= 65)
@@ -104,6 +108,7 @@ namespace _11._Advanced_Delegatas
             return false;
         }   
 
+        //3
         static void DisplayPeople(string title, List<Person> persons, Filter person)
         {
             foreach (var item in persons)
