@@ -14,8 +14,18 @@ namespace _12.Linq_ir_Lambda
             Name = name;
         }
 
+        public Person(int age, string name)
+        {
+            Age = age;
+            Name = name;
+            
+        }
+
         public int Age { get; set; }
         public string Name { get; set; }
+        public List<Pet> Pets { get; set; } = new List<Pet>();
+
+       
     }
     
 }
