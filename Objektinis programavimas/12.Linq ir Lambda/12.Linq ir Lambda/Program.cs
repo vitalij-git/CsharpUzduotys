@@ -19,7 +19,7 @@ namespace _12.Linq_ir_Lambda
             var numbersPositiveAndNegative = new List<int>() { 2, 5, -2, -9, -5, 81, -69, -58, 58, 72, -14 };
             var onlyPositive = numbersPositiveAndNegative.Where(x => x > 0);
             //3
-            var numbersPositiveAndOver10 = numbersPositiveAndNegative.Where((x) => x > 0 && x <10);
+            var numbersPositiveAndLess10 = numbersPositiveAndNegative.Where((x) => x > 0 && x <10);
             //4
             var numbersOrderBy = numbersPositiveAndNegative.OrderBy(x => x);  
             //5
