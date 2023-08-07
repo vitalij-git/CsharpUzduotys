@@ -85,7 +85,8 @@ namespace _12.Linq_ir_Lambda
             var listOfPetsMany = persons.SelectMany(x => x.Pets);
 
             var listOfPetsWhereStartFromA = persons.SelectMany(x => x.Pets).Select(x => x.Name).Where(x => x.StartsWith("A"));
-            var listOfPetsWhereStartFromAAndOver5Age = persons.SelectMany(x => x.Pets).Where(x => x.Age > 5).Select(x => x.Name).Where(x => x.StartsWith("A"));
+            var listOfPetsWhereStartFromAAndOver5Age = persons.SelectMany(x => x.Pets).Where(x => x.Age > 5 && x.Name.StartsWith("A"));
+
         }
     }
 }
