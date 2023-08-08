@@ -57,7 +57,7 @@ namespace Bankomatas.Models
         public void DepositMoney(int money)
         {
              AmountOfMoney += money;
-            Console.WriteLine($"Sekmingai pridejote pinigus");
+            Console.WriteLine("Sekmingai pridejote pinigus ");
         }
     }
 }

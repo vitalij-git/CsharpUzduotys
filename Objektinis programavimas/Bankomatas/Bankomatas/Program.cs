@@ -41,7 +41,7 @@ namespace Bankomatas
 
         static void Menu()
         {
-            Console.WriteLine("Meniu:" +
+            Console.WriteLine("\nMeniu:" +
                 "\n1 - Balansas" +
                 "\n2 - Pinigų išsiėmimas" +
                 "\n3 - Pinigų įnešimas" +
@@ -52,7 +52,7 @@ namespace Bankomatas
 
         static void SecondMenu()
         {
-            Console.WriteLine("Pasirinkimas:" +
+            Console.WriteLine("\nPasirinkimas:" +
                 "\n1 - Grįžti į menių" +
                 "\n2 - Atsijungti ir išeiti");
         }
@@ -124,7 +124,7 @@ namespace Bankomatas
 
         static void PinChange(User user)
         {
-            Console.WriteLine("Iveskite sena pin koda");
+            Console.WriteLine("\nIveskite sena pin koda");
             var userPin = Console.ReadLine();
             if (int.TryParse(userPin, out int userPinChecked))
             {
@@ -143,7 +143,7 @@ namespace Bankomatas
 
         static void CashWithrawal(User user)
         {
-            Console.WriteLine("Parasykite norima suma:");
+            Console.WriteLine("\nParasykite norima suma:");
             var cashUserSum = Console.ReadLine();
             if (int.TryParse(cashUserSum, out int cashUserSumChecked))
             {
@@ -153,14 +153,6 @@ namespace Bankomatas
                     {
                         Console.WriteLine("Operacija Sekmingai atlikta, paimkite pinigus");
                     }
-                    else
-                    {
-                        Console.WriteLine("Ivyko klaida");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Ivyko klaida");
                 }
             }
             else
