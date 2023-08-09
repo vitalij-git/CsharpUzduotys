@@ -49,7 +49,7 @@ namespace _18._YieldAndIEnumerable.Models
             {
                 foreach(var person in Peoples)
                 {
-                    streamWriter.WriteLine($"{person.Name},     {person.Surname},{person.Age}");
+                    streamWriter.WriteLine($"{person.Name.Trim()},     {person.Surname.Trim()},{person.Age}");
                 }
             }
         }

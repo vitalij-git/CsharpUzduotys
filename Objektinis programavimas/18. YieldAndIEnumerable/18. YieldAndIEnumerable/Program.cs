@@ -57,12 +57,12 @@ namespace _18._YieldAndIEnumerable
         static void ListOfPeoples()
         {
             var listOfPeoples = new PeopleCollection("PeopleList.txt");
-            listOfPeoples.AddPerson("Name","Surname",16);
+            listOfPeoples.AddPerson("simas","simaus",16);
             listOfPeoples.AddPerson("Vardas", "Pavarde", 28);
             listOfPeoples.WriterToFile();
             foreach(var people in listOfPeoples)
             {
-                Console.WriteLine($"Name is {people.Name} urname is {people.Surname} age is {people.Age}");
+                Console.WriteLine($"Name is {people.Name} surname is {people.Surname} age is {people.Age}");
             }
         }
     }
