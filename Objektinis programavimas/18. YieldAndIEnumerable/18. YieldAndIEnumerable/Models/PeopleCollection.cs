@@ -34,8 +34,8 @@ namespace _18._YieldAndIEnumerable.Models
                     {
                         yield return new Person()
                         {
-                            Name = parts[0].Trim(),
-                            Surname = parts[1].Trim(),
+                            Name = parts[0],
+                            Surname = parts[1],
                             Age = int.Parse(parts[2])
                         };
                     }
@@ -49,7 +49,7 @@ namespace _18._YieldAndIEnumerable.Models
             {
                 foreach(var person in Peoples)
                 {
-                    streamWriter.WriteLine($"{person.Name.Trim()},     {person.Surname.Trim()},{person.Age}");
+                    streamWriter.WriteLine($"{person.Name.Trim()},{person.Surname.Trim()},{person.Age}");
                 }
             }
         }
