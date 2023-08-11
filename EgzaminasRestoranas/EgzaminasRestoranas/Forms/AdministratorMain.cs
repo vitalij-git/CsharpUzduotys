@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace EgzaminasRestoranas.Forms
 {
-    public partial class AdministratorMain : Form
+    public partial class TableReservation : Form
     {
         public string WorkerFullName { get; set; }
         public string WorkerRole { get; set; }
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
-        public AdministratorMain()
+        public TableReservation()
         {
             InitializeComponent();
         }
@@ -34,6 +34,26 @@ namespace EgzaminasRestoranas.Forms
         private void workerName_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Sėkmingai atsijungėte");
+            this.Hide();
+            WorkerLogin login = new WorkerLogin();
+            login.Show();
+        }
+
+        private void AddNewWorker_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AddWorker addWorker = new AddWorker();
+            addWorker.Show();
         }
     }
 }

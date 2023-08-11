@@ -48,7 +48,7 @@ namespace EgzaminasRestoranas.Forms
                     SqlConnection.Close();
                     if (workerRole == "Administratorius")
                     {
-                        AdministratorMain administrator = new AdministratorMain();
+                        TableReservation administrator = new TableReservation();
                         administrator.WorkerFullName = workerFullName;
                         administrator.WorkerRole = workerRole;
                         this.Hide();

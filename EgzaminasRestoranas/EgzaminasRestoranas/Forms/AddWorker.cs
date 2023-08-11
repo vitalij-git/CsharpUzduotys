@@ -103,7 +103,7 @@ namespace EgzaminasRestoranas.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AdministratorMain adminMain = new AdministratorMain();
+            TableReservation adminMain = new TableReservation();
             adminMain.ShowDialog();
         }
     }
