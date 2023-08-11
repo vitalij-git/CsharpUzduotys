@@ -160,7 +160,7 @@ namespace _18._YieldAndIEnumerable
         static void Library()
         {
             var library = new Library();
-            var book = new Book("dangus", 456, "Tomas", "0-5607-6691-2");
+            var book = new Book("Saule", 556, "Tomas", "0-5607-8791-2");
             //library.AddBook(book);
             //library.ReadFromDataBase();
             //library.GetBooksByNameOrByAuthor("Name", "Pasaulis");

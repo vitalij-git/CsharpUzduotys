@@ -15,7 +15,6 @@ namespace _19._Async_Await_programming
             {
                 Task finishedTask = await Task.WhenAny(progressBarTask);
                 await finishedTask;
-
             }
         }
 
