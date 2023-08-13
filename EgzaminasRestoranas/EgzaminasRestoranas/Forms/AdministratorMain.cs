@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace EgzaminasRestoranas.Forms
 {
-    public partial class TableReservation : Form
+    public partial class AdministratorMain : Form
     {
         public string WorkerFullName { get; set; }
         public string WorkerRole { get; set; }
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
-        public TableReservation()
+        public AdministratorMain()
         {
             InitializeComponent();
         }
@@ -53,6 +53,8 @@ namespace EgzaminasRestoranas.Forms
         {
             this.Hide();
             AddWorker addWorker = new AddWorker();
+            addWorker.WorkerFullName = WorkerFullName; 
+            addWorker.WorkerRole = WorkerRole;  
             addWorker.Show();
         }
     }

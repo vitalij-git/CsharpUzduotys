@@ -64,6 +64,24 @@
     <Compile Include="Forms\AdministratorMain.Designer.cs">
       <DependentUpon>AdministratorMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dialog.Designer.cs">
+      <DependentUpon>Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Tables.Designer.cs">
+      <DependentUpon>Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WaiterMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WaiterMain.Designer.cs">
+      <DependentUpon>WaiterMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WorkerLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +96,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdministratorMain.resx">
       <DependentUpon>AdministratorMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dialog.resx">
+      <DependentUpon>Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Tables.resx">
+      <DependentUpon>Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WaiterMain.resx">
+      <DependentUpon>WaiterMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkerLogin.resx">
       <DependentUpon>WorkerLogin.cs</DependentUpon>

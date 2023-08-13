@@ -17,7 +17,7 @@ namespace EgzaminasRestoranas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorkerLogin());
+            Application.Run(new Tables());
         }
     }
 }

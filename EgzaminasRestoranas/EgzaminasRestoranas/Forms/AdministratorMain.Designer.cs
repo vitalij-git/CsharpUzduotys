@@ -1,6 +1,6 @@
 ﻿namespace EgzaminasRestoranas.Forms
 {
-    partial class TableReservation
+    partial class AdministratorMain
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.workerName = new System.Windows.Forms.Label();
             this.workerRole = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.reservation = new System.Windows.Forms.Button();
             this.AddNewWorker = new System.Windows.Forms.Button();
             this.ShowWorkers = new System.Windows.Forms.Button();
             this.Statisctics = new System.Windows.Forms.Button();
@@ -59,16 +59,16 @@
             this.workerRole.TabIndex = 3;
             this.workerRole.Text = "Pareigos";
             // 
-            // button1
+            // reservation
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(56, 315);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 53);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Rezervuoti staliuka";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.reservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reservation.Location = new System.Drawing.Point(56, 315);
+            this.reservation.Name = "reservation";
+            this.reservation.Size = new System.Drawing.Size(160, 53);
+            this.reservation.TabIndex = 6;
+            this.reservation.Text = "Rezervuoti staliuka";
+            this.reservation.UseVisualStyleBackColor = true;
+            this.reservation.Click += new System.EventHandler(this.button1_Click);
             // 
             // AddNewWorker
             // 
@@ -132,7 +132,7 @@
             this.Controls.Add(this.Statisctics);
             this.Controls.Add(this.ShowWorkers);
             this.Controls.Add(this.AddNewWorker);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.reservation);
             this.Controls.Add(this.workerRole);
             this.Controls.Add(this.workerName);
             this.Name = "TableReservation";
@@ -147,7 +147,7 @@
 
         private System.Windows.Forms.Label workerName;
         private System.Windows.Forms.Label workerRole;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button reservation;
         private System.Windows.Forms.Button AddNewWorker;
         private System.Windows.Forms.Button ShowWorkers;
         private System.Windows.Forms.Button Statisctics;

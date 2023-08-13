@@ -24,7 +24,7 @@ namespace EgzaminasRestoranas.Forms
 
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -33,10 +33,7 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlCommand = new SqlCommand("Select count (*) as cnt from Workers where username=@username and password=@password", SqlConnection);
-                SqlCommand.Parameters.Clear();
-                SqlCommand.Parameters.Add("@username", username.Text);
-                SqlCommand.Parameters.Add("@password", password.Text);
+                CheckLogin();
                 SqlConnection.Open();
                 if (SqlCommand.ExecuteScalar().ToString() == "1")
                 {
@@ -47,16 +44,12 @@ namespace EgzaminasRestoranas.Forms
                     string workerRole = reader["Role"].ToString();
                     SqlConnection.Close();
                     if (workerRole == "Administratorius")
-                    {
-                        TableReservation administrator = new TableReservation();
-                        administrator.WorkerFullName = workerFullName;
-                        administrator.WorkerRole = workerRole;
-                        this.Hide();
-                        administrator.Show();
+                    { 
+                        AdministratorMain(workerFullName, workerRole);
                     }
                     else if (workerRole == "Padavejas")
                     {
-
+                        WaiterMain(workerFullName, workerRole);
                     }
                 }
                 else
@@ -64,13 +57,36 @@ namespace EgzaminasRestoranas.Forms
                     MessageBox.Show("blogai ivesti duomenys");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
         }
-
+        private void AdministratorMain(string workerFullName, string workerRole)
+        {
+            AdministratorMain administrator = new AdministratorMain();
+            administrator.WorkerFullName = workerFullName;
+            administrator.WorkerRole = workerRole;
+            this.Hide();
+            administrator.Show();
+        }
+        private void WaiterMain(string workerFullName, string workerRole)
+        {
+            WaiterMain waiterMain = new WaiterMain();
+            waiterMain.WorkerFullName = workerFullName;
+            waiterMain.WorkerRole = workerRole;
+            this.Hide();
+            waiterMain.Show();
+        }
+        private SqlCommand CheckLogin()
+        {
+            SqlCommand = new SqlCommand("Select count (*) as cnt from Workers where username=@username and password=@password", SqlConnection);
+            SqlCommand.Parameters.Clear();
+            SqlCommand.Parameters.Add("@username", username.Text);
+            SqlCommand.Parameters.Add("@password", password.Text);
+            return SqlCommand;  
+        }
         private void button2_Click(object sender, EventArgs e)
         {
 

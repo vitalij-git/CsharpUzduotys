@@ -14,6 +14,8 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddWorker : Form
     {
+        public string WorkerFullName { get; set; }
+        public string WorkerRole { get; set; }
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();   
@@ -80,6 +82,8 @@ namespace EgzaminasRestoranas.Forms
 
         private void AddWorker_Load(object sender, EventArgs e)
         {
+            workerName.Text = WorkerFullName;
+            workerRole.Text = WorkerRole;
             try
             {
                 SqlConnection = Connection.Connection();
@@ -103,7 +107,9 @@ namespace EgzaminasRestoranas.Forms
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            TableReservation adminMain = new TableReservation();
+            AdministratorMain adminMain = new AdministratorMain();
+            adminMain.WorkerFullName = workerName.Text;
+            adminMain.WorkerRole = workerRole.Text; 
             adminMain.ShowDialog();
         }
     }
