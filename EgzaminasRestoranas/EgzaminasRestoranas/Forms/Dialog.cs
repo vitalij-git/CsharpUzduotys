@@ -55,7 +55,6 @@ namespace EgzaminasRestoranas.Forms
             {
                 
             }
-           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,9 +70,10 @@ namespace EgzaminasRestoranas.Forms
             }
             else if( button1.Text == "Papildyti")
             {
-
+                CLientOrder clientOrder = new CLientOrder();
+                this.Hide();
+                clientOrder.Show();
             }
-
         }
 
         private void ChangeStatus()

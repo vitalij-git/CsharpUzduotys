@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddWorker : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
+        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();   
         public AddWorker()
@@ -34,7 +34,7 @@ namespace EgzaminasRestoranas.Forms
 
                 if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRole.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
                 {
-                    SqlConnection = Connection.Connection();
+                    SqlConnection = ConnectionToDatabase.Connection();
                     SqlConnection.Open();
                     //SqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = workerUsername.Text;
                     SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
@@ -83,7 +83,7 @@ namespace EgzaminasRestoranas.Forms
             ShowWorkerStatus();
             try
             {
-                SqlConnection = Connection.Connection();
+                SqlConnection = ConnectionToDatabase.Connection();
                 SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select ID,Name from WorkerRoles", SqlConnection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
