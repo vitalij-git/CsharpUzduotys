@@ -36,8 +36,8 @@ namespace EgzaminasRestoranas.Forms
                 {
                     SqlConnection = Connection.Connection();
                     SqlConnection.Open();
-                    SqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = workerUsername.Text;
-                    SqlCommand.CommandText = "Select * From Workers where Username = @username";
+                    //SqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = workerUsername.Text;
+                    SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
                     SqlCommand.Connection = SqlConnection;
                     SqlDataReader reader = null;
                     reader = SqlCommand.ExecuteReader();

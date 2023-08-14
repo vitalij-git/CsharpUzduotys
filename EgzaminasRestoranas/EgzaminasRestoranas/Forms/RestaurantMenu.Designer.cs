@@ -31,6 +31,8 @@
             this.Back = new System.Windows.Forms.Button();
             this.workerRole = new System.Windows.Forms.Label();
             this.workerName = new System.Windows.Forms.Label();
+            this.addDrink = new System.Windows.Forms.Button();
+            this.addFood = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Back
@@ -64,11 +66,35 @@
             this.workerName.TabIndex = 19;
             this.workerName.Text = "Vardas Pavarde";
             // 
+            // addDrink
+            // 
+            this.addDrink.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addDrink.Location = new System.Drawing.Point(526, 352);
+            this.addDrink.Name = "addDrink";
+            this.addDrink.Size = new System.Drawing.Size(149, 52);
+            this.addDrink.TabIndex = 21;
+            this.addDrink.Text = "Papildydi gerimo meniu";
+            this.addDrink.UseVisualStyleBackColor = true;
+            this.addDrink.Click += new System.EventHandler(this.addDrink_Click);
+            // 
+            // addFood
+            // 
+            this.addFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addFood.Location = new System.Drawing.Point(105, 352);
+            this.addFood.Name = "addFood";
+            this.addFood.Size = new System.Drawing.Size(157, 52);
+            this.addFood.TabIndex = 22;
+            this.addFood.Text = "Papildyti patiekalo meniu";
+            this.addFood.UseVisualStyleBackColor = true;
+            this.addFood.Click += new System.EventHandler(this.addFood_Click);
+            // 
             // RestaurantMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(776, 436);
+            this.Controls.Add(this.addFood);
+            this.Controls.Add(this.addDrink);
             this.Controls.Add(this.workerRole);
             this.Controls.Add(this.workerName);
             this.Controls.Add(this.Back);
@@ -85,5 +111,7 @@
         private System.Windows.Forms.Button Back;
         private System.Windows.Forms.Label workerRole;
         private System.Windows.Forms.Label workerName;
+        private System.Windows.Forms.Button addDrink;
+        private System.Windows.Forms.Button addFood;
     }
 }
