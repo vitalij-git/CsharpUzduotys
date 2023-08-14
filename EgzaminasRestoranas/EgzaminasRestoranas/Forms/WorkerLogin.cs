@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,13 +44,14 @@ namespace EgzaminasRestoranas.Forms
                     string workerFullName = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
                     string workerRole = reader["Role"].ToString();
                     SqlConnection.Close();
+                    WriteUserStatus(workerFullName, workerRole);
                     if (workerRole == "Administratorius")
-                    { 
-                        AdministratorMain(workerFullName, workerRole);
+                    {
+                        AdministratorMain();
                     }
                     else if (workerRole == "Padavejas")
                     {
-                        WaiterMain(workerFullName, workerRole);
+                        WaiterMain();
                     }
                 }
                 else
@@ -63,19 +65,23 @@ namespace EgzaminasRestoranas.Forms
             }
 
         }
-        private void AdministratorMain(string workerFullName, string workerRole)
+        private void WriteUserStatus(string workerFullName, string workerRole)
+        {
+            string filePath = @"C:\\Users\\Vitalis\\Desktop\\Programavimo darbai\\EgzaminasRestoranas\\EgzaminasRestoranas\\bin\\Debug\\UserStatus.txt";
+            using( var streamWriter = new StreamWriter(filePath))
+            {
+                streamWriter.WriteLine($"{workerFullName},{workerRole}");
+            }
+        }
+        private void AdministratorMain()
         {
             AdministratorMain administrator = new AdministratorMain();
-            administrator.WorkerFullName = workerFullName;
-            administrator.WorkerRole = workerRole;
             this.Hide();
             administrator.Show();
         }
-        private void WaiterMain(string workerFullName, string workerRole)
+        private void WaiterMain()
         {
             WaiterMain waiterMain = new WaiterMain();
-            waiterMain.WorkerFullName = workerFullName;
-            waiterMain.WorkerRole = workerRole;
             this.Hide();
             waiterMain.Show();
         }

@@ -64,6 +64,7 @@
             this.ShowMenu.TabIndex = 15;
             this.ShowMenu.Text = "Pėržiuti meniu";
             this.ShowMenu.UseVisualStyleBackColor = true;
+            this.ShowMenu.Click += new System.EventHandler(this.ShowMenu_Click);
             // 
             // Tables
             // 

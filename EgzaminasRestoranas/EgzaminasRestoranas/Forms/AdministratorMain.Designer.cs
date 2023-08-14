@@ -30,7 +30,6 @@
         {
             this.workerName = new System.Windows.Forms.Label();
             this.workerRole = new System.Windows.Forms.Label();
-            this.reservation = new System.Windows.Forms.Button();
             this.AddNewWorker = new System.Windows.Forms.Button();
             this.ShowWorkers = new System.Windows.Forms.Button();
             this.Statisctics = new System.Windows.Forms.Button();
@@ -58,17 +57,6 @@
             this.workerRole.Size = new System.Drawing.Size(71, 20);
             this.workerRole.TabIndex = 3;
             this.workerRole.Text = "Pareigos";
-            // 
-            // reservation
-            // 
-            this.reservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reservation.Location = new System.Drawing.Point(56, 315);
-            this.reservation.Name = "reservation";
-            this.reservation.Size = new System.Drawing.Size(160, 53);
-            this.reservation.TabIndex = 6;
-            this.reservation.Text = "Rezervuoti staliuka";
-            this.reservation.UseVisualStyleBackColor = true;
-            this.reservation.Click += new System.EventHandler(this.button1_Click);
             // 
             // AddNewWorker
             // 
@@ -110,6 +98,7 @@
             this.ShowMenu.TabIndex = 10;
             this.ShowMenu.Text = "Pėržiuti meniu";
             this.ShowMenu.UseVisualStyleBackColor = true;
+            this.ShowMenu.Click += new System.EventHandler(this.ShowMenu_Click);
             // 
             // Logout
             // 
@@ -122,7 +111,7 @@
             this.Logout.UseVisualStyleBackColor = true;
             this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
-            // TableReservation
+            // AdministratorMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,10 +121,9 @@
             this.Controls.Add(this.Statisctics);
             this.Controls.Add(this.ShowWorkers);
             this.Controls.Add(this.AddNewWorker);
-            this.Controls.Add(this.reservation);
             this.Controls.Add(this.workerRole);
             this.Controls.Add(this.workerName);
-            this.Name = "TableReservation";
+            this.Name = "AdministratorMain";
             this.Text = "AdministratorMain";
             this.Load += new System.EventHandler(this.AdministratorMain_Load);
             this.ResumeLayout(false);
@@ -147,7 +135,6 @@
 
         private System.Windows.Forms.Label workerName;
         private System.Windows.Forms.Label workerRole;
-        private System.Windows.Forms.Button reservation;
         private System.Windows.Forms.Button AddNewWorker;
         private System.Windows.Forms.Button ShowWorkers;
         private System.Windows.Forms.Button Statisctics;

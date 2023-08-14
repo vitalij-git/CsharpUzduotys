@@ -43,7 +43,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.workerRole = new System.Windows.Forms.ComboBox();
             this.Back = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
+            this.workerRoleStatus = new System.Windows.Forms.Label();
             this.workerName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -189,15 +189,15 @@
             this.Back.UseVisualStyleBackColor = true;
             this.Back.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label8
+            // workerRoleStatus
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(644, 48);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(71, 20);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Pareigos";
+            this.workerRoleStatus.AutoSize = true;
+            this.workerRoleStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.workerRoleStatus.Location = new System.Drawing.Point(644, 48);
+            this.workerRoleStatus.Name = "workerRoleStatus";
+            this.workerRoleStatus.Size = new System.Drawing.Size(71, 20);
+            this.workerRoleStatus.TabIndex = 18;
+            this.workerRoleStatus.Text = "Pareigos";
             // 
             // workerName
             // 
@@ -214,7 +214,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.workerRoleStatus);
             this.Controls.Add(this.workerName);
             this.Controls.Add(this.Back);
             this.Controls.Add(this.workerRole);
@@ -256,7 +256,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox workerRole;
         private System.Windows.Forms.Button Back;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label workerRoleStatus;
         private System.Windows.Forms.Label workerName;
     }
 }

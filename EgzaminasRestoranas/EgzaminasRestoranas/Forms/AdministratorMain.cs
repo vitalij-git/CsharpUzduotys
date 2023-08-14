@@ -14,8 +14,6 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AdministratorMain : Form
     {
-        public string WorkerFullName { get; set; }
-        public string WorkerRole { get; set; }
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
@@ -26,9 +24,7 @@ namespace EgzaminasRestoranas.Forms
 
         private void AdministratorMain_Load(object sender, EventArgs e)
         {
-            workerName.Text = WorkerFullName;
-            workerRole.Text = WorkerRole;
-
+           ShowWorkerStatus();
         }
 
         private void workerName_Click(object sender, EventArgs e)
@@ -52,10 +48,22 @@ namespace EgzaminasRestoranas.Forms
         private void AddNewWorker_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AddWorker addWorker = new AddWorker();
-            addWorker.WorkerFullName = WorkerFullName; 
-            addWorker.WorkerRole = WorkerRole;  
+            AddWorker addWorker = new AddWorker(); 
             addWorker.Show();
+        }
+        public void ShowWorkerStatus()
+        {
+            var workerStatus = new WorkerStatus();
+            List<string> userStatusList = workerStatus.GetWorkerStatus();
+            workerName.Text = userStatusList[0];
+            workerRole.Text = userStatusList[1];
+        }
+
+        private void ShowMenu_Click(object sender, EventArgs e)
+        {
+            RestaurantMenu menu = new RestaurantMenu();
+            this.Hide();
+            menu.Show();
         }
     }
 }

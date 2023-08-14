@@ -14,8 +14,6 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class Tables : Form
     {
-        public string WorkerFullName { get; set; }
-        public string WorkerRole { get; set; }
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
@@ -31,16 +29,13 @@ namespace EgzaminasRestoranas.Forms
         {
             
             WaiterMain waiterMain = new WaiterMain();
-            waiterMain.WorkerFullName = WorkerFullName;
-            waiterMain.WorkerRole = WorkerRole; 
             this.Hide();
             waiterMain.Show();
         }
 
         private void Tables_Load(object sender, EventArgs e)
         {
-            workerName.Text = WorkerFullName;
-            workerRole.Text = WorkerRole;
+            ShowWorkerStatus();
             try
             {
                 SqlConnection = Connection.Connection();
@@ -172,6 +167,13 @@ namespace EgzaminasRestoranas.Forms
                 Dialog dialog = new Dialog("Pasirinkite norima veiksma", "Rezervuoti", "Pasodinti klientus", tableID);
                 dialog.ShowDialog();
             }
+        }
+        public void ShowWorkerStatus()
+        {
+            var workerStatus = new WorkerStatus();
+            List<string> userStatusList = workerStatus.GetWorkerStatus();
+            workerName.Text = userStatusList[0];
+            workerRole.Text = userStatusList[1];
         }
     }
 }
