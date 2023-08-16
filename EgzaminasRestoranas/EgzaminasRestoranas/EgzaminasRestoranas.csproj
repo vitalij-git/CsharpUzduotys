@@ -113,6 +113,7 @@
       <DependentUpon>Workers.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ConnectToDatabase.cs" />
+    <Compile Include="Models\ReadTableId.cs" />
     <Compile Include="Models\WorkerStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

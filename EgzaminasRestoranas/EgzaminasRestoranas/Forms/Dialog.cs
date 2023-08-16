@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace EgzaminasRestoranas.Forms
 {
@@ -18,19 +19,19 @@ namespace EgzaminasRestoranas.Forms
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
-        private int TableId { get; set; }
+        ReadTableId TableId = new ReadTableId();
         private string Status;
         public Dialog()
         {
             
         }
-        public Dialog(string message, string buttonText1, string buttonText2, int tableId)
+        public Dialog(string message, string buttonText1, string buttonText2)
         {
             InitializeComponent();
             labelText.Text = message;
             button1.Text = buttonText1;
             button2.Text = buttonText2;
-            TableId = tableId;
+           
            
         }
 
@@ -43,8 +44,7 @@ namespace EgzaminasRestoranas.Forms
             }
             else if ( button2.Text == "Atlaisvinti")
             {
-                Status = "Laisvas";
-                ChangeStatus();
+                CheckOrderTableStatus();   
             }
             else if (button2.Text == "Pasodinti klientus")
             {
@@ -82,7 +82,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableId}", SqlConnection);
+                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableId.ReadTableFromFile()}", SqlConnection);
                 if (SqlCommand.ExecuteNonQuery() > 0)
                 {
                     MessageBox.Show("Staliuko statusas atnaujintas");
@@ -94,6 +94,33 @@ namespace EgzaminasRestoranas.Forms
                 MessageBox.Show(ex.Message);
             }
             this.Close();
+        }
+
+        private void CheckOrderTableStatus()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                SqlCommand = new SqlCommand("Select *  from ClientOrder where TableID=@tableid", SqlConnection);
+                SqlCommand.Parameters.Add("@tableid", TableId.ReadTableFromFile());
+                object obj = SqlCommand.ExecuteScalar();    
+                if (Convert.ToInt32(obj) > 0)
+                {
+                    MessageBox.Show("Stalas turi neapmokėtą užsakymą.");
+                }
+                else
+                {
+                    Status = "Laisvas";
+                    ChangeStatus();
+                }
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    
+            }
+           
         }
     }
 }

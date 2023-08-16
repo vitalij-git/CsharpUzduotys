@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace EgzaminasRestoranas.Forms
         SqlCommand SqlCommand = new SqlCommand();
         private List<string> SeatsCountList = new List<string>();
         private List<string> StatusList = new List<string>();
-        private List<int> TablesIdList = new List<int>();   
+        private List<int> TablesIdList = new List<int>();
+        private string CurrentTableStatus;
         public Tables()
         {
             InitializeComponent();
@@ -36,25 +38,7 @@ namespace EgzaminasRestoranas.Forms
         private void Tables_Load(object sender, EventArgs e)
         {
             ShowWorkerStatus();
-            try
-            {
-                SqlConnection = Connection.Connection();
-                SqlConnection.Open();
-                SqlCommand = new SqlCommand("Select * from RestaurantTables", SqlConnection);
-                SqlDataReader reader = SqlCommand.ExecuteReader();
-                while (reader.Read())
-                {
-                   SeatsCountList.Add(reader.GetInt32(1).ToString());
-                   StatusList.Add(reader.GetString(2));    
-                }
-                SetTableSeatsField();
-                SetTableStatusField();
-                SqlConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            GetRestaurantTablesData();
         }
 
         private void SetTableSeatsField()
@@ -91,80 +75,104 @@ namespace EgzaminasRestoranas.Forms
 
         private void Table1_Click(object sender, EventArgs e)
         {
-            TableClick(1);
+            CurrentTableStatus = StatusList[0];
+            StreamWriterChosenTableID(TablesIdList[0]);
+            TableClick(CurrentTableStatus);
         }
     
         private void Table2_Click(object sender, EventArgs e)
         {
-            TableClick(2);
+            CurrentTableStatus = StatusList[1];
+            StreamWriterChosenTableID(TablesIdList[1]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table3_Click(object sender, EventArgs e)
         {
-            TableClick(3);
+            CurrentTableStatus = StatusList[2];
+            StreamWriterChosenTableID(TablesIdList[2]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table4_Click(object sender, EventArgs e)
         {
-            TableClick(4);
+            CurrentTableStatus = StatusList[3];
+            StreamWriterChosenTableID(TablesIdList[3]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table5_Click(object sender, EventArgs e)
         {
-            TableClick(5);
+            CurrentTableStatus = StatusList[4];
+            StreamWriterChosenTableID(TablesIdList[4]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table6_Click(object sender, EventArgs e)
         {
-            TableClick(6);
+            CurrentTableStatus = StatusList[5];
+            StreamWriterChosenTableID(TablesIdList[5]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table7_Click(object sender, EventArgs e)
         {
-            TableClick(7);
+            CurrentTableStatus = StatusList[6];
+            StreamWriterChosenTableID(TablesIdList[6]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table8_Click(object sender, EventArgs e)
         {
-            TableClick(8);
+            CurrentTableStatus = StatusList[7];
+            StreamWriterChosenTableID(TablesIdList[7]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table9_Click(object sender, EventArgs e)
         {
-            TableClick(9);
+            CurrentTableStatus = StatusList[8];
+            StreamWriterChosenTableID(TablesIdList[8]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table10_Click(object sender, EventArgs e)
         {
-            TableClick(10);
+            CurrentTableStatus = StatusList[9];
+            StreamWriterChosenTableID(TablesIdList[9]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table11_Click(object sender, EventArgs e)
         {
-            TableClick(11);
+            CurrentTableStatus = StatusList[10];
+            StreamWriterChosenTableID(TablesIdList[10]);
+            TableClick(CurrentTableStatus);
         }
 
         private void Table12_Click(object sender, EventArgs e)
         {
-            TableClick(12);
+            CurrentTableStatus = StatusList[11];
+            StreamWriterChosenTableID(TablesIdList[11]);
+            TableClick(CurrentTableStatus);
         }
 
-        private void TableClick(int tableID)
+        private void TableClick(string currentTableStatus)
         {
-            if (Status2.Text == "Užimtas")
+            if (currentTableStatus == "Užimtas")
             {
-                Dialog dialog = new Dialog("Šitas staliukas užimtas, pasirinkite norima veiksma", "Papildyti", "Atlaisvinti", tableID);
+                Dialog dialog = new Dialog("Šitas staliukas užimtas, pasirinkite norima veiksma", "Papildyti", "Atlaisvinti");
                 dialog.ShowDialog();
 
             }
-            else if (Status2.Text == "Rezervuotas")
+            else if (currentTableStatus == "Rezervuotas")
             {
-                Dialog dialog = new Dialog("Šitas staliukas rezervuotas, pasirinkite norima veiksma", "Grįžti", "Atšaukti rezervacija", tableID);
+                Dialog dialog = new Dialog("Šitas staliukas rezervuotas, pasirinkite norima veiksma", "Grįžti", "Atšaukti rezervacija");
                 dialog.ShowDialog();
             }
             else
             {
-                Dialog dialog = new Dialog("Pasirinkite norima veiksma", "Rezervuoti", "Pasodinti klientus", tableID);
+                Dialog dialog = new Dialog("Pasirinkite norima veiksma", "Rezervuoti", "Pasodinti klientus");
                 dialog.ShowDialog();
             }
         }
@@ -174,6 +182,40 @@ namespace EgzaminasRestoranas.Forms
             List<string> userStatusList = workerStatus.GetWorkerStatus();
             workerName.Text = userStatusList[0];
             workerRole.Text = userStatusList[1];
+        }
+        
+        private void StreamWriterChosenTableID(int chosenTableId)
+        {
+            string filePath = @"C:\Users\Vitalis\Desktop\Programavimo darbai\EgzaminasRestoranas\EgzaminasRestoranas\bin\Debug\ChosenTableID.txt";
+            using (var writer = new StreamWriter(filePath))
+            {
+                writer.WriteLine(chosenTableId);
+            }
+        }
+
+        private void GetRestaurantTablesData()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                SqlCommand = new SqlCommand("Select * from RestaurantTables", SqlConnection);
+                SqlDataReader reader = SqlCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TablesIdList.Add(reader.GetInt32(0));
+                    SeatsCountList.Add(reader.GetInt32(1).ToString());
+                    StatusList.Add(reader.GetString(2));
+                }
+                SetTableSeatsField();
+                SetTableStatusField();
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

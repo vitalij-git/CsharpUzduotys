@@ -93,6 +93,7 @@ namespace EgzaminasRestoranas.Forms
             SqlCommand.Parameters.Add("@password", password.Text);
             return SqlCommand;  
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
 

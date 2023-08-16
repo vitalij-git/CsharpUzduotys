@@ -81,6 +81,26 @@ namespace EgzaminasRestoranas.Forms
         private void AddWorker_Load(object sender, EventArgs e)
         {
             ShowWorkerStatus();
+            GetWorkerRole();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AdministratorMain adminMain = new AdministratorMain(); 
+            adminMain.ShowDialog();
+        }
+
+        public void ShowWorkerStatus()
+        {
+            var workerStatus = new WorkerStatus();
+            List<string> userStatusList = workerStatus.GetWorkerStatus();
+            workerName.Text = userStatusList[0];
+            workerRoleStatus.Text = userStatusList[1];
+        }
+
+        private void GetWorkerRole()
+        {
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
@@ -99,21 +119,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 MessageBox.Show(ex.Message);
             }
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            AdministratorMain adminMain = new AdministratorMain(); 
-            adminMain.ShowDialog();
-        }
-
-        public void ShowWorkerStatus()
-        {
-            var workerStatus = new WorkerStatus();
-            List<string> userStatusList = workerStatus.GetWorkerStatus();
-            workerName.Text = userStatusList[0];
-            workerRoleStatus.Text = userStatusList[1];
         }
     }
 }

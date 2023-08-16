@@ -38,43 +38,50 @@ namespace EgzaminasRestoranas.Forms
 
         private void addDish_Click(object sender, EventArgs e)
         {
-            try
-            {
                 if (dishName.Text != "" && dishPrice.Text != "")
                 {
-                    SqlConnection = Connection.Connection();
-                    SqlConnection.Open();
-                    double price = Convert.ToDouble(dishPrice.Text);
-                    string query = "Insert into DishMenu(Name,Price) Values(@dishName,@dishPrice)";
-                    using (SqlCommand = new SqlCommand(query, SqlConnection))
-                    {
-                        SqlCommand.Parameters.AddWithValue("@dishName", dishName.Text);
-                        SqlCommand.Parameters.AddWithValue("@dishPrice", price);
-                        SqlCommand.ExecuteNonQuery();
-                    }
-                    MessageBox.Show("Patiekalas sekmingai pridėtas");
-                    SqlConnection.Close();
-                    this.Hide();
-                    Menu.Show();
+                    AddDishToDatabase();
+                    BackMethod();
                 }
                 else
                 {
                     MessageBox.Show("Liko tuščių laukų");
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
         }
 
         private void Back_Click(object sender, EventArgs e)
+        {
+            BackMethod();
+        }
+
+        private void BackMethod()
         {
             this.Hide();
             Menu.Show();
         }
 
+        private void  AddDishToDatabase()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                double price = Convert.ToDouble(dishPrice.Text);
+                string query = "Insert into DishMenu(Name,Price) Values(@dishName,@dishPrice)";
+                using (SqlCommand = new SqlCommand(query, SqlConnection))
+                {
+                    SqlCommand.Parameters.AddWithValue("@dishName", dishName.Text);
+                    SqlCommand.Parameters.AddWithValue("@dishPrice", price);
+                    SqlCommand.ExecuteNonQuery();
+                }
+                MessageBox.Show("Patiekalas sekmingai pridėtas");
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void label3_Click(object sender, EventArgs e)
         {
 

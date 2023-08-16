@@ -17,6 +17,7 @@ namespace EgzaminasRestoranas.Forms
         ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
+        ReadTableId TableId = new ReadTableId();
         public CLientOrder()
         {
             InitializeComponent();
@@ -27,27 +28,8 @@ namespace EgzaminasRestoranas.Forms
             ShowWorkerStatus();
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();   
-                SqlConnection.Open();
-                SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
-                SqlDataAdapter dishAdapter = new SqlDataAdapter();
-                dishAdapter.SelectCommand = SqlCommand;
-                DataTable dishTable = new DataTable();
-                dishAdapter.Fill(dishTable);
-                comboBoxDish.DataSource = dishTable;
-                comboBoxDish.DisplayMember = "Name";
-                comboBoxDish.ValueMember = "Price";
-
-                SqlCommand = new SqlCommand("Select * from DrinkMenu", SqlConnection);
-                SqlDataAdapter drinkAdapter = new SqlDataAdapter();
-                drinkAdapter.SelectCommand = SqlCommand;
-                DataTable drinktTable = new DataTable();
-                drinkAdapter.Fill(drinktTable);
-                comboBoxDrink.DataSource = drinktTable; 
-                comboBoxDrink.DisplayMember = "Name";
-                comboBoxDrink.ValueMember = "Price";    
-                SqlConnection.Close();
-
+                GetDishFromDatabase();
+                GetDrinkFromDatabase();
             }
             catch (Exception ex)
             {
@@ -77,7 +59,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = ConnectionToDatabase.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price) Values('" + comboBoxDish.Text + "','" + comboBoxDish.ValueMember + "')", SqlConnection);
+                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price,TableID) Values('" + comboBoxDish.Text + "','" + comboBoxDish.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
                 MessageBox.Show($"Patiekalas {comboBoxDish.Text}, sekmingai pridėtas prie užsakymo");
@@ -95,7 +77,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = ConnectionToDatabase.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.ValueMember + "')", SqlConnection);
+                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
                 MessageBox.Show($"Patiekalas {comboBoxDrink.Text}, sekmingai pridėtas prie užsakymo");
@@ -104,6 +86,33 @@ namespace EgzaminasRestoranas.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void GetDishFromDatabase()
+        {
+            SqlConnection = ConnectionToDatabase.Connection();
+            SqlConnection.Open();
+            SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
+            SqlDataAdapter dishAdapter = new SqlDataAdapter();
+            dishAdapter.SelectCommand = SqlCommand;
+            DataTable dishTable = new DataTable();
+            dishAdapter.Fill(dishTable);
+            comboBoxDish.DataSource = dishTable;
+            comboBoxDish.DisplayMember = "Name";
+            comboBoxDish.ValueMember = "Price";
+        }
+
+        private void GetDrinkFromDatabase()
+        {
+            SqlCommand = new SqlCommand("Select * from DrinkMenu", SqlConnection);
+            SqlDataAdapter drinkAdapter = new SqlDataAdapter();
+            drinkAdapter.SelectCommand = SqlCommand;
+            DataTable drinkTable = new DataTable();
+            drinkAdapter.Fill(drinkTable);
+            comboBoxDrink.DataSource = drinkTable;
+            comboBoxDrink.DisplayMember = "Name";
+            comboBoxDrink.ValueMember = "Price";
+            SqlConnection.Close();
         }
     }
 }

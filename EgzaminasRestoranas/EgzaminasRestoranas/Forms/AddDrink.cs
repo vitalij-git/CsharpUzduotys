@@ -25,29 +25,15 @@ namespace EgzaminasRestoranas.Forms
 
         private void Back_Click(object sender, EventArgs e)
         {
-            
-            this.Hide();
-            Menu.Show();
+            BackMethod();
         }
 
         private void addDrinkToMenu_Click(object sender, EventArgs e)
         {
             if (drinkName.Text != "" && drinkPrice.Text!= "")
             {
-                SqlConnection = Connection.Connection();
-                SqlConnection.Open();
-                double price = Convert.ToDouble(drinkPrice.Text);
-                string query = "Insert into DrinkMenu(Name,Price) Values(@drinkName,@drinkPrice)";
-                using( SqlCommand = new SqlCommand(query, SqlConnection))
-                {
-                    SqlCommand.Parameters.AddWithValue("@drinkName", drinkName.Text);
-                    SqlCommand.Parameters.AddWithValue("@drinkPrice", price);
-                    SqlCommand.ExecuteNonQuery();
-                }
-                MessageBox.Show("Gerimas sekmingai pridėtas");
-                SqlConnection.Close();
-                this.Hide();
-                Menu.Show();
+                AddDrinkToDatabase();
+                BackMethod();
             }
             else
             {
@@ -65,6 +51,36 @@ namespace EgzaminasRestoranas.Forms
             List<string> userStatusList = workerStatus.GetWorkerStatus();
             workerName.Text = userStatusList[0];
             workerRole.Text = userStatusList[1];
+        }
+
+        private void BackMethod()
+        {
+            this.Hide();
+            Menu.Show();
+        }
+
+        private void AddDrinkToDatabase()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                double price = Convert.ToDouble(drinkPrice.Text);
+                string query = "Insert into DrinkMenu(Name,Price) Values(@drinkName,@drinkPrice)";
+                using (SqlCommand = new SqlCommand(query, SqlConnection))
+                {
+                    SqlCommand.Parameters.AddWithValue("@drinkName", drinkName.Text);
+                    SqlCommand.Parameters.AddWithValue("@drinkPrice", price);
+                    SqlCommand.ExecuteNonQuery();
+                }
+                MessageBox.Show("Gerimas sekmingai pridėtas");
+                SqlConnection.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+          
         }
     }
 }
