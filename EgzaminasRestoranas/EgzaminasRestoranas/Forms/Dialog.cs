@@ -19,7 +19,8 @@ namespace EgzaminasRestoranas.Forms
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
-        ReadTableId TableId = new ReadTableId();
+        ReadTableId TableIdAndSeats = new ReadTableId();
+        Tables tables = new Tables();
         private string Status;
         public Dialog()
         {
@@ -31,8 +32,7 @@ namespace EgzaminasRestoranas.Forms
             labelText.Text = message;
             button1.Text = buttonText1;
             button2.Text = buttonText2;
-           
-           
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -44,16 +44,18 @@ namespace EgzaminasRestoranas.Forms
             }
             else if ( button2.Text == "Atlaisvinti")
             {
-                CheckOrderTableStatus();   
+                CheckOrderTableStatus();
+                
             }
             else if (button2.Text == "Pasodinti klientus")
             {
                 Status = "Užimtas";
+                OrderBegin();
                 ChangeStatus();
             }
             else
             {
-                
+                MessageBox.Show("Įvyko klaida, prašome pabandyti dar karta");
             }
         }
 
@@ -61,12 +63,14 @@ namespace EgzaminasRestoranas.Forms
         {
             if(button1.Text == "Grįžti")
             {
-                this.Close();
+                this.Hide();
+                tables.Show();
             }
             else if (button1.Text == "Rezervuoti")
             {
                 Status = "Rezervuotas";
                 ChangeStatus();
+                
             }
             else if( button1.Text == "Papildyti")
             {
@@ -82,7 +86,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableIdAndSeats.ReadTableFromFile()}", SqlConnection);
                 if (SqlCommand.ExecuteNonQuery() > 0)
                 {
                     MessageBox.Show("Staliuko statusas atnaujintas");
@@ -93,7 +97,8 @@ namespace EgzaminasRestoranas.Forms
             {
                 MessageBox.Show(ex.Message);
             }
-            this.Close();
+            this.Hide();
+            tables.Show();
         }
 
         private void CheckOrderTableStatus()
@@ -103,14 +108,19 @@ namespace EgzaminasRestoranas.Forms
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select *  from ClientOrder where TableID=@tableid", SqlConnection);
-                SqlCommand.Parameters.Add("@tableid", TableId.ReadTableFromFile());
+                SqlCommand.Parameters.Add("@tableid", TableIdAndSeats.ReadTableFromFile());
                 object obj = SqlCommand.ExecuteScalar();    
                 if (Convert.ToInt32(obj) > 0)
                 {
                     MessageBox.Show("Stalas turi neapmokėtą užsakymą.");
+                    OrderEnd();
+                    PayMethod payMethod = new PayMethod();
+                    this.Hide();
+                    payMethod.Show();
                 }
                 else
                 {
+                    OrderEnd();
                     Status = "Laisvas";
                     ChangeStatus();
                 }
@@ -121,6 +131,44 @@ namespace EgzaminasRestoranas.Forms
                 MessageBox.Show(ex.Message);    
             }
            
+        }
+
+        private void OrderBegin()
+        {   
+            DateTime currentDateTime = DateTime.Now;
+            
+            try 
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();               
+                SqlCommand = new SqlCommand($"Insert into OrderInfo(TableID,StartDateTime) Values(@TableID,@DateTime)", SqlConnection);
+                SqlCommand.Parameters.AddWithValue("@TableID", TableIdAndSeats.ReadTableFromFile());
+                SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
+                SqlCommand.ExecuteNonQuery();
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            { 
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void OrderEnd()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                SqlCommand = new SqlCommand($"UPdate OrderInfo Set EndDateTime=@DateTime Where TableID={TableIdAndSeats.ReadTableFromFile()}", SqlConnection);
+                SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
+                SqlCommand.ExecuteNonQuery();
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

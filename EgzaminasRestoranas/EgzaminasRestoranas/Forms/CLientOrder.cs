@@ -48,9 +48,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void Back_Click(object sender, EventArgs e)
         {
-            WaiterMain waitermain = new WaiterMain();
+            Tables tables = new Tables();
             this.Hide();
-            waitermain.Show();  
+            tables.Show();  
         }
 
         private void AddDishToOrder_Click(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = ConnectionToDatabase.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
+                SqlCommand = new SqlCommand("Insert into ClientOrder(Name,Price,TableID) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
                 MessageBox.Show($"Patiekalas {comboBoxDrink.Text}, sekmingai pridėtas prie užsakymo");

@@ -9,7 +9,10 @@ namespace _17._Stream
         {
             // Easiest();
             //Normal();
-            Advanced();
+            //Advanced();
+            DateTime currentDateTime = DateTime.Now;
+
+            Console.WriteLine("Current Date and Time: " + currentDateTime);
         }
 
         static void Easiest()
