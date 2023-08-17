@@ -36,13 +36,15 @@
             this.Back = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.TextBox = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Print = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Card
             // 
             this.Card.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Card.Location = new System.Drawing.Point(517, 447);
+            this.Card.Location = new System.Drawing.Point(517, 512);
             this.Card.Name = "Card";
             this.Card.Size = new System.Drawing.Size(137, 43);
             this.Card.TabIndex = 35;
@@ -53,7 +55,7 @@
             // Cash
             // 
             this.Cash.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cash.Location = new System.Drawing.Point(55, 447);
+            this.Cash.Location = new System.Drawing.Point(55, 512);
             this.Cash.Name = "Cash";
             this.Cash.Size = new System.Drawing.Size(137, 43);
             this.Cash.TabIndex = 34;
@@ -65,7 +67,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(231, 458);
+            this.label1.Location = new System.Drawing.Point(231, 523);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(242, 20);
             this.label1.TabIndex = 33;
@@ -119,11 +121,34 @@
             this.TextBox.TabIndex = 0;
             this.TextBox.Text = "";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(47, 449);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(464, 20);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Paspauskite mygtuka spausdinti, kad atspausdinti restorano čeki";
+            // 
+            // Print
+            // 
+            this.Print.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Print.Location = new System.Drawing.Point(517, 438);
+            this.Print.Name = "Print";
+            this.Print.Size = new System.Drawing.Size(137, 43);
+            this.Print.TabIndex = 40;
+            this.Print.Text = "Spausdniti";
+            this.Print.UseVisualStyleBackColor = true;
+            this.Print.Click += new System.EventHandler(this.Print_Click);
+            // 
             // PayMethod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 502);
+            this.ClientSize = new System.Drawing.Size(733, 578);
+            this.Controls.Add(this.Print);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Card);
             this.Controls.Add(this.Cash);
@@ -150,5 +175,7 @@
         private System.Windows.Forms.Button Back;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.RichTextBox TextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button Print;
     }
 }

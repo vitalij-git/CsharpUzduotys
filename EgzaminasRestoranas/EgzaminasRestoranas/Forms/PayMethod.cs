@@ -39,7 +39,7 @@ namespace EgzaminasRestoranas.Forms
             ClientOrderOutput();
             TableNumber();
             ClientOrderInfoOutput();
-
+            PrintWaiter();
         }
 
         private void PrintToConsole(string message)
@@ -60,9 +60,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void Card_Click(object sender, EventArgs e)
         {
-            
-            
-
+            CardPay cardPay = new CardPay();
+            this.Hide();
+            cardPay.Show(); 
         }
      
         private void ClientOrderOutput()
@@ -105,9 +105,8 @@ namespace EgzaminasRestoranas.Forms
                         if (reader.Read())
                         {
                             var seatsCount = reader["SeatsCount"];
-                            PrintToConsole($"\nStalo numeris.................................................................................................{2}");
-                            PrintToConsole($"Vietų skaičius................................................................................................{seatsCount}");
-                            
+                            PrintToConsole($"\nStalo numeris: {2}");
+                            PrintToConsole($"Vietų skaičius: {seatsCount}");     
                         }
                         else
                         {
@@ -140,8 +139,8 @@ namespace EgzaminasRestoranas.Forms
                         {
                             var startDateTime = reader["StartDateTime"];
                             var endDateTime = reader["EndDateTime"];
-                            PrintToConsole($"Užsakymas startavo.....................................................{startDateTime}");
-                            PrintToConsole($"Užsakymo uždarymas....................................................{endDateTime}");
+                            PrintToConsole($"Užsakymas startavo: {startDateTime}");
+                            PrintToConsole($"Užsakymo uždarymas: {endDateTime}");
                         }
                         else
                         {
@@ -165,6 +164,16 @@ namespace EgzaminasRestoranas.Forms
             CashPay cashPay = new CashPay(OrderSum);
             this.Hide();
             cashPay.Show();
+        }
+
+        private void PrintWaiter()
+        {
+            PrintToConsole($"Aptarnavo: {workerName.Text}");
+        }
+        
+        private void Print_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Atsispausdino");
         }
     }
 }
