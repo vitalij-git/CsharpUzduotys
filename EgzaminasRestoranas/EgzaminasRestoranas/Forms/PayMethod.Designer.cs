@@ -59,6 +59,7 @@
             this.Cash.TabIndex = 34;
             this.Cash.Text = "Grynais";
             this.Cash.UseVisualStyleBackColor = true;
+            this.Cash.Click += new System.EventHandler(this.Cash_Click);
             // 
             // label1
             // 

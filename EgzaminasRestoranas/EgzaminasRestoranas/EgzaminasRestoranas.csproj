@@ -70,6 +70,12 @@
     <Compile Include="Forms\AdministratorMain.Designer.cs">
       <DependentUpon>AdministratorMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CashPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CashPay.Designer.cs">
+      <DependentUpon>CashPay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CLientOrder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdministratorMain.resx">
       <DependentUpon>AdministratorMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CashPay.resx">
+      <DependentUpon>CashPay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CLientOrder.resx">
       <DependentUpon>CLientOrder.cs</DependentUpon>

@@ -29,6 +29,7 @@ namespace EgzaminasRestoranas.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             try
             {
 
@@ -36,7 +37,6 @@ namespace EgzaminasRestoranas.Forms
                 {
                     SqlConnection = ConnectionToDatabase.Connection();
                     SqlConnection.Open();
-                    //SqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = workerUsername.Text;
                     SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
                     SqlCommand.Connection = SqlConnection;
                     SqlDataReader reader = null;
@@ -48,10 +48,11 @@ namespace EgzaminasRestoranas.Forms
                     }
                     else
                     {
+                        reader.Close();
                         if (workerPassword.Text == workerCheckPassword.Text)
                         {
-                            SqlCommand = new SqlCommand("insert into Workers(FirstName,LastName,Role,Username,Password) Values('" + workerFirstName.Text + "','" + workerLastName.Text + "','" + workerRole.Text + "','" + workerUsername.Text + "','" + workerPassword.Text + "')", SqlConnection);
-                            SqlCommand.ExecuteNonQuery();
+                            var command = new SqlCommand("insert into Workers(FirstName,LastName,Role,Username,Password) Values('" + workerFirstName.Text + "','" + workerLastName.Text + "','" + workerRole.Text + "','" + workerUsername.Text + "','" + workerPassword.Text + "')", SqlConnection);
+                            command.ExecuteNonQuery();
                             MessageBox.Show("Darbuotojas sekmingai pridėtas");
                             SqlConnection.Close();
                         }

@@ -20,6 +20,7 @@ namespace EgzaminasRestoranas.Forms
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
+        private double OrderSum { get; set; }
         public PayMethod()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace EgzaminasRestoranas.Forms
         {
             ShowWorkerStatus();
             ClientOrderOutput();
+            TableNumber();
             ClientOrderInfoOutput();
 
         }
@@ -59,13 +61,7 @@ namespace EgzaminasRestoranas.Forms
         private void Card_Click(object sender, EventArgs e)
         {
             
-            SqlConnection.Open();
-            SqlCommand = new SqlCommand($"Select * from ClientOrder Where TableID={TableId.ReadTableFromFile()}",SqlConnection);
-            SqlDataReader reader = SqlCommand.ExecuteReader();
-            while (reader.Read())
-            {
-
-            }
+            
 
         }
      
@@ -79,21 +75,55 @@ namespace EgzaminasRestoranas.Forms
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    double priceSum = 0;
+                    
                     int row = 0;
                     while (reader.Read())
                     {   
                         string name = reader["Name"].ToString();
                         string price = reader["Price"].ToString();
-                        priceSum += double.Parse(price);  
+                        OrderSum += double.Parse(price);  
                         PrintToConsole($"{name}.................................................................{price}€");
                     }
-                    PrintToConsole($"Viso.................................................................{priceSum}€");
+                    PrintToConsole($"Viso.................................................................{OrderSum}€");
                 }
                 SqlConnection.Close();
             }
         }
 
+        private void TableNumber()
+        {
+            try
+            {
+                using (SqlConnection = ConnectionToDatabase.Connection())
+                {
+                    string query = $"SELECT * FROM RestaurantTables Where ID={TableId.ReadTableFromFile()}";
+
+                    SqlConnection.Open();
+                    SqlCommand command = new SqlCommand(query, SqlConnection);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var seatsCount = reader["SeatsCount"];
+                            PrintToConsole($"\nStalo numeris.................................................................................................{2}");
+                            PrintToConsole($"Vietų skaičius................................................................................................{seatsCount}");
+                            
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nerado duomenų");
+                        }
+
+                    }
+                    SqlConnection.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void ClientOrderInfoOutput()
         {
             try
@@ -106,13 +136,18 @@ namespace EgzaminasRestoranas.Forms
                     SqlCommand command = new SqlCommand(query, SqlConnection);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        double priceSum = 0;
-                        DateTime startDateTime = (DateTime)reader["StartDateTime"];
-                        DateTime endDateTime = (DateTime)reader["EndDateTime"];
-                        string seats = reader["Seats"].ToString();
-                        PrintToConsole($"\nVietų skaičius...................................................................................................{seats}");
-                        PrintToConsole($"\nUžsakymas startavo......................................{startDateTime}");
-                        PrintToConsole($"\nUžsakymo uždarymas......................................{endDateTime}");
+                        if (reader.Read()) 
+                        {
+                            var startDateTime = reader["StartDateTime"];
+                            var endDateTime = reader["EndDateTime"];
+                            PrintToConsole($"Užsakymas startavo.....................................................{startDateTime}");
+                            PrintToConsole($"Užsakymo uždarymas....................................................{endDateTime}");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nerado duomenų");
+                        }
+                       
                     }
                     SqlConnection.Close();
 
@@ -123,6 +158,13 @@ namespace EgzaminasRestoranas.Forms
                 MessageBox.Show( ex.Message );
             }
 
+        }
+
+        private void Cash_Click(object sender, EventArgs e)
+        {
+            CashPay cashPay = new CashPay(OrderSum);
+            this.Hide();
+            cashPay.Show();
         }
     }
 }
