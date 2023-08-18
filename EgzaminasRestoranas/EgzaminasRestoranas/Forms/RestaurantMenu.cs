@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class RestaurantMenu : Form
     {
+        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        SqlConnection SqlConnection = new SqlConnection();
+        SqlCommand SqlCommand = new SqlCommand();
         public RestaurantMenu()
         {
             InitializeComponent();
@@ -35,9 +39,28 @@ namespace EgzaminasRestoranas.Forms
             
         }
 
+        private void PrintToDishConsole(string message)
+        {
+            Font customFont = new Font("Times New Roman", 14);
+            dishTextBox.SelectionFont = customFont;
+            dishTextBox.SelectionColor = Color.Black;
+            dishPanel.Size = new Size(dishPanel.Size.Width, dishTextBox.Height);
+            dishTextBox.AppendText(message + Environment.NewLine);
+        }
+
+        private void PrintToDrinkConsole(string message)
+        {
+            Font customFont = new Font("Times New Roman", 14);
+            drinkTextBox.SelectionFont = customFont;
+            drinkTextBox.SelectionColor = Color.Black;
+            drinkPanel.Size = new Size(drinkPanel.Size.Width, drinkTextBox.Height);
+            drinkTextBox.AppendText(message + Environment.NewLine);
+        }
         private void RestaurantMenu_Load(object sender, EventArgs e)
         {
             ShowWorkerStatus();
+            DishMenuOutput();
+            DrinkMenuOutput();
         }
         public void ShowWorkerStatus()
         {
@@ -59,6 +82,48 @@ namespace EgzaminasRestoranas.Forms
             AddDrink addDrink = new AddDrink();
             this.Hide(); 
             addDrink.Show();
+        }
+
+        private void DishMenuOutput()
+        {
+            using (SqlConnection = ConnectionToDatabase.Connection())
+            {
+                string query = $"SELECT * FROM DishMenu ";
+
+                SqlConnection.Open();
+                SqlCommand command = new SqlCommand(query, SqlConnection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string name = reader["Name"].ToString();
+                        string price = reader["Price"].ToString();
+                        PrintToDishConsole($"{name}........................{price}€");
+                    }
+                }
+                SqlConnection.Close();
+            }
+        }
+
+        private void DrinkMenuOutput()
+        {
+            using (SqlConnection = ConnectionToDatabase.Connection())
+            {
+                string query = $"SELECT * FROM DrinkMenu ";
+
+                SqlConnection.Open();
+                SqlCommand command = new SqlCommand(query, SqlConnection);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string name = reader["Name"].ToString();
+                        string price = reader["Price"].ToString();
+                        PrintToDrinkConsole($"{name}........................{price}€");
+                    }
+                }
+                SqlConnection.Close();
+            }
         }
     }
 }

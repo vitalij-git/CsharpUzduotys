@@ -29,8 +29,9 @@ namespace EgzaminasRestoranas.Forms
             DeleteEndedOrder delete = new DeleteEndedOrder();
             delete.DeleteOrderFromDatabase();
             this.Hide();
-            Tables tables = new Tables();
-            tables.Show();
+            Dialog dialog = new Dialog();
+            dialog.CheckOrderTableStatus();
+            
         }
 
         private void OrderReceipt_Load(object sender, EventArgs e)

@@ -66,6 +66,7 @@
             this.PayWithReceipt.TabIndex = 24;
             this.PayWithReceipt.Text = "Priimti mokėjimą, su čekių";
             this.PayWithReceipt.UseVisualStyleBackColor = true;
+            this.PayWithReceipt.Click += new System.EventHandler(this.PayWithReceipt_Click);
             // 
             // MoneySum
             // 

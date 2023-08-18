@@ -24,6 +24,7 @@ namespace EgzaminasRestoranas.Forms
         public CashPay(double orderSum)
         {
             OrderSum = orderSum;
+            InitializeComponent();
         }
 
         private void Back_Click(object sender, EventArgs e)
@@ -50,11 +51,12 @@ namespace EgzaminasRestoranas.Forms
             if(moneySum > 0 && moneySum < OrderSum)
             {
                 MessageBox.Show("Įvedėte per maža suma pinigų");
-                PayStatus = true;
+                
             }
             else if(moneySum > OrderSum)
             {
                 MessageBox.Show($"Jus gavote {moneySum}, klientui reikia gražintį {moneySum - OrderSum} eurų gražos");
+                PayStatus = true;
             }
             else
             {
@@ -70,8 +72,19 @@ namespace EgzaminasRestoranas.Forms
                 DeleteEndedOrder delete = new DeleteEndedOrder();
                 delete.DeleteOrderFromDatabase();
                 this.Hide();
-                Tables tables = new Tables();
-                tables.Show();
+                Dialog dialog = new Dialog();
+                dialog.CheckOrderTableStatus();
+            }
+        }
+
+        private void PayWithReceipt_Click(object sender, EventArgs e)
+        {
+            CheckField();
+            if (PayStatus == true)
+            {
+                OrderReceipt orderReceipt = new OrderReceipt();
+                this.Hide();
+                orderReceipt.Show();
             }
         }
     }

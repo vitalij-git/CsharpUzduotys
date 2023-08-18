@@ -101,7 +101,7 @@ namespace EgzaminasRestoranas.Forms
             tables.Show();
         }
 
-        private void CheckOrderTableStatus()
+        public void CheckOrderTableStatus()
         {
             try
             {
@@ -119,8 +119,7 @@ namespace EgzaminasRestoranas.Forms
                     payMethod.Show();
                 }
                 else
-                {
-                    OrderEnd();
+                { 
                     Status = "Laisvas";
                     ChangeStatus();
                 }
