@@ -19,7 +19,7 @@ namespace EgzaminasRestoranas.Forms
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
-        ReadTableId TableIdAndSeats = new ReadTableId();
+        ReadTableId TableId = new ReadTableId();
         Tables tables = new Tables();
         private string Status;
         public Dialog()
@@ -86,7 +86,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableIdAndSeats.ReadTableFromFile()}", SqlConnection);
+                SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableId.ReadTableFromFile()}", SqlConnection);
                 if (SqlCommand.ExecuteNonQuery() > 0)
                 {
                     MessageBox.Show("Staliuko statusas atnaujintas");
@@ -108,7 +108,7 @@ namespace EgzaminasRestoranas.Forms
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select *  from ClientOrder where TableID=@tableid", SqlConnection);
-                SqlCommand.Parameters.Add("@tableid", TableIdAndSeats.ReadTableFromFile());
+                SqlCommand.Parameters.Add("@tableid", TableId.ReadTableFromFile());
                 object obj = SqlCommand.ExecuteScalar();    
                 if (Convert.ToInt32(obj) > 0)
                 {
@@ -142,7 +142,7 @@ namespace EgzaminasRestoranas.Forms
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();               
                 SqlCommand = new SqlCommand($"Insert into OrderInfo(TableID,StartDateTime) Values(@TableID,@DateTime)", SqlConnection);
-                SqlCommand.Parameters.AddWithValue("@TableID", TableIdAndSeats.ReadTableFromFile());
+                SqlCommand.Parameters.AddWithValue("@TableID", TableId.ReadTableFromFile());
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
@@ -160,7 +160,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                SqlCommand = new SqlCommand($"UPdate OrderInfo Set EndDateTime=@DateTime Where TableID={TableIdAndSeats.ReadTableFromFile()}", SqlConnection);
+                SqlCommand = new SqlCommand($"UPdate OrderInfo Set EndDateTime=@DateTime Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();

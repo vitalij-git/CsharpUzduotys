@@ -65,6 +65,7 @@
             this.withReceipt.TabIndex = 29;
             this.withReceipt.Text = "Su čekiu";
             this.withReceipt.UseVisualStyleBackColor = true;
+            this.withReceipt.Click += new System.EventHandler(this.withReceipt_Click);
             // 
             // withoutReceipt
             // 

@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OrderReceipt());
+            Application.Run(new WorkerLogin());
         }
     }
 }

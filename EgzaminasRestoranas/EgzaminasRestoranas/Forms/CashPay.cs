@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EgzaminasRestoranas.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -66,6 +67,8 @@ namespace EgzaminasRestoranas.Forms
             CheckField();
            if (PayStatus ==true) 
             {
+                DeleteEndedOrder delete = new DeleteEndedOrder();
+                delete.DeleteOrderFromDatabase();
                 this.Hide();
                 Tables tables = new Tables();
                 tables.Show();

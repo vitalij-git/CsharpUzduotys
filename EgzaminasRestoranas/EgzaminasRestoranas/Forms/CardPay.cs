@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EgzaminasRestoranas.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,9 +28,18 @@ namespace EgzaminasRestoranas.Forms
         private void withoutReceipt_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Mokėjimas praėjo sekmingai");
+            DeleteEndedOrder delete = new DeleteEndedOrder();
+            delete.DeleteOrderFromDatabase();
             this.Hide();
             Tables tables = new Tables();
             tables.Show();
+        }
+
+        private void withReceipt_Click(object sender, EventArgs e)
+        {
+            OrderReceipt orderReceipt = new OrderReceipt(); 
+            this.Hide();
+            orderReceipt.Show();
         }
     }
 }

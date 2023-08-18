@@ -26,6 +26,8 @@ namespace EgzaminasRestoranas.Forms
         private void receiptPrint_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Mokėjimas praėjo sekmingai \nKvitas spaudinasi...");
+            DeleteEndedOrder delete = new DeleteEndedOrder();
+            delete.DeleteOrderFromDatabase();
             this.Hide();
             Tables tables = new Tables();
             tables.Show();
