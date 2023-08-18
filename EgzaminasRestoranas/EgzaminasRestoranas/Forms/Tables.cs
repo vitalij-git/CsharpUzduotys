@@ -170,8 +170,8 @@ namespace EgzaminasRestoranas.Forms
             }
             else if (currentTableStatus == "Rezervuotas")
             {
-                //var reserveList = GetReservedTableInfo();
-                Dialog dialog = new Dialog("Šitas staliukas rezervuotas {reserveList[0]} vardu {reserveList[1]} laiku,\n pasirinkite norima veiksma", "Pasodinti klientus", "Atšaukti rezervacija");
+                var reserveList = GetReservedTableInfo();
+                Dialog dialog = new Dialog($"Šitas staliukas rezervuotas {reserveList[0]} vardu {reserveList[1]} laiku,\n pasirinkite norima veiksma", "Pasodinti klientus", "Atšaukti rezervacija");
                 this.Hide();
                 dialog.ShowDialog();
             }

@@ -48,7 +48,7 @@ namespace EgzaminasRestoranas.Forms
             if(button2.Text == "Atšaukti rezervacija")
             {
                 Status = "Laisvas";
-                //DeleteReservedTime();
+                DeleteReservedTime();
                 ChangeStatus();
             }
             else if ( button2.Text == "Atlaisvinti")
