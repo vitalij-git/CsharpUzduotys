@@ -170,7 +170,8 @@ namespace EgzaminasRestoranas.Forms
             }
             else if (currentTableStatus == "Rezervuotas")
             {
-                Dialog dialog = new Dialog("Šitas staliukas rezervuotas, pasirinkite norima veiksma", "Grįžti", "Atšaukti rezervacija");
+                //var reserveList = GetReservedTableInfo();
+                Dialog dialog = new Dialog("Šitas staliukas rezervuotas {reserveList[0]} vardu {reserveList[1]} laiku,\n pasirinkite norima veiksma", "Pasodinti klientus", "Atšaukti rezervacija");
                 this.Hide();
                 dialog.ShowDialog();
             }
@@ -221,6 +222,25 @@ namespace EgzaminasRestoranas.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private List<string> GetReservedTableInfo()
+        {
+            List<string> reserverInfo = new List<string>();
+            ReadTableId tableId = new ReadTableId();
+            SqlConnection = Connection.Connection();
+            SqlConnection.Open();
+            SqlCommand = new SqlCommand($"Select * from TableReserve Where TableID={tableId.ReadTableFromFile()}", SqlConnection);
+            SqlDataReader reader = SqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                reserverInfo.Add(reader["ClientName"].ToString());
+                string reservedTime = reader["ReservedTime"].ToString();
+                reservedTime = reservedTime.Remove(5);
+                reserverInfo.Add(reservedTime);
+            }
+            
+            return reserverInfo;
         }
     }
 }

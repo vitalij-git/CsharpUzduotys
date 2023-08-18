@@ -21,10 +21,17 @@ namespace EgzaminasRestoranas.Forms
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
         Tables tables = new Tables();
-        private string Status;
+        private string Status { get; set; }
+
         public Dialog()
         {
-            
+            InitializeComponent();
+        }
+
+        public Dialog(string status)
+        {
+            Status = status;
+            InitializeComponent();
         }
         public Dialog(string message, string buttonText1, string buttonText2)
         {
@@ -35,11 +42,13 @@ namespace EgzaminasRestoranas.Forms
 
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
             if(button2.Text == "Atšaukti rezervacija")
             {
                 Status = "Laisvas";
+                //DeleteReservedTime();
                 ChangeStatus();
             }
             else if ( button2.Text == "Atlaisvinti")
@@ -61,16 +70,18 @@ namespace EgzaminasRestoranas.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(button1.Text == "Grįžti")
+            if(button1.Text == "Pasodinti klientus")
             {
-                this.Hide();
-                tables.Show();
+                DeleteReservedTime();
+                Status = "Užimtas";
+                OrderBegin();
+                ChangeStatus();
             }
             else if (button1.Text == "Rezervuoti")
             {
-                Status = "Rezervuotas";
-                ChangeStatus();
-                
+                TableReserve reserve = new TableReserve();
+                this.Hide();
+                reserve.Show();
             }
             else if( button1.Text == "Papildyti")
             {
@@ -80,7 +91,7 @@ namespace EgzaminasRestoranas.Forms
             }
         }
 
-        private void ChangeStatus()
+        public void ChangeStatus()
         {
             try
             {
@@ -168,6 +179,29 @@ namespace EgzaminasRestoranas.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void DeleteReservedTime()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                SqlCommand = new SqlCommand($"Delete from TableReserve Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand.ExecuteNonQuery();
+                SqlConnection.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void Back_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            tables.Show();
         }
     }
 }
