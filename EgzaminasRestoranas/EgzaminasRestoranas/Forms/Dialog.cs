@@ -132,6 +132,8 @@ namespace EgzaminasRestoranas.Forms
                 else
                 { 
                     Status = "Laisvas";
+                    DeleteEndedOrder delete = new DeleteEndedOrder();
+                    delete.DeleteOrderInfo();
                     ChangeStatus();
                 }
                 SqlConnection.Close();

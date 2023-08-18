@@ -71,6 +71,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 DeleteEndedOrder delete = new DeleteEndedOrder();
                 delete.DeleteOrderFromDatabase();
+                delete.DeleteOrderInfo();
                 this.Hide();
                 Dialog dialog = new Dialog();
                 dialog.CheckOrderTableStatus();

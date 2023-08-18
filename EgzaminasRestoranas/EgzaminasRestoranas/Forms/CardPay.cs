@@ -30,6 +30,7 @@ namespace EgzaminasRestoranas.Forms
             MessageBox.Show("Mokėjimas praėjo sekmingai");
             DeleteEndedOrder delete = new DeleteEndedOrder();
             delete.DeleteOrderFromDatabase();
+            delete.DeleteOrderInfo();
             this.Hide();
             Dialog dialog = new Dialog();
             dialog.CheckOrderTableStatus();

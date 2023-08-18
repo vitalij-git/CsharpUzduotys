@@ -174,6 +174,16 @@ namespace EgzaminasRestoranas.Forms
         private void Print_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Atsispausdino");
+            try
+            {
+                SqlConnection = ConnectionToDatabase.Connection();  
+                SqlConnection.Open();
+                SqlCommand command = new SqlCommand("Insert into RestaurantReceipt(WaiterName,StartDateTime,EndDateTime,TableID,ReceiptSum) Values");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

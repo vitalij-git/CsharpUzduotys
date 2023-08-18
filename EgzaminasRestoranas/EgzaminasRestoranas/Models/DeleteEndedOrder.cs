@@ -29,9 +29,22 @@ namespace EgzaminasRestoranas.Models
             {
                 MessageBox.Show(ex.Message);
             }
-            
-            
+        }
 
+        public void DeleteOrderInfo()
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                var SqlCommand = new SqlCommand($"Delete From OrderInfo Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand.ExecuteNonQuery();
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
