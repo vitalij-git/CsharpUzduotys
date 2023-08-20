@@ -88,6 +88,7 @@
             this.Statisctics.TabIndex = 9;
             this.Statisctics.Text = "Statistika";
             this.Statisctics.UseVisualStyleBackColor = true;
+            this.Statisctics.Click += new System.EventHandler(this.Statisctics_Click);
             // 
             // ShowMenu
             // 

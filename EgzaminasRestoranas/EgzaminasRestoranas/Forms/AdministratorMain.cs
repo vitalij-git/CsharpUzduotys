@@ -65,5 +65,12 @@ namespace EgzaminasRestoranas.Forms
             this.Hide();
             menu.Show();
         }
+
+        private void Statisctics_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics();
+            this.Hide();
+            statistics.Show();
+        }
     }
 }

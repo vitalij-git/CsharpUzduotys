@@ -13,15 +13,17 @@ namespace EgzaminasRestoranas.Models
     {
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection(); 
+        SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
 
         public void DeleteOrderFromDatabase()
         {
+            CopyOrderToArchive();
             try
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                var SqlCommand = new SqlCommand($"Delete From ClientOrder Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand = new SqlCommand($"Delete From ClientOrder Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();  
             }
@@ -37,7 +39,24 @@ namespace EgzaminasRestoranas.Models
             {
                 SqlConnection = Connection.Connection();
                 SqlConnection.Open();
-                var SqlCommand = new SqlCommand($"Delete From OrderInfo Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand = new SqlCommand($"Delete From OrderInfo Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
+                SqlCommand.ExecuteNonQuery();
+                SqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void CopyOrderToArchive()
+        {
+            DateTime date = DateTime.UtcNow.Date;   
+            try
+            {
+                SqlConnection = Connection.Connection();
+                SqlConnection.Open();
+                SqlCommand = new SqlCommand($"Insert into AllOrder(Name,Price) Select Name,Price from ClientOrder Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
             }

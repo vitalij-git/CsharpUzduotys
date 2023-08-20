@@ -132,6 +132,7 @@
             this.workerCheckPassword.Name = "workerCheckPassword";
             this.workerCheckPassword.Size = new System.Drawing.Size(273, 26);
             this.workerCheckPassword.TabIndex = 9;
+            this.workerCheckPassword.UseSystemPasswordChar = true;
             // 
             // workerPassword
             // 
@@ -140,6 +141,7 @@
             this.workerPassword.Name = "workerPassword";
             this.workerPassword.Size = new System.Drawing.Size(273, 26);
             this.workerPassword.TabIndex = 10;
+            this.workerPassword.UseSystemPasswordChar = true;
             // 
             // workerUsername
             // 

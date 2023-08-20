@@ -112,6 +112,12 @@
     <Compile Include="Forms\RestaurantMenu.Designer.cs">
       <DependentUpon>RestaurantMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TableReserve.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,11 +130,29 @@
     <Compile Include="Forms\Tables.Designer.cs">
       <DependentUpon>Tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TodayAddDishAndDrinksToMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TodayAddDishAndDrinksToMenu.Designer.cs">
+      <DependentUpon>TodayAddDishAndDrinksToMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TodayTotalProfit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TodayTotalProfit.Designer.cs">
+      <DependentUpon>TodayTotalProfit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WaiterMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\WaiterMain.Designer.cs">
       <DependentUpon>WaiterMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WaiterStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WaiterStatistics.Designer.cs">
+      <DependentUpon>WaiterStatistics.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WorkerLogin.cs">
       <SubType>Form</SubType>
@@ -144,7 +168,10 @@
     </Compile>
     <Compile Include="Models\ConnectToDatabase.cs" />
     <Compile Include="Models\DeleteEndedOrder.cs" />
+    <Compile Include="Models\IWorkerRepository.cs" />
     <Compile Include="Models\ReadTableId.cs" />
+    <Compile Include="Models\SqlWorkerRepository.cs" />
+    <Compile Include="Models\Worker.cs" />
     <Compile Include="Models\WorkerStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,14 +208,26 @@
     <EmbeddedResource Include="Forms\RestaurantMenu.resx">
       <DependentUpon>RestaurantMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Statistics.resx">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TableReserve.resx">
       <DependentUpon>TableReserve.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Tables.resx">
       <DependentUpon>Tables.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TodayAddDishAndDrinksToMenu.resx">
+      <DependentUpon>TodayAddDishAndDrinksToMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TodayTotalProfit.resx">
+      <DependentUpon>TodayTotalProfit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\WaiterMain.resx">
       <DependentUpon>WaiterMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WaiterStatistics.resx">
+      <DependentUpon>WaiterStatistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkerLogin.resx">
       <DependentUpon>WorkerLogin.cs</DependentUpon>

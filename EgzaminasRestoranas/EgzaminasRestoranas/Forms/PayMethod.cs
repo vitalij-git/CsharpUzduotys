@@ -21,6 +21,9 @@ namespace EgzaminasRestoranas.Forms
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
         private double OrderSum { get; set; }
+        private object StartDateTime;
+        private object EndDateTime;
+        private int OrderQuantity;
         public PayMethod()
         {
             InitializeComponent();
@@ -83,6 +86,7 @@ namespace EgzaminasRestoranas.Forms
                         string price = reader["Price"].ToString();
                         OrderSum += double.Parse(price);  
                         PrintToConsole($"{name}.................................................................{price}€");
+                        OrderQuantity++;
                     }
                     PrintToConsole($"Viso.................................................................{OrderSum}€");
                 }
@@ -137,10 +141,10 @@ namespace EgzaminasRestoranas.Forms
                     {
                         if (reader.Read()) 
                         {
-                            var startDateTime = reader["StartDateTime"];
-                            var endDateTime = reader["EndDateTime"];
-                            PrintToConsole($"Užsakymas startavo: {startDateTime}");
-                            PrintToConsole($"Užsakymo uždarymas: {endDateTime}");
+                            StartDateTime = reader["StartDateTime"];
+                            EndDateTime = reader["EndDateTime"];
+                            PrintToConsole($"Užsakymas startavo: {StartDateTime}");
+                            PrintToConsole($"Užsakymo uždarymas: {EndDateTime}");
                         }
                         else
                         {
@@ -178,7 +182,16 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = ConnectionToDatabase.Connection();  
                 SqlConnection.Open();
-                SqlCommand command = new SqlCommand("Insert into RestaurantReceipt(WaiterName,StartDateTime,EndDateTime,TableID,ReceiptSum) Values");
+                SqlCommand = new SqlCommand("Insert into RestaurantReceipt(WaiterName,StartDateTime,EndDateTime,TableID,OrderQuantity,ReceiptSum) Values(@waiterName, @startDateTime,@endDateTime,@tableID,@orderQuantity,@receiptSum)",SqlConnection);
+                SqlCommand.Parameters.AddWithValue("@waiterName", workerName.Text);
+                SqlCommand.Parameters.AddWithValue("@startDateTime", StartDateTime);
+                SqlCommand.Parameters.AddWithValue("@endDateTime", EndDateTime);
+                SqlCommand.Parameters.AddWithValue("@tableID", TableId.ReadTableFromFile());
+                SqlCommand.Parameters.AddWithValue("@orderQuantity", OrderQuantity);
+                SqlCommand.Parameters.AddWithValue("@receiptSum", OrderSum);
+                SqlCommand.ExecuteNonQuery();
+                MessageBox.Show("Restorano čekis išsaugotas duomenų bazėje");
+                SqlConnection.Close();
             }
             catch (Exception ex)
             {

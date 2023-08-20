@@ -82,6 +82,7 @@
             this.password.Name = "password";
             this.password.Size = new System.Drawing.Size(273, 26);
             this.password.TabIndex = 4;
+            this.password.UseSystemPasswordChar = true;
             // 
             // button1
             // 
