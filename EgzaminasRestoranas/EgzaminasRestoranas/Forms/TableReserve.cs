@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class TableReserve : Form
     {
-        private ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
         private SqlConnection SqlConnection = new SqlConnection();
         private SqlCommand SqlCommand = new SqlCommand();
         private ReadTableId TableId = new ReadTableId();
@@ -64,7 +64,7 @@ namespace EgzaminasRestoranas.Forms
             {
                 try
                 {
-                    SqlConnection = ConnectionToDatabase.Connection();
+                    SqlConnection = Connection.Connection();
                     SqlCommand = new SqlCommand("Insert into TableReserve(ClientName,ReservedTime,TableID) Values(@name,@time,@tableID)", SqlConnection);
                     SqlCommand.Parameters.AddWithValue("@name", clientName.Text);
                     SqlCommand.Parameters.AddWithValue("@time", timePicker.Value);
@@ -75,8 +75,8 @@ namespace EgzaminasRestoranas.Forms
                         dialog.ChangeStatus();
                         this.Hide();
                     }
-                    SqlConnection.Close();
-                    
+                    Connection.CloseConnection();
+
                 }
                catch (Exception ex)
                 {

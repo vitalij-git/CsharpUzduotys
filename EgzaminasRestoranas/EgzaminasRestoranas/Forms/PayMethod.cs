@@ -16,7 +16,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class PayMethod : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
@@ -70,7 +70,7 @@ namespace EgzaminasRestoranas.Forms
      
         private void ClientOrderOutput()
         {
-            using (SqlConnection = ConnectionToDatabase.Connection())
+            using (SqlConnection = Connection.Connection())
             {
                 string query = $"SELECT Name, Price FROM ClientOrder Where TableID={TableId.ReadTableFromFile()}"; 
                 SqlCommand command = new SqlCommand(query, SqlConnection);
@@ -88,7 +88,7 @@ namespace EgzaminasRestoranas.Forms
                     }
                     PrintToConsole($"Viso.................................................................{OrderSum}€");
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
         }
 
@@ -96,7 +96,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                using (SqlConnection = ConnectionToDatabase.Connection())
+                using (SqlConnection = Connection.Connection())
                 {
                     string query = $"SELECT * FROM RestaurantTables Where ID={TableId.ReadTableFromFile()}";
                     SqlCommand command = new SqlCommand(query, SqlConnection);
@@ -114,7 +114,7 @@ namespace EgzaminasRestoranas.Forms
                         }
 
                     }
-                    SqlConnection.Close();
+                    Connection.CloseConnection();
 
                 }
             }
@@ -127,7 +127,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                using (SqlConnection = ConnectionToDatabase.Connection())
+                using (SqlConnection = Connection.Connection())
                 {
                     string query = $"SELECT * FROM OrderInfo Where TableID={TableId.ReadTableFromFile()}";
                     SqlCommand command = new SqlCommand(query, SqlConnection);
@@ -146,7 +146,7 @@ namespace EgzaminasRestoranas.Forms
                         }
                        
                     }
-                    SqlConnection.Close();
+                    Connection.CloseConnection();
 
                 }
             }
@@ -174,7 +174,7 @@ namespace EgzaminasRestoranas.Forms
             MessageBox.Show("Atsispausdino");
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();  
+                SqlConnection = Connection.Connection();  
                 SqlCommand = new SqlCommand("Insert into RestaurantReceipt(WaiterName,StartDateTime,EndDateTime,TableID,OrderQuantity,ReceiptSum) Values(@waiterName, @startDateTime,@endDateTime,@tableID,@orderQuantity,@receiptSum)",SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@waiterName", workerName.Text);
                 SqlCommand.Parameters.AddWithValue("@startDateTime", StartDateTime);
@@ -184,8 +184,8 @@ namespace EgzaminasRestoranas.Forms
                 SqlCommand.Parameters.AddWithValue("@receiptSum", OrderSum);
                 SqlCommand.ExecuteNonQuery();
                 MessageBox.Show("Restorano čekis išsaugotas duomenų bazėje");
-                SqlConnection.Close();
-            }
+                Connection.CloseConnection();
+                }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

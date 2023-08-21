@@ -42,7 +42,7 @@ namespace EgzaminasRestoranas.Forms
                     reader.Read();
                     string workerFullName = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
                     string workerRole = reader["Role"].ToString();
-                    SqlConnection.Close();
+                    Connection.CloseConnection();
                     WriteUserStatus(workerFullName, workerRole);
                     if (workerRole == "Administratorius")
                     {

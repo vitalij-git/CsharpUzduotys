@@ -12,10 +12,6 @@ namespace EgzaminasRestoranas.Models.Tests
     public class WorkerStatusTests
     {
         [TestMethod()]
-        //public void GetWorkerStatusTest()
-        //{
-        //    Assert.Fail();
-        //}
         public void GetWorkerStatus_ReturnsCorrectData()
         {
             // Arrange
@@ -25,7 +21,6 @@ namespace EgzaminasRestoranas.Models.Tests
             List<string> statusList = workerStatus.GetWorkerStatus();
 
             // Assert
-            Assert.IsNotNull(statusList);
             Assert.AreEqual(2, statusList.Count);
             Assert.IsInstanceOfType(statusList, typeof(List<string>));
         }

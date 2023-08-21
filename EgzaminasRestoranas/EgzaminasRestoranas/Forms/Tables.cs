@@ -215,7 +215,7 @@ namespace EgzaminasRestoranas.Forms
                 }
                 SetTableSeatsField();
                 SetTableStatusField();
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -237,7 +237,7 @@ namespace EgzaminasRestoranas.Forms
                 reservedTime = reservedTime.Remove(5);
                 reserverInfo.Add(reservedTime);
             }
-            
+            Connection.CloseConnection();
             return reserverInfo;
         }
     }

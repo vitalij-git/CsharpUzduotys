@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace EgzaminasRestoranas.Models
 {
-    public interface IWorkerRepository
+    public interface IDatabaseRepository<T>
     {
-        void GetById (int id);
-        void GetAll();
-        void Add(Worker worker);
-        void Update(Worker worker, int id);
+        T GetById (int id);
+        Dictionary<int, List<T>> GetAll();
+        void Add(T item);
+        void Update(T item, int id);
         void Delete(int id);
 
     }

@@ -15,7 +15,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class WaiterStatistics : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         public WaiterStatistics()
@@ -60,7 +60,7 @@ namespace EgzaminasRestoranas.Forms
             string fullName="";
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 string query = $"Select * from RestaurantReceipt Where WaiterName = '{chosedWorker.Text}'";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -72,7 +72,7 @@ namespace EgzaminasRestoranas.Forms
                     totalFinishedOrders++;
                 }
                 PrintToConsole($"{fullName} padavėjas aptarnavo {totalFinishedOrders} staliukų ir atnešė {totalProfitSum} eurų apyvartos");
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 SqlCommand = new SqlCommand("Select * from Workers Where Role='Padavejas'", SqlConnection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = SqlCommand;
@@ -98,7 +98,7 @@ namespace EgzaminasRestoranas.Forms
                 dt.Columns.Add("FullName", typeof(string), "FirstName + ' ' + LastName") ;
                 chosedWorker.DataSource = dt;  
                 chosedWorker.DisplayMember ="FullName";
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class TodayAddDishAndDrinksToMenu : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         public TodayAddDishAndDrinksToMenu()
@@ -57,7 +57,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 string query = "Select * from DishMenu Where cast(AddDate as Date) = cast(getdate() as Date)";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -68,7 +68,7 @@ namespace EgzaminasRestoranas.Forms
                    
                     PrintToConsole($"{name}.........................................{price}");
                 }
-               SqlConnection.Close();
+               Connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 string query = "Select * from DrinkMenu Where cast(AddDate as Date) = cast(getdate() as Date)";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -91,7 +91,7 @@ namespace EgzaminasRestoranas.Forms
 
                     PrintToConsole($"{name}.........................................{price}");
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {

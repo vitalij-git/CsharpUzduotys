@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Forms\WorkerLoginTest.cs" />
     <Compile Include="Models\ReadTableIdTests.cs" />
+    <Compile Include="Models\SqlWorkerRepositoryTests.cs" />
     <Compile Include="Models\WorkerStatusTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -74,7 +74,7 @@ namespace EgzaminasRestoranas.Forms
                     SqlCommand.ExecuteNonQuery();
                 }
                 MessageBox.Show("Patiekalas sekmingai pridėtas");
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {

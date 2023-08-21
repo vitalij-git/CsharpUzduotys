@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class OrderReceipt : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
@@ -52,11 +52,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void ClientOrderOutput()
         {
-            using (SqlConnection = ConnectionToDatabase.Connection())
+            using (SqlConnection = Connection.Connection())
             {
                 string query = $"SELECT Name, Price FROM ClientOrder Where TableID={TableId.ReadTableFromFile()}";
-
-                SqlConnection.Open();
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -73,7 +71,7 @@ namespace EgzaminasRestoranas.Forms
                     PrintToConsole($"PVM 21%...........................{Math.Round(orderSum * 0.21, 2)}€");
                     PrintToConsole($"Viso...................................{orderSum}€");
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }     
         }
         

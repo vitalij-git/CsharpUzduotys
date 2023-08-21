@@ -22,7 +22,6 @@ namespace EgzaminasRestoranas.Models
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"Delete From ClientOrder Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();  
@@ -38,7 +37,6 @@ namespace EgzaminasRestoranas.Models
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"Delete From OrderInfo Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
@@ -54,7 +52,6 @@ namespace EgzaminasRestoranas.Models
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"Insert into AllOrder(Name,Price) Select Name,Price from ClientOrder Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();

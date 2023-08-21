@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddWorker : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();   
         public AddWorker()
@@ -35,7 +35,7 @@ namespace EgzaminasRestoranas.Forms
 
                 if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRole.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
                 {
-                    SqlConnection = ConnectionToDatabase.Connection();
+                    SqlConnection = Connection.Connection();
                     SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
                     SqlCommand.Connection = SqlConnection;
                     SqlDataReader reader = null;
@@ -53,7 +53,7 @@ namespace EgzaminasRestoranas.Forms
                             var command = new SqlCommand("insert into Workers(FirstName,LastName,Role,Username,Password) Values('" + workerFirstName.Text + "','" + workerLastName.Text + "','" + workerRole.Text + "','" + workerUsername.Text + "','" + workerPassword.Text + "')", SqlConnection);
                             command.ExecuteNonQuery();
                             MessageBox.Show("Darbuotojas sekmingai pridėtas");
-                            SqlConnection.Close();
+                            Connection.CloseConnection();
                         }
                         else
                         {
@@ -103,7 +103,7 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 SqlCommand = new SqlCommand("Select ID,Name from WorkerRoles", SqlConnection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = SqlCommand;
@@ -112,7 +112,7 @@ namespace EgzaminasRestoranas.Forms
                 workerRole.DataSource = dt;
                 workerRole.DisplayMember = "Name";
                 workerRole.ValueMember = "ID";
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {

@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class RestaurantMenu : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         public RestaurantMenu()
@@ -86,7 +86,7 @@ namespace EgzaminasRestoranas.Forms
 
         private void DishMenuOutput()
         {
-            using (SqlConnection = ConnectionToDatabase.Connection())
+            using (SqlConnection = Connection.Connection())
             {
                 string query = $"SELECT * FROM DishMenu ";
                 SqlCommand command = new SqlCommand(query, SqlConnection);
@@ -99,13 +99,13 @@ namespace EgzaminasRestoranas.Forms
                         PrintToDishConsole($"{name}........................{price}€");
                     }
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
         }
 
         private void DrinkMenuOutput()
         {
-            using (SqlConnection = ConnectionToDatabase.Connection())
+            using (SqlConnection = Connection.Connection())
             {
                 string query = $"SELECT * FROM DrinkMenu ";
                 SqlCommand command = new SqlCommand(query, SqlConnection);
@@ -118,7 +118,7 @@ namespace EgzaminasRestoranas.Forms
                         PrintToDrinkConsole($"{name}........................{price}€");
                     }
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
         }
     }

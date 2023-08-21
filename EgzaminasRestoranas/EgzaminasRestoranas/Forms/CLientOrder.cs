@@ -14,7 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class CLientOrder : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
@@ -57,10 +57,10 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price,TableID) Values('" + comboBoxDish.Text + "','" + comboBoxDish.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
-                SqlConnection.Close();
+                Connection.CloseConnection();
                 MessageBox.Show($"Patiekalas {comboBoxDish.Text}, sekmingai pridėtas prie užsakymo");
             }
             catch (Exception ex)
@@ -74,10 +74,10 @@ namespace EgzaminasRestoranas.Forms
         {
             try
             {
-                SqlConnection = ConnectionToDatabase.Connection();
+                SqlConnection = Connection.Connection();
                 SqlCommand = new SqlCommand("Insert into ClientOrder(Name,Price,TableID) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
-                SqlConnection.Close();
+                Connection.CloseConnection();
                 MessageBox.Show($"Patiekalas {comboBoxDrink.Text}, sekmingai pridėtas prie užsakymo");
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace EgzaminasRestoranas.Forms
 
         private void GetDishFromDatabase()
         {
-            SqlConnection = ConnectionToDatabase.Connection();
+            SqlConnection = Connection.Connection();
             SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
             SqlDataAdapter dishAdapter = new SqlDataAdapter();
             dishAdapter.SelectCommand = SqlCommand;
@@ -109,7 +109,7 @@ namespace EgzaminasRestoranas.Forms
             comboBoxDrink.DataSource = drinkTable;
             comboBoxDrink.DisplayMember = "Name";
             comboBoxDrink.ValueMember = "Price";
-            SqlConnection.Close();
+            Connection.CloseConnection();
         }
     }
 }

@@ -168,7 +168,7 @@
     </Compile>
     <Compile Include="Models\ConnectToDatabase.cs" />
     <Compile Include="Models\DeleteEndedOrder.cs" />
-    <Compile Include="Models\IWorkerRepository.cs" />
+    <Compile Include="Models\IDatabaseRepository.cs" />
     <Compile Include="Models\ReadTableId.cs" />
     <Compile Include="Models\SqlWorkerRepository.cs" />
     <Compile Include="Models\Worker.cs" />

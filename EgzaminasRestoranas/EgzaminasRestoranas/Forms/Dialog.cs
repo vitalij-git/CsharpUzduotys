@@ -101,7 +101,7 @@ namespace EgzaminasRestoranas.Forms
                 {
                     MessageBox.Show("Staliuko statusas atnaujintas");
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection(); 
             }
             catch (Exception ex)
             {
@@ -134,7 +134,7 @@ namespace EgzaminasRestoranas.Forms
                     delete.DeleteOrderInfo();
                     ChangeStatus();
                 }
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -154,7 +154,7 @@ namespace EgzaminasRestoranas.Forms
                 SqlCommand.Parameters.AddWithValue("@TableID", TableId.ReadTableFromFile());
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
                 SqlCommand.ExecuteNonQuery();
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             { 
@@ -171,7 +171,7 @@ namespace EgzaminasRestoranas.Forms
                 SqlCommand = new SqlCommand($"UPdate OrderInfo Set EndDateTime=@DateTime Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
                 SqlCommand.ExecuteNonQuery();
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace EgzaminasRestoranas.Forms
                 SqlConnection = Connection.Connection();
                 SqlCommand = new SqlCommand($"Delete from TableReserve Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch(Exception ex)
             {

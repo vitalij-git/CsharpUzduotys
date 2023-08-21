@@ -17,7 +17,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class TodayTotalProfit : Form
     {
-        ConnectToDatabase ConnectionToDatabase = new ConnectToDatabase();
+        ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         public TodayTotalProfit()
@@ -61,8 +61,7 @@ namespace EgzaminasRestoranas.Forms
             double totalProfitSum = 0;
             try 
             {
-                SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
+                SqlConnection = Connection.Connection();
                 string query = "Select * from AllOrder Where cast(Date as Date) = cast(getdate() as Date)";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -76,7 +75,7 @@ namespace EgzaminasRestoranas.Forms
                 PrintToConsole($"PVM mokėstis(21%)...................................{Math.Round(totalProfitSum * 0.21, 2)}");
                 PrintToConsole($"Viso...........................................................{totalProfitSum}");
                 PrintToConsole($"Pelnas........................................................{Math.Round(totalProfitSum * 0.79, 2)}");
-                SqlConnection.Close();
+                Connection.CloseConnection();
             }
             catch (Exception ex)
             {
