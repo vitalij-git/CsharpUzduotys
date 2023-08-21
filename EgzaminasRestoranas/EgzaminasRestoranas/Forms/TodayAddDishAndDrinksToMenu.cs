@@ -31,9 +31,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void Back_Click(object sender, EventArgs e)
         {
-            AdministratorMain administratorMain = new AdministratorMain();
+            Statistics statistics = new Statistics();
             this.Hide();
-            administratorMain.Show();
+            statistics.Show();
         }
 
         private void PrintToConsole(string message)
@@ -58,7 +58,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 string query = "Select * from DishMenu Where cast(AddDate as Date) = cast(getdate() as Date)";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -82,7 +81,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 string query = "Select * from DrinkMenu Where cast(AddDate as Date) = cast(getdate() as Date)";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();

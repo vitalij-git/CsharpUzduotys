@@ -35,9 +35,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void Back_Click(object sender, EventArgs e)
         {
-            AdministratorMain administratorMain = new AdministratorMain();
+            Statistics statistics = new Statistics();   
             this.Hide();
-            administratorMain.Show();
+            statistics.Show();
         }
 
         private void TodayTotalProfit_Load(object sender, EventArgs e)

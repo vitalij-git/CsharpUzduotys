@@ -64,7 +64,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 double price = Convert.ToDouble(drinkPrice.Text);
                 string query = "Insert into DrinkMenu(Name,Price) Values(@drinkName,@drinkPrice)";
                 using (SqlCommand = new SqlCommand(query, SqlConnection))

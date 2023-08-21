@@ -38,7 +38,7 @@ namespace EgzaminasRestoranas.Forms
 
             
         }
-        public void ShowWorkerStatus()
+        private void ShowWorkerStatus()
         {
             var workerStatus = new WorkerStatus();
             List<string> userStatusList = workerStatus.GetWorkerStatus();
@@ -58,7 +58,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price,TableID) Values('" + comboBoxDish.Text + "','" + comboBoxDish.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
@@ -76,7 +75,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Insert into ClientOrder(Name,Price,TableID) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();
@@ -91,7 +89,6 @@ namespace EgzaminasRestoranas.Forms
         private void GetDishFromDatabase()
         {
             SqlConnection = ConnectionToDatabase.Connection();
-            SqlConnection.Open();
             SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
             SqlDataAdapter dishAdapter = new SqlDataAdapter();
             dishAdapter.SelectCommand = SqlCommand;

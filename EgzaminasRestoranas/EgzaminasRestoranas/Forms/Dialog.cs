@@ -96,7 +96,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"UPDATE RestaurantTables Set Status='{Status}' WHere ID={TableId.ReadTableFromFile()}", SqlConnection);
                 if (SqlCommand.ExecuteNonQuery() > 0)
                 {
@@ -117,7 +116,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select *  from ClientOrder where TableID=@tableid", SqlConnection);
                 SqlCommand.Parameters.Add("@tableid", TableId.ReadTableFromFile());
                 object obj = SqlCommand.ExecuteScalar();    
@@ -151,8 +149,7 @@ namespace EgzaminasRestoranas.Forms
             
             try 
             {
-                SqlConnection = Connection.Connection();
-                SqlConnection.Open();               
+                SqlConnection = Connection.Connection();             
                 SqlCommand = new SqlCommand($"Insert into OrderInfo(TableID,StartDateTime) Values(@TableID,@DateTime)", SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@TableID", TableId.ReadTableFromFile());
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
@@ -171,7 +168,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"UPdate OrderInfo Set EndDateTime=@DateTime Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@DateTime", currentDateTime);
                 SqlCommand.ExecuteNonQuery();
@@ -188,7 +184,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand($"Delete from TableReserve Where TableID={TableId.ReadTableFromFile()}", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 SqlConnection.Close();

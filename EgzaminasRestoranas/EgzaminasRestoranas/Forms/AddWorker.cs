@@ -36,7 +36,6 @@ namespace EgzaminasRestoranas.Forms
                 if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRole.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
                 {
                     SqlConnection = ConnectionToDatabase.Connection();
-                    SqlConnection.Open();
                     SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
                     SqlCommand.Connection = SqlConnection;
                     SqlDataReader reader = null;
@@ -105,7 +104,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select ID,Name from WorkerRoles", SqlConnection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = SqlCommand;

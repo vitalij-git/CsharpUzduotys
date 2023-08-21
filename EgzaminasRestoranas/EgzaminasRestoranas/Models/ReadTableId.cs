@@ -8,7 +8,7 @@ using System.IO;
 
 namespace EgzaminasRestoranas.Models
 {
-    internal class ReadTableId
+    public class ReadTableId
     {
         public int ReadTableFromFile()
         {

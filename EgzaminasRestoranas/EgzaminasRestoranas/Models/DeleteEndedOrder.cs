@@ -50,8 +50,7 @@ namespace EgzaminasRestoranas.Models
         }
 
         private void CopyOrderToArchive()
-        {
-            DateTime date = DateTime.UtcNow.Date;   
+        { 
             try
             {
                 SqlConnection = Connection.Connection();

@@ -73,8 +73,6 @@ namespace EgzaminasRestoranas.Forms
             using (SqlConnection = ConnectionToDatabase.Connection())
             {
                 string query = $"SELECT Name, Price FROM ClientOrder Where TableID={TableId.ReadTableFromFile()}"; 
-
-                SqlConnection.Open();
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -101,8 +99,6 @@ namespace EgzaminasRestoranas.Forms
                 using (SqlConnection = ConnectionToDatabase.Connection())
                 {
                     string query = $"SELECT * FROM RestaurantTables Where ID={TableId.ReadTableFromFile()}";
-
-                    SqlConnection.Open();
                     SqlCommand command = new SqlCommand(query, SqlConnection);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -134,8 +130,6 @@ namespace EgzaminasRestoranas.Forms
                 using (SqlConnection = ConnectionToDatabase.Connection())
                 {
                     string query = $"SELECT * FROM OrderInfo Where TableID={TableId.ReadTableFromFile()}";
-
-                    SqlConnection.Open();
                     SqlCommand command = new SqlCommand(query, SqlConnection);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -181,7 +175,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();  
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Insert into RestaurantReceipt(WaiterName,StartDateTime,EndDateTime,TableID,OrderQuantity,ReceiptSum) Values(@waiterName, @startDateTime,@endDateTime,@tableID,@orderQuantity,@receiptSum)",SqlConnection);
                 SqlCommand.Parameters.AddWithValue("@waiterName", workerName.Text);
                 SqlCommand.Parameters.AddWithValue("@startDateTime", StartDateTime);

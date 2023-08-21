@@ -48,6 +48,7 @@ namespace EgzaminasRestoranas.Forms
         private void TodayAddedToMenu_Click(object sender, EventArgs e)
         {
             TodayAddDishAndDrinksToMenu menu =  new TodayAddDishAndDrinksToMenu();
+            this.Hide();
             menu.Show();
         }
 

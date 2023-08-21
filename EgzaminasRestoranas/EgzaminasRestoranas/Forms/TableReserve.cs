@@ -65,7 +65,6 @@ namespace EgzaminasRestoranas.Forms
                 try
                 {
                     SqlConnection = ConnectionToDatabase.Connection();
-                    SqlConnection.Open();
                     SqlCommand = new SqlCommand("Insert into TableReserve(ClientName,ReservedTime,TableID) Values(@name,@time,@tableID)", SqlConnection);
                     SqlCommand.Parameters.AddWithValue("@name", clientName.Text);
                     SqlCommand.Parameters.AddWithValue("@time", timePicker.Value);

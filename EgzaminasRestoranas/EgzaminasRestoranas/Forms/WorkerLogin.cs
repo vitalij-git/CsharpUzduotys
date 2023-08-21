@@ -15,9 +15,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class WorkerLogin : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();
         public WorkerLogin()
         {
             InitializeComponent();
@@ -35,7 +35,6 @@ namespace EgzaminasRestoranas.Forms
             {
                 SqlConnection = Connection.Connection();
                 CheckLogin();
-                SqlConnection.Open();
                 if (SqlCommand.ExecuteScalar().ToString() == "1")
                 {
                     SqlCommand = new SqlCommand($"Select * from Workers where username='{username.Text}' and password='{password.Text}'", SqlConnection);

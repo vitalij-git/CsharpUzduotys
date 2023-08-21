@@ -9,11 +9,18 @@ namespace EgzaminasRestoranas.Models
 {
     internal class ConnectToDatabase
     {
+        private SqlConnection ConnectionToDatabase { get; set; }
         public SqlConnection Connection()
         {
             var connection = "Data Source=DESKTOP-O7DTL46;Initial Catalog=Restoranas;Integrated Security=True;";
-            var sql = new SqlConnection(connection);
-            return sql;
+            ConnectionToDatabase = new SqlConnection(connection);
+            ConnectionToDatabase.Open();
+            return ConnectionToDatabase;
+        }
+
+        public void CloseConnection()
+        {
+            ConnectionToDatabase.Close();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EgzaminasRestoranas.Models
 {
-    internal class WorkerStatus
+    public class WorkerStatus
     {
 
         public List<string> GetWorkerStatus()

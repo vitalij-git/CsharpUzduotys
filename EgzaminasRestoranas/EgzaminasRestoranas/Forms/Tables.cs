@@ -204,7 +204,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select * from RestaurantTables", SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
 
@@ -229,7 +228,6 @@ namespace EgzaminasRestoranas.Forms
             List<string> reserverInfo = new List<string>();
             ReadTableId tableId = new ReadTableId();
             SqlConnection = Connection.Connection();
-            SqlConnection.Open();
             SqlCommand = new SqlCommand($"Select * from TableReserve Where TableID={tableId.ReadTableFromFile()}", SqlConnection);
             SqlDataReader reader = SqlCommand.ExecuteReader();
             while (reader.Read())

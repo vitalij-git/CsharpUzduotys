@@ -25,9 +25,9 @@ namespace EgzaminasRestoranas.Forms
 
         private void Back_Click(object sender, EventArgs e)
         {
-            AdministratorMain administratorMain = new AdministratorMain();
+            Statistics statistics = new Statistics();
             this.Hide();
-            administratorMain.Show();
+            statistics.Show();
         }
 
         private void WaiterStatistics_Load(object sender, EventArgs e)
@@ -61,7 +61,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 string query = $"Select * from RestaurantReceipt Where WaiterName = '{chosedWorker.Text}'";
                 SqlCommand = new SqlCommand(query, SqlConnection);
                 SqlDataReader reader = SqlCommand.ExecuteReader();
@@ -91,7 +90,6 @@ namespace EgzaminasRestoranas.Forms
             try
             {
                 SqlConnection = ConnectionToDatabase.Connection();
-                SqlConnection.Open();
                 SqlCommand = new SqlCommand("Select * from Workers Where Role='Padavejas'", SqlConnection);
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = SqlCommand;

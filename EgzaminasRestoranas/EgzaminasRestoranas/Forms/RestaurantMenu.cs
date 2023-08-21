@@ -89,8 +89,6 @@ namespace EgzaminasRestoranas.Forms
             using (SqlConnection = ConnectionToDatabase.Connection())
             {
                 string query = $"SELECT * FROM DishMenu ";
-
-                SqlConnection.Open();
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -110,8 +108,6 @@ namespace EgzaminasRestoranas.Forms
             using (SqlConnection = ConnectionToDatabase.Connection())
             {
                 string query = $"SELECT * FROM DrinkMenu ";
-
-                SqlConnection.Open();
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
