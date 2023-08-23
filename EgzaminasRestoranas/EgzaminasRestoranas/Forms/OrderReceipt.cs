@@ -59,7 +59,6 @@ namespace EgzaminasRestoranas.Forms
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     double orderSum = 0;
-                    int row = 0;
                     while (reader.Read())
                     {
                         string name = reader["Name"].ToString();

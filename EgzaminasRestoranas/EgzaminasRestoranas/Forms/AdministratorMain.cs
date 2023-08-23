@@ -72,5 +72,12 @@ namespace EgzaminasRestoranas.Forms
             this.Hide();
             statistics.Show();
         }
+
+        private void ShowWorkers_Click(object sender, EventArgs e)
+        {
+            Workers workers = new Workers();
+            this.Hide();
+            workers.Show();
+        }
     }
 }

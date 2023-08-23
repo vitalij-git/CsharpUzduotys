@@ -14,9 +14,11 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddWorker : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();   
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();   
+        private SqlWorkerRepository SqlWorkerRepository = new SqlWorkerRepository();
+        private AdministratorMain AdminMain = new AdministratorMain();
         public AddWorker()
         {
             InitializeComponent();
@@ -35,11 +37,7 @@ namespace EgzaminasRestoranas.Forms
 
                 if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRole.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
                 {
-                    SqlConnection = Connection.Connection();
-                    SqlCommand.CommandText = "Select * From Workers where Username = '"+workerUsername.Text+"'";
-                    SqlCommand.Connection = SqlConnection;
-                    SqlDataReader reader = null;
-                    reader = SqlCommand.ExecuteReader();
+                    SqlDataReader reader = SqlWorkerRepository.CheckUsernameWithDatabase(workerUsername.Text);
                     if (reader.HasRows)
                     {
                         MessageBox.Show("Toks prisijungimo vardas jau užimtas");
@@ -50,14 +48,16 @@ namespace EgzaminasRestoranas.Forms
                         reader.Close();
                         if (workerPassword.Text == workerCheckPassword.Text)
                         {
-                            var command = new SqlCommand("insert into Workers(FirstName,LastName,Role,Username,Password) Values('" + workerFirstName.Text + "','" + workerLastName.Text + "','" + workerRole.Text + "','" + workerUsername.Text + "','" + workerPassword.Text + "')", SqlConnection);
-                            command.ExecuteNonQuery();
+                            Worker worker = new Worker(workerFirstName.Text, workerLastName.Text, workerRole.Text, workerUsername.Text, workerPassword.Text);
+                            SqlWorkerRepository.Add(worker);
                             MessageBox.Show("Darbuotojas sekmingai pridėtas");
-                            Connection.CloseConnection();
+                            this.Hide();
+                            AdminMain.Show();
+
                         }
                         else
                         {
-                            MessageBox.Show("Slaptažodžia nesutampa");
+                            MessageBox.Show("Slaptažodžiai nesutampa");
                         }
                     }
                 }
@@ -86,9 +86,8 @@ namespace EgzaminasRestoranas.Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            AdministratorMain adminMain = new AdministratorMain(); 
-            adminMain.ShowDialog();
+            this.Hide(); 
+            AdminMain.Show();
         }
 
         public void ShowWorkerStatus()

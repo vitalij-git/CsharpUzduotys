@@ -78,6 +78,7 @@
             this.ShowWorkers.TabIndex = 8;
             this.ShowWorkers.Text = "Peržiūrėti darbuotojus";
             this.ShowWorkers.UseVisualStyleBackColor = true;
+            this.ShowWorkers.Click += new System.EventHandler(this.ShowWorkers_Click);
             // 
             // Statisctics
             // 

@@ -166,12 +166,20 @@
     <Compile Include="Forms\Workers.Designer.cs">
       <DependentUpon>Workers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\WorkerUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorkerUpdate.Designer.cs">
+      <DependentUpon>WorkerUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ConnectToDatabase.cs" />
     <Compile Include="Models\DeleteEndedOrder.cs" />
     <Compile Include="Models\IDatabaseRepository.cs" />
     <Compile Include="Models\ReadTableId.cs" />
     <Compile Include="Models\SqlWorkerRepository.cs" />
     <Compile Include="Models\Worker.cs" />
+    <Compile Include="Models\WorkerComboBoxItem.cs" />
+    <Compile Include="Models\WorkersRoles.cs" />
     <Compile Include="Models\WorkerStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -234,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Workers.resx">
       <DependentUpon>Workers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkerUpdate.resx">
+      <DependentUpon>WorkerUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

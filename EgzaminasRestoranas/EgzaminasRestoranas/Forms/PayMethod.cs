@@ -76,8 +76,6 @@ namespace EgzaminasRestoranas.Forms
                 SqlCommand command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    
-                    int row = 0;
                     while (reader.Read())
                     {   
                         string name = reader["Name"].ToString();

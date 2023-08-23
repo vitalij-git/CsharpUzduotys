@@ -15,14 +15,15 @@ namespace EgzaminasRestoranas.Models
 
         private ConnectToDatabase Connection { get; set; } = new ConnectToDatabase();
         private SqlCommand Command { get; set; }= new SqlCommand();
+        private SqlConnection SqlConnection { get; set; } = new SqlConnection();
         public void Add(Worker worker)
         {
             try
             {
-                SqlConnection connection = Connection.Connection();
+               
                 string query = $"Insert into Workers(FirstName,LastName,Role,Username,Password) " +
                     $"Values(@FirstName,@LastName,@Role,@Username,@Password)";
-                Command = new SqlCommand(query, connection);
+                Command = new SqlCommand(query, SqlConnection);
                 Command.Parameters.AddWithValue("@FirstName", worker.FirstName);
                 Command.Parameters.AddWithValue("@LastName", worker.LastName);
                 Command.Parameters.AddWithValue("@Role", worker.Role);
@@ -42,12 +43,12 @@ namespace EgzaminasRestoranas.Models
         {
             try
             {
-                SqlConnection connection = Connection.Connection();
-                string query = $"delete from Workers where ID ='@Id'";
-                Command = new SqlCommand(query, connection);
-                Command.Parameters.AddWithValue("@Id", id);
+                SqlConnection = Connection.Connection();
+                string query = $"delete from Workers where ID ='{id}'";
+                Command = new SqlCommand(query, SqlConnection);
                 Command.ExecuteNonQuery();
-                Connection.CloseConnection();   
+                Connection.CloseConnection();
+                MessageBox.Show("Darbuotojas sėkmingai ištrintas");
             }
             catch(Exception ex)
             {
@@ -60,9 +61,9 @@ namespace EgzaminasRestoranas.Models
             Dictionary<int, List<Worker>> workersDictionary = new Dictionary<int, List<Worker>>();
             try
             {
-                SqlConnection connection = Connection.Connection();
+                SqlConnection = Connection.Connection();
                 string query = "Select * from Workers";
-                Command = new SqlCommand(query, connection);
+                Command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = Command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -76,16 +77,21 @@ namespace EgzaminasRestoranas.Models
                             Role = reader["Role"].ToString(),
                             Username = reader["username"].ToString()
                         };
+                        if (!workersDictionary.ContainsKey(id))
+                        {
+                            workersDictionary[id] = new List<Worker>();
+                        }
                         workersDictionary[id].Add(worker);  
                     }    
                 }
                 Connection.CloseConnection();
+                return workersDictionary;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            return workersDictionary;
+            return null;
         }
 
         public Worker GetById(int id)
@@ -93,10 +99,9 @@ namespace EgzaminasRestoranas.Models
             Worker worker = new Worker();
             try
             {
-                SqlConnection connection = Connection.Connection();
-                string query = $"Select * from Workers where ID  = '@Id'";
-                Command = new SqlCommand(query, connection);
-                Command.Parameters.AddWithValue("@Id", id);
+                SqlConnection = Connection.Connection();
+                string query = $"Select * from Workers where ID  = '{id}'";
+                Command = new SqlCommand(query, SqlConnection);
                 using (SqlDataReader reader = Command.ExecuteReader())
                 {
                     reader.Read();  
@@ -104,31 +109,60 @@ namespace EgzaminasRestoranas.Models
                     worker.LastName = reader["LastName"].ToString();
                     worker.Role = reader["Role"].ToString();
                     worker.Username = reader["username"].ToString();
+                    worker.Password = reader["password"].ToString();
+                   
                 }
                 Connection.CloseConnection();
+                return worker;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            return worker;
+            return null;
         }
 
         public void Update(Worker worker,int id)
         {
-            SqlConnection connection = Connection.Connection();
-            string query = $"Update Workers Set FirstName = @FirstName, LastName = @LastName, " +
-                 $"Role = @Role, Username = @Username, Password = @Password" +
-                 $"Where ID = {id}";
-            SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@FirstName", worker.FirstName);
-            command.Parameters.AddWithValue("@LastName", worker.LastName);
-            command.Parameters.AddWithValue("@Role", worker.Role);
-            command.Parameters.AddWithValue("@Username", worker.Username);
-            command.Parameters.AddWithValue("@Password", worker.Password);
-            command.ExecuteNonQuery();
-        }     
+            try 
+            {
+                SqlConnection = Connection.Connection();
+                string query = $"Update Workers Set FirstName = @FirstName, LastName = @LastName, " +
+                     $"Role = @Role, Username = @Username, Password = @Password " +
+                     $"Where ID = {id}";
+                SqlCommand command = new SqlCommand(query, SqlConnection);
+                command.Parameters.AddWithValue("@FirstName", worker.FirstName);
+                command.Parameters.AddWithValue("@LastName", worker.LastName);
+                command.Parameters.AddWithValue("@Role", worker.Role);
+                command.Parameters.AddWithValue("@Username", worker.Username);
+                command.Parameters.AddWithValue("@Password", worker.Password);
+                command.ExecuteNonQuery();
+                Connection.CloseConnection();
+                MessageBox.Show("Darbuotojas sėkmingai atnaujintas");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
+        }
+
+        public SqlDataReader CheckUsernameWithDatabase(string workerUsername)
+        {
+            try
+            {
+                SqlConnection = Connection.Connection();
+                string query = "Select * From Workers where Username = '" + workerUsername + "'";
+                SqlCommand command = new SqlCommand(query, SqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+                return reader;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           return null;
+        }
     }
 
-   
 }
