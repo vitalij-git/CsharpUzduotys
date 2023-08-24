@@ -14,9 +14,7 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class WorkerUpdate : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
+        private SqlWorkerRolesRepository SqlWorkerRolesRepository = new SqlWorkerRolesRepository();
         private Worker Worker = new Worker();
         public int WorkerId { get; set; }
         private SqlWorkerRepository WorkerRepository { get; set; } = new SqlWorkerRepository();
@@ -62,24 +60,13 @@ namespace EgzaminasRestoranas.Forms
         }
         private void GetWorkerRole()
         {
-            try
+             Dictionary<int,List<WorkerRoles>> workerRoles = SqlWorkerRolesRepository.GetAll();
+            foreach(var workerRole in workerRoles)
             {
-                SqlConnection = Connection.Connection();
-                SqlCommand = new SqlCommand("Select ID,Name from WorkerRoles", SqlConnection);
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = SqlCommand;
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                workerRoleComboBox.DataSource = dt;
-                workerRoleComboBox.DisplayMember = "Name";
-                workerRoleComboBox.ValueMember = "ID"; 
-                
-                Connection.CloseConnection();
-            }
-            
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                foreach(var role in workerRole.Value)
+                {
+                    workerRoleComboBox.Items.Add(role.Name);    
+                }
             }
             
         }

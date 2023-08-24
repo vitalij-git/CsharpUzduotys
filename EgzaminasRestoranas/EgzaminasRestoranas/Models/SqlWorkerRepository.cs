@@ -20,7 +20,7 @@ namespace EgzaminasRestoranas.Models
         {
             try
             {
-               
+                SqlConnection = Connection.Connection();
                 string query = $"Insert into Workers(FirstName,LastName,Role,Username,Password) " +
                     $"Values(@FirstName,@LastName,@Role,@Username,@Password)";
                 Command = new SqlCommand(query, SqlConnection);
@@ -130,13 +130,13 @@ namespace EgzaminasRestoranas.Models
                 string query = $"Update Workers Set FirstName = @FirstName, LastName = @LastName, " +
                      $"Role = @Role, Username = @Username, Password = @Password " +
                      $"Where ID = {id}";
-                SqlCommand command = new SqlCommand(query, SqlConnection);
-                command.Parameters.AddWithValue("@FirstName", worker.FirstName);
-                command.Parameters.AddWithValue("@LastName", worker.LastName);
-                command.Parameters.AddWithValue("@Role", worker.Role);
-                command.Parameters.AddWithValue("@Username", worker.Username);
-                command.Parameters.AddWithValue("@Password", worker.Password);
-                command.ExecuteNonQuery();
+                Command = new SqlCommand(query, SqlConnection);
+                Command.Parameters.AddWithValue("@FirstName", worker.FirstName);
+                Command.Parameters.AddWithValue("@LastName", worker.LastName);
+                Command.Parameters.AddWithValue("@Role", worker.Role);
+                Command.Parameters.AddWithValue("@Username", worker.Username);
+                Command.Parameters.AddWithValue("@Password", worker.Password);
+                Command.ExecuteNonQuery();
                 Connection.CloseConnection();
                 MessageBox.Show("Darbuotojas sėkmingai atnaujintas");
             }

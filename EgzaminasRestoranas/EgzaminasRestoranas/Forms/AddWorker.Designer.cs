@@ -41,7 +41,7 @@
             this.workerUsername = new System.Windows.Forms.TextBox();
             this.workerLastName = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.workerRole = new System.Windows.Forms.ComboBox();
+            this.workerRoleCombo = new System.Windows.Forms.ComboBox();
             this.Back = new System.Windows.Forms.Button();
             this.workerRoleStatus = new System.Windows.Forms.Label();
             this.workerName = new System.Windows.Forms.Label();
@@ -170,15 +170,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // workerRole
+            // workerRoleCombo
             // 
-            this.workerRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.workerRole.FormattingEnabled = true;
-            this.workerRole.Location = new System.Drawing.Point(316, 158);
-            this.workerRole.Name = "workerRole";
-            this.workerRole.Size = new System.Drawing.Size(273, 28);
-            this.workerRole.TabIndex = 15;
-            this.workerRole.SelectedIndexChanged += new System.EventHandler(this.workerRole_SelectedIndexChanged);
+            this.workerRoleCombo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.workerRoleCombo.FormattingEnabled = true;
+            this.workerRoleCombo.Location = new System.Drawing.Point(316, 158);
+            this.workerRoleCombo.Name = "workerRoleCombo";
+            this.workerRoleCombo.Size = new System.Drawing.Size(273, 28);
+            this.workerRoleCombo.TabIndex = 15;
+            this.workerRoleCombo.SelectedIndexChanged += new System.EventHandler(this.workerRole_SelectedIndexChanged);
             // 
             // Back
             // 
@@ -219,7 +219,7 @@
             this.Controls.Add(this.workerRoleStatus);
             this.Controls.Add(this.workerName);
             this.Controls.Add(this.Back);
-            this.Controls.Add(this.workerRole);
+            this.Controls.Add(this.workerRoleCombo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.workerLastName);
             this.Controls.Add(this.workerUsername);
@@ -256,7 +256,7 @@
         private System.Windows.Forms.TextBox workerUsername;
         private System.Windows.Forms.TextBox workerLastName;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox workerRole;
+        private System.Windows.Forms.ComboBox workerRoleCombo;
         private System.Windows.Forms.Button Back;
         private System.Windows.Forms.Label workerRoleStatus;
         private System.Windows.Forms.Label workerName;

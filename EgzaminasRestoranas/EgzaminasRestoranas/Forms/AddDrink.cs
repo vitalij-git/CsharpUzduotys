@@ -14,10 +14,8 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddDrink : Form
     {
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        RestaurantMenu Menu = new RestaurantMenu();
+        private RestaurantMenu Menu = new RestaurantMenu();
+        private SqlDrinkMenuRepository SqlDrinkMenuRepository = new SqlDrinkMenuRepository();
         public AddDrink()
         {
             InitializeComponent();
@@ -61,25 +59,10 @@ namespace EgzaminasRestoranas.Forms
 
         private void AddDrinkToDatabase()
         {
-            try
-            {
-                SqlConnection = Connection.Connection();
-                double price = Convert.ToDouble(drinkPrice.Text);
-                string query = "Insert into DrinkMenu(Name,Price) Values(@drinkName,@drinkPrice)";
-                using (SqlCommand = new SqlCommand(query, SqlConnection))
-                {
-                    SqlCommand.Parameters.AddWithValue("@drinkName", drinkName.Text);
-                    SqlCommand.Parameters.AddWithValue("@drinkPrice", price);
-                    SqlCommand.ExecuteNonQuery();
-                }
-                MessageBox.Show("Gerimas sekmingai pridėtas");
-                Connection.CloseConnection();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-          
+            double price = Convert.ToDouble(drinkPrice.Text);
+            DrinkMenu drinkMenu = new DrinkMenu(drinkName.Text, price);
+            SqlDrinkMenuRepository.Add(drinkMenu);
+
         }
     }
 }

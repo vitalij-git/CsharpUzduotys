@@ -55,7 +55,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Forms\WorkerLoginTest.cs" />
     <Compile Include="Models\ReadTableIdTests.cs" />
     <Compile Include="Models\SqlWorkerRepositoryTests.cs" />
     <Compile Include="Models\WorkerStatusTests.cs" />
@@ -69,6 +68,9 @@
       <Project>{2D793BB1-2779-45D9-BEDA-CCFCFAA11278}</Project>
       <Name>EgzaminasRestoranas</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

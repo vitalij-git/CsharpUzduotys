@@ -71,7 +71,7 @@ namespace EgzaminasRestoranas.Forms
                     totalProfitSum += double.Parse(price);
                     totalFinishedOrders++;
                 }
-                PrintToConsole($"{fullName} padavėjas aptarnavo {totalFinishedOrders} staliukų ir atnešė {totalProfitSum} eurų apyvartos");
+                PrintToConsole($"{fullName} padavėjas aptarnavo {totalFinishedOrders} staliukų ir padarė {totalProfitSum} eurų apyvartos");
                 Connection.CloseConnection();
             }
             catch (Exception ex)

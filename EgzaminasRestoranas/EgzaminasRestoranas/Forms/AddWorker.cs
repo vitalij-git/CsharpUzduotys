@@ -14,11 +14,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddWorker : Form
     {
-        private ConnectToDatabase Connection = new ConnectToDatabase();
-        private SqlConnection SqlConnection = new SqlConnection();
-        private SqlCommand SqlCommand = new SqlCommand();   
         private SqlWorkerRepository SqlWorkerRepository = new SqlWorkerRepository();
         private AdministratorMain AdminMain = new AdministratorMain();
+        private SqlWorkerRolesRepository SqlWorkerRolesRepository = new SqlWorkerRolesRepository();
         public AddWorker()
         {
             InitializeComponent();
@@ -35,7 +33,7 @@ namespace EgzaminasRestoranas.Forms
             try
             {
 
-                if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRole.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
+                if (workerFirstName.Text != "" && workerLastName.Text != "" && workerRoleCombo.Text != "" && workerUsername.Text != "" && workerPassword.Text != "" && workerCheckPassword.Text != "")
                 {
                     SqlDataReader reader = SqlWorkerRepository.CheckUsernameWithDatabase(workerUsername.Text);
                     if (reader.HasRows)
@@ -48,7 +46,7 @@ namespace EgzaminasRestoranas.Forms
                         reader.Close();
                         if (workerPassword.Text == workerCheckPassword.Text)
                         {
-                            Worker worker = new Worker(workerFirstName.Text, workerLastName.Text, workerRole.Text, workerUsername.Text, workerPassword.Text);
+                            Worker worker = new Worker(workerFirstName.Text, workerLastName.Text, workerRoleCombo.Text, workerUsername.Text, workerPassword.Text);
                             SqlWorkerRepository.Add(worker);
                             MessageBox.Show("Darbuotojas sekmingai pridėtas");
                             this.Hide();
@@ -100,24 +98,14 @@ namespace EgzaminasRestoranas.Forms
 
         private void GetWorkerRole()
         {
-            try
+            Dictionary<int,List<WorkerRoles>> workerRoles = SqlWorkerRolesRepository.GetAll();
+            foreach(var workerRole in workerRoles)
             {
-                SqlConnection = Connection.Connection();
-                SqlCommand = new SqlCommand("Select ID,Name from WorkerRoles", SqlConnection);
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = SqlCommand;
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                workerRole.DataSource = dt;
-                workerRole.DisplayMember = "Name";
-                workerRole.ValueMember = "ID";
-                Connection.CloseConnection();
+                foreach(var role in workerRole.Value)
+                {
+                    workerRoleCombo.Items.Add(role.Name);    
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
         }
     }
 }

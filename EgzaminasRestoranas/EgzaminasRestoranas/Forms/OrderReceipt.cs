@@ -16,7 +16,6 @@ namespace EgzaminasRestoranas.Forms
     {
         ConnectToDatabase Connection = new ConnectToDatabase();
         SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
         public OrderReceipt()
         {

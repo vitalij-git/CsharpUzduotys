@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace EgzaminasRestoranas.Models
 {
-    internal class WorkersRoles
+    public class WorkerRoles
     {
-        public void GetWorkerRoles()
+        public WorkerRoles() { }   
+        public WorkerRoles(string name)
         {
-           
+            Name = name;
         }
+
+        public string Name { get; set; }
+        public int Id { get; set; }
     }
 }

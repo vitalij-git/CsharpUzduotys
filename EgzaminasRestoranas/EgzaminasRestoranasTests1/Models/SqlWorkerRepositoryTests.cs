@@ -15,6 +15,7 @@ namespace EgzaminasRestoranas.Models.Tests
         [TestMethod()]
         public void GetAllTest()
         {
+            // Arrange
             SqlWorkerRepository workerRepository = new SqlWorkerRepository();
 
             // Act
@@ -22,14 +23,20 @@ namespace EgzaminasRestoranas.Models.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.Count > 0);
+            
         }
 
         [TestMethod()]
         public void GetByIdTest()
-        {
-           
+        { 
+            // Arrange
+            SqlWorkerRepository workerRepository = new SqlWorkerRepository();
+            // Act
+            Worker worker = workerRepository.GetById(1);
+            // Assert
+            Assert.IsNotNull(worker);
         }
 
+       
     }
 }

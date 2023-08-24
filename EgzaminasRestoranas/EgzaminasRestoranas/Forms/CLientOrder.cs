@@ -18,6 +18,8 @@ namespace EgzaminasRestoranas.Forms
         SqlConnection SqlConnection = new SqlConnection();
         SqlCommand SqlCommand = new SqlCommand();
         ReadTableId TableId = new ReadTableId();
+        private SqlDishMenuRepository SqlDishMenuRepository = new SqlDishMenuRepository();
+        private SqlDrinkMenuRepository SqlDrinkMenuRepository = new SqlDrinkMenuRepository();
         public CLientOrder()
         {
             InitializeComponent();
@@ -55,10 +57,12 @@ namespace EgzaminasRestoranas.Forms
 
         private void AddDishToOrder_Click(object sender, EventArgs e)
         {
+            DishComboBoxItem selectedDish = (DishComboBoxItem)comboBoxDish.SelectedItem;
+            double price = selectedDish.Price;
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price,TableID) Values('" + comboBoxDish.Text + "','" + comboBoxDish.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
+                SqlCommand = new SqlCommand("Insert into ClientOrder(name,Price,TableID) Values('" + comboBoxDish.Text + "','" + price + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 Connection.CloseConnection();
                 MessageBox.Show($"Patiekalas {comboBoxDish.Text}, sekmingai pridėtas prie užsakymo");
@@ -72,10 +76,13 @@ namespace EgzaminasRestoranas.Forms
 
         private void AddDrinkToOrder_Click(object sender, EventArgs e)
         {
+
+            DrinkComboBoxItem selectedDrink = (DrinkComboBoxItem)comboBoxDrink.SelectedItem;
+            double price = selectedDrink.Price;
             try
             {
                 SqlConnection = Connection.Connection();
-                SqlCommand = new SqlCommand("Insert into ClientOrder(Name,Price,TableID) Values('" + comboBoxDrink.Text + "','" + comboBoxDrink.SelectedValue + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
+                SqlCommand = new SqlCommand("Insert into ClientOrder(Name,Price,TableID) Values('" + comboBoxDrink.Text + "','" + price + "','" + TableId.ReadTableFromFile() + "')", SqlConnection);
                 SqlCommand.ExecuteNonQuery();
                 Connection.CloseConnection();
                 MessageBox.Show($"Patiekalas {comboBoxDrink.Text}, sekmingai pridėtas prie užsakymo");
@@ -88,28 +95,74 @@ namespace EgzaminasRestoranas.Forms
 
         private void GetDishFromDatabase()
         {
-            SqlConnection = Connection.Connection();
-            SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
-            SqlDataAdapter dishAdapter = new SqlDataAdapter();
-            dishAdapter.SelectCommand = SqlCommand;
-            DataTable dishTable = new DataTable();
-            dishAdapter.Fill(dishTable);
-            comboBoxDish.DataSource = dishTable;
-            comboBoxDish.DisplayMember = "Name";
-            comboBoxDish.ValueMember = "Price";
+            var dishDictionary = SqlDishMenuRepository.GetAll();
+            foreach ( var dish in dishDictionary )
+            { 
+                foreach( var dishList in dish.Value)
+                {
+                    var dishBox = new DishComboBoxItem()
+                    {
+                        Name = dishList.Name,
+                        Price = dishList.Price,
+                        Id = dishList.Id
+
+                    };
+                    comboBoxDish.Items.Add(dishBox);
+                }
+                if (comboBoxDish.Items.Count > 0)
+                {
+                    comboBoxDish.SelectedIndex = 0;
+                }
+            }
+
+
+            //SqlConnection = Connection.Connection();
+            //SqlCommand = new SqlCommand("Select * from DishMenu", SqlConnection);
+            //SqlDataAdapter dishAdapter = new SqlDataAdapter();
+            //dishAdapter.SelectCommand = SqlCommand;
+            //DataTable dishTable = new DataTable();
+            //dishAdapter.Fill(dishTable);
+            //comboBoxDish.DataSource = dishTable;
+            //comboBoxDish.DisplayMember = "Name";
+            //comboBoxDish.ValueMember = "Price";
         }
 
         private void GetDrinkFromDatabase()
         {
-            SqlCommand = new SqlCommand("Select * from DrinkMenu", SqlConnection);
-            SqlDataAdapter drinkAdapter = new SqlDataAdapter();
-            drinkAdapter.SelectCommand = SqlCommand;
-            DataTable drinkTable = new DataTable();
-            drinkAdapter.Fill(drinkTable);
-            comboBoxDrink.DataSource = drinkTable;
-            comboBoxDrink.DisplayMember = "Name";
-            comboBoxDrink.ValueMember = "Price";
-            Connection.CloseConnection();
+            var drinkDictionary = SqlDrinkMenuRepository.GetAll();
+            foreach( var drinks in drinkDictionary)
+            {
+                foreach (var drink in drinks.Value)
+                {
+
+                    var drinkBOx = new DrinkComboBoxItem()
+                    {
+                        Name = drink.Name,
+                        Price = drink.Price,
+                        Id = drink.Id
+
+                    };
+                    comboBoxDrink.Items.Add(drinkBOx);
+                }
+            }
+
+            if (comboBoxDrink.Items.Count > 0)
+            {
+                comboBoxDrink.SelectedIndex = 0;
+            }
+
+
+
+
+            //SqlCommand = new SqlCommand("Select * from DrinkMenu", SqlConnection);
+            //SqlDataAdapter drinkAdapter = new SqlDataAdapter();
+            //drinkAdapter.SelectCommand = SqlCommand;
+            //DataTable drinkTable = new DataTable();
+            //drinkAdapter.Fill(drinkTable);
+            //comboBoxDrink.DataSource = drinkTable;
+            //comboBoxDrink.DisplayMember = "Name";
+            //comboBoxDrink.ValueMember = "Price";
+            //Connection.CloseConnection();
         }
     }
 }

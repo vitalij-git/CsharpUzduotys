@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace EgzaminasRestoranas.Forms
 {
     public partial class RestaurantMenu : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
+        private SqlDishMenuRepository SqlDishMenuRepository = new SqlDishMenuRepository();
+        private SqlDrinkMenuRepository SqlDrinkMenuRepository = new SqlDrinkMenuRepository();
         public RestaurantMenu()
         {
             InitializeComponent();
@@ -86,40 +87,85 @@ namespace EgzaminasRestoranas.Forms
 
         private void DishMenuOutput()
         {
-            using (SqlConnection = Connection.Connection())
+            var dishDictionary = SqlDishMenuRepository.GetAll();
+
+            foreach(var dish in dishDictionary) 
             {
-                string query = $"SELECT * FROM DishMenu ";
-                SqlCommand command = new SqlCommand(query, SqlConnection);
-                using (SqlDataReader reader = command.ExecuteReader())
+                foreach(var dishList in dish.Value)
                 {
-                    while (reader.Read())
+                    PrintToDishConsole($"{dishList.Name}........................{dishList.Price}€");
+                    var dishBox = new DishComboBoxItem()
                     {
-                        string name = reader["Name"].ToString();
-                        string price = reader["Price"].ToString();
-                        PrintToDishConsole($"{name}........................{price}€");
-                    }
+                        Name = dishList.Name,
+                        Price = dishList.Price,
+                        Id = dishList.Id
+                        
+                    };
+                    dishComboBox.Items.Add(dishBox);
                 }
-                Connection.CloseConnection();
+                if(dishComboBox.Items.Count > 0)
+                {
+                    dishComboBox.SelectedIndex = 0;
+                }
             }
         }
 
         private void DrinkMenuOutput()
         {
-            using (SqlConnection = Connection.Connection())
+            var drinkDictionary = SqlDrinkMenuRepository.GetAll();
+            foreach (var drinks in drinkDictionary)
             {
-                string query = $"SELECT * FROM DrinkMenu ";
-                SqlCommand command = new SqlCommand(query, SqlConnection);
-                using (SqlDataReader reader = command.ExecuteReader())
+                foreach( var drink in drinks.Value)
                 {
-                    while (reader.Read())
+                    PrintToDrinkConsole($"{drink.Name}.....................{drink.Price}€");
+                    var drinkBOx = new DrinkComboBoxItem()
                     {
-                        string name = reader["Name"].ToString();
-                        string price = reader["Price"].ToString();
-                        PrintToDrinkConsole($"{name}........................{price}€");
-                    }
+                        Name = drink.Name,
+                        Price = drink.Price,
+                        Id= drink.Id
+
+                    };
+                    drinkComboBox.Items.Add(drinkBOx);
                 }
-                Connection.CloseConnection();
+                if (drinkComboBox.Items.Count > 0)
+                {
+                    drinkComboBox.SelectedIndex = 0;
+                }
             }
+
+        }
+
+        private void dishDelete_Click(object sender, EventArgs e)
+        {
+            DishComboBoxItem selectedDish = (DishComboBoxItem)dishComboBox.SelectedItem;
+            int dishId = selectedDish.Id;   
+            SqlDishMenuRepository.Delete(dishId);
+        }
+
+        private void drinkDelete_Click(object sender, EventArgs e)
+        {
+            DrinkComboBoxItem selectedDrink = (DrinkComboBoxItem)drinkComboBox.SelectedItem;
+            int drinkId = selectedDrink.Id;
+            SqlDrinkMenuRepository.Delete(drinkId);
+        }
+
+        private void dishUpdate_Click(object sender, EventArgs e)
+        {
+            DishComboBoxItem selectedDish = (DishComboBoxItem)dishComboBox.SelectedItem;
+            int dishId = selectedDish.Id;
+            this.Hide();
+            DishUpdate dishUpdate = new DishUpdate(dishId);
+            dishUpdate.Show();
+
+        }
+
+        private void drinkUpdate_Click(object sender, EventArgs e)
+        {
+            DrinkComboBoxItem selectedDrink = (DrinkComboBoxItem)drinkComboBox.SelectedItem;
+            int drinkId = selectedDrink.Id;
+            this.Hide();
+            DrinkUpdate drinkUpdate = new DrinkUpdate(drinkId);
+            drinkUpdate.Show();
         }
     }
 }

@@ -14,27 +14,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AdministratorMain : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
         public AdministratorMain()
         {
             InitializeComponent();
-        }
-
-        private void AdministratorMain_Load(object sender, EventArgs e)
-        {
-           ShowWorkerStatus();
-        }
-
-        private void workerName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Logout_Click(object sender, EventArgs e)
@@ -79,5 +61,17 @@ namespace EgzaminasRestoranas.Forms
             this.Hide();
             workers.Show();
         }
+
+        //nereikalingi
+        private void AdministratorMain_Load(object sender, EventArgs e)
+        {
+            ShowWorkerStatus();
+        }
+
+        private void workerName_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

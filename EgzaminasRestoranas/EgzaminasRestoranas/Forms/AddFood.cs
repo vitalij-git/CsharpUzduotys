@@ -14,10 +14,8 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class AddFood : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
-        RestaurantMenu Menu = new RestaurantMenu();
+        private RestaurantMenu Menu = new RestaurantMenu();
+        private SqlDishMenuRepository SqlDishMenuRepository = new SqlDishMenuRepository();
         public AddFood()
         {
             InitializeComponent();
@@ -62,25 +60,13 @@ namespace EgzaminasRestoranas.Forms
 
         private void  AddDishToDatabase()
         {
-            try
-            {
-                SqlConnection = Connection.Connection();
-                double price = Convert.ToDouble(dishPrice.Text);
-                string query = "Insert into DishMenu(Name,Price) Values(@dishName,@dishPrice)";
-                using (SqlCommand = new SqlCommand(query, SqlConnection))
-                {
-                    SqlCommand.Parameters.AddWithValue("@dishName", dishName.Text);
-                    SqlCommand.Parameters.AddWithValue("@dishPrice", price);
-                    SqlCommand.ExecuteNonQuery();
-                }
-                MessageBox.Show("Patiekalas sekmingai pridėtas");
-                Connection.CloseConnection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            double price = Convert.ToDouble(dishPrice.Text);
+            DishMenu dishMenu = new DishMenu(dishName.Text,price);
+            SqlDishMenuRepository.Add(dishMenu);
+ 
         }
+
+        //nereikalingi
         private void label3_Click(object sender, EventArgs e)
         {
 

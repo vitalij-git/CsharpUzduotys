@@ -94,6 +94,18 @@
     <Compile Include="Forms\Dialog.Designer.cs">
       <DependentUpon>Dialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DishUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DishUpdate.Designer.cs">
+      <DependentUpon>DishUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DrinkUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DrinkUpdate.Designer.cs">
+      <DependentUpon>DrinkUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OrderReceipt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,12 +186,19 @@
     </Compile>
     <Compile Include="Models\ConnectToDatabase.cs" />
     <Compile Include="Models\DeleteEndedOrder.cs" />
+    <Compile Include="Models\DishComboBoxItem.cs" />
+    <Compile Include="Models\DishMenu.cs" />
+    <Compile Include="Models\DrinkComboBoxItem.cs" />
+    <Compile Include="Models\DrinkMenu.cs" />
     <Compile Include="Models\IDatabaseRepository.cs" />
     <Compile Include="Models\ReadTableId.cs" />
+    <Compile Include="Models\SqlDishMenuRepository.cs" />
+    <Compile Include="Models\SqlDrinkMenuRepository.cs" />
     <Compile Include="Models\SqlWorkerRepository.cs" />
+    <Compile Include="Models\SqlWorkerRolesRepository.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Models\WorkerComboBoxItem.cs" />
-    <Compile Include="Models\WorkersRoles.cs" />
+    <Compile Include="Models\WorkerRoles.cs" />
     <Compile Include="Models\WorkerStatus.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,6 +225,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dialog.resx">
       <DependentUpon>Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DishUpdate.resx">
+      <DependentUpon>DishUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DrinkUpdate.resx">
+      <DependentUpon>DrinkUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OrderReceipt.resx">
       <DependentUpon>OrderReceipt.cs</DependentUpon>
