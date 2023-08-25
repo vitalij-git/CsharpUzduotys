@@ -72,7 +72,7 @@
             // 
             this.workerRole.AutoSize = true;
             this.workerRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.workerRole.Location = new System.Drawing.Point(318, 68);
+            this.workerRole.Location = new System.Drawing.Point(309, 68);
             this.workerRole.Name = "workerRole";
             this.workerRole.Size = new System.Drawing.Size(71, 20);
             this.workerRole.TabIndex = 22;
@@ -82,7 +82,7 @@
             // 
             this.workerName.AutoSize = true;
             this.workerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.workerName.Location = new System.Drawing.Point(318, 32);
+            this.workerName.Location = new System.Drawing.Point(309, 32);
             this.workerName.Name = "workerName";
             this.workerName.Size = new System.Drawing.Size(122, 20);
             this.workerName.TabIndex = 21;
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 318);
+            this.ClientSize = new System.Drawing.Size(452, 322);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

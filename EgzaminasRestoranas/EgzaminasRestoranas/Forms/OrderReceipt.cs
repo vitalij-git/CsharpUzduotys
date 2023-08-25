@@ -14,9 +14,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class OrderReceipt : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        ReadTableId TableId = new ReadTableId();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private ReadTableId TableId = new ReadTableId();
         public OrderReceipt()
         {
             InitializeComponent();

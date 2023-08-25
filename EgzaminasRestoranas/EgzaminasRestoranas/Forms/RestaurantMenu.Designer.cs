@@ -142,9 +142,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(32, 380);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(286, 20);
+            this.label1.Size = new System.Drawing.Size(274, 20);
             this.label1.TabIndex = 50;
-            this.label1.Text = "Pasirinkite darbuotoją ir norima veiksma";
+            this.label1.Text = "Pasirinkite patiekalą ir norima veiksma";
             // 
             // dishDelete
             // 
@@ -182,9 +182,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(413, 380);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(286, 20);
+            this.label2.Size = new System.Drawing.Size(258, 20);
             this.label2.TabIndex = 54;
-            this.label2.Text = "Pasirinkite darbuotoją ir norima veiksma";
+            this.label2.Text = "Pasirinkite gėrimą ir norima veiksma";
             // 
             // drinkDelete
             // 

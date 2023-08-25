@@ -16,11 +16,11 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class Dialog : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
-        ReadTableId TableId = new ReadTableId();
-        Tables tables = new Tables();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();
+        private ReadTableId TableId = new ReadTableId();
+        private Tables tables = new Tables();
         private string Status { get; set; }
 
         public Dialog()

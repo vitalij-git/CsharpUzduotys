@@ -16,9 +16,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class Tables : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();
         private List<string> SeatsCountList = new List<string>();
         private List<string> StatusList = new List<string>();
         private List<int> TablesIdList = new List<int>();

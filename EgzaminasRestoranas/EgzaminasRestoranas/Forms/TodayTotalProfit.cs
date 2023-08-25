@@ -17,9 +17,9 @@ namespace EgzaminasRestoranas.Forms
 {
     public partial class TodayTotalProfit : Form
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection();
-        SqlCommand SqlCommand = new SqlCommand();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();
         public TodayTotalProfit()
         {
             InitializeComponent();
