@@ -11,10 +11,10 @@ namespace EgzaminasRestoranas.Models
 {
     internal class DeleteEndedOrder
     {
-        ConnectToDatabase Connection = new ConnectToDatabase();
-        SqlConnection SqlConnection = new SqlConnection(); 
-        SqlCommand SqlCommand = new SqlCommand();
-        ReadTableId TableId = new ReadTableId();
+        private ConnectToDatabase Connection = new ConnectToDatabase();
+        private SqlConnection SqlConnection = new SqlConnection();
+        private SqlCommand SqlCommand = new SqlCommand();
+        private ReadTableId TableId = new ReadTableId();
 
         public void DeleteOrderFromDatabase()
         {
