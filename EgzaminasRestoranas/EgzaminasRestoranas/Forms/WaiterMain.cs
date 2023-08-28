@@ -21,10 +21,6 @@ namespace EgzaminasRestoranas.Forms
             InitializeComponent();
         }
 
-        private void AddNewWorker_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Logout_Click(object sender, EventArgs e)
         {
