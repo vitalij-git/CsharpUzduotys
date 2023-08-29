@@ -410,7 +410,6 @@
             SqlConnection sqlConnection = connect.ConnectToDatabase();
             SqlCommand sqlCommand = new SqlCommand("Select Count(Pareigos) from darbuotojas where Pareigos = 'testuotojas'", sqlConnection);
             int count = (int)sqlCommand.ExecuteScalar(); 
-            
             Console.WriteLine(count);
         }
     }
