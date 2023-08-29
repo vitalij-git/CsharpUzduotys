@@ -21,6 +21,16 @@ namespace _2.OrderByAndGroupBy
             Task6();
             Console.WriteLine(7);
             Task7();
+            Console.WriteLine(8);
+            Task8();
+            Console.WriteLine(9);
+            Task9();
+            Console.WriteLine(10);
+            Task10();
+            Console.WriteLine(11);
+            Task11();
+            Console.WriteLine(12);
+            Task12();
 
 
         }
@@ -163,5 +173,107 @@ namespace _2.OrderByAndGroupBy
             connect.CloseConection();
         }
 
+        private static void Task8()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select * from darbuotojas where pareigos is null";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string personalCode = reader["asmenskodas"].ToString();
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string startDate = reader["dirbanuo"].ToString();
+                string birthDate = reader["gimimometai"].ToString();
+                string role = reader["pareigos"].ToString();
+                string department = reader["skyrius_pavadinimas"].ToString();
+                string projectId = reader["projektas_id"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName} asmens kodas {personalCode} dirba nuo {startDate}" +
+                    $"\ngimimo data {birthDate} pareigos {role} skyrius {department} projektas {projectId}");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task9() 
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas,pavarde,dirbanuo,pareigos from darbuotojas where dirbanuo > '2011-02-10' and  pareigos like 'programuotoja%'";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string startDate = reader["dirbanuo"].ToString();
+                string role = reader["pareigos"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName}  dirba nuo {startDate} pareigos {role} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task10()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas,pavarde,skyrius_pavadinimas,projektas_id from darbuotojas where skyrius_pavadinimas = 'java' or projektas_id = 1";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string department = reader["skyrius_pavadinimas"].ToString();
+                string projectId = reader["projektas_id"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName}  skyrius {department} projektas {projectId}");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task11()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas from darbuotojas where vardas not like 's%'";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+
+
+                Console.WriteLine($"Vardas {firstName} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task12()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas,pavarde,dirbanuo,gimimometai from darbuotojas where   dirbanuo  not between '2009-10-30' and '2012-11-11'";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string startDate = reader["dirbanuo"].ToString();
+                string birthdate = reader["gimimometai"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName}  dirba nuo {startDate} gimimo metai  {birthdate} ");
+            }
+
+            connect.CloseConection();
+        }
     }
 }
