@@ -31,6 +31,14 @@ namespace _2.OrderByAndGroupBy
             Task11();
             Console.WriteLine(12);
             Task12();
+            Console.WriteLine(13);
+            Task13();
+            Console.WriteLine(14);
+            Task14();
+            Console.WriteLine(15);
+            Task15();
+            Console.WriteLine(16);
+            Task16();
 
 
         }
@@ -274,6 +282,85 @@ namespace _2.OrderByAndGroupBy
             }
 
             connect.CloseConection();
+        }
+
+        private static void Task13()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas,pavarde,gimimometai from darbuotojas  order by gimimometai";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string birthdate = reader["gimimometai"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName}   gimimo metai  {birthdate} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task14()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select vardas,pavarde,gimimometai from darbuotojas  order by gimimometai desc";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string firstName = reader["vardas"].ToString();
+                string lastName = reader["pavarde"].ToString();
+                string birthdate = reader["gimimometai"].ToString();
+
+                Console.WriteLine($"Vardas {firstName} pavarde {lastName}   gimimo metai  {birthdate} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task15()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select  max(projektas_id) as max, min(projektas_id) as min from DARBUOTOJAS";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string min = reader["min"].ToString();
+                string max = reader["max"].ToString();
+
+                Console.WriteLine($"Minimum {min} maximum {max} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task16()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select  PROJEKTAS_ID,  count(PROJEKTAS_ID) as count  from DARBUOTOJAS where pareigos like 'programuotoja%' group by PROJEKTAS_ID";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string projectId = reader["projektas_id"].ToString();
+                string count = reader["count"].ToString();
+
+                Console.WriteLine($"Projektas {projectId} programuotoju skaicius {count} ");
+            }
+
+            connect.CloseConection();
+        }
+
+        private static void Task17()
+        {
+
         }
     }
 }
