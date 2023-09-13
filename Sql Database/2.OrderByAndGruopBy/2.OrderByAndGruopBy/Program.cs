@@ -39,6 +39,10 @@ namespace _2.OrderByAndGroupBy
             Task15();
             Console.WriteLine(16);
             Task16();
+            Console.WriteLine(17);
+            Task17();
+            Console.WriteLine(18);
+            AdditionalTask();
 
 
         }
@@ -360,7 +364,50 @@ namespace _2.OrderByAndGroupBy
 
         private static void Task17()
         {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "Select  PROJEKTAS_ID,  count(PROJEKTAS_ID) as count  from DARBUOTOJAS where pareigos like 'programuotoja%' group by PROJEKTAS_ID having Count(*)>=2";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string projectId = reader["projektas_id"].ToString();
+                string count = reader["count"].ToString();
 
+                Console.WriteLine($"Projektas {projectId} programuotoju skaicius {count} ");
+            }
+
+            connect.CloseConection();
         }
+
+        private static void AdditionalTask()
+        {
+            Connect connect = new Connect();
+            SqlConnection connection = connect.ConnectToDatabase();
+            string query = "SELECT " +
+                "SKYRIUS_PAVADINIMAS AS Department, " +
+                "COUNT(*) AS Workers_Count " +
+                "FROM DARBUOTOJAS " +
+                "GROUP BY SKYRIUS_PAVADINIMAS " +
+                "HAVING " +
+                "COUNT(*) = ( " +
+                "SELECT MAX(Workers_Count) " +
+                "FROM (SELECT COUNT(*) AS Workers_Count " +
+                "FROM DARBUOTOJAS " +
+                "GROUP BY SKYRIUS_PAVADINIMAS ) " +
+                "AS Department_Counts);";
+            SqlCommand sqlCommand = new SqlCommand(query, connection);
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string department = reader["Department"].ToString();
+                string count = reader["Workers_Count"].ToString();
+
+                Console.WriteLine($"Skyrius {department} programuotoju skaicius {count} ");
+            }
+
+            connect.CloseConection();
+        }
+
     }
 }
