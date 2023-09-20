@@ -19,11 +19,15 @@ namespace Tarpinis_atsikaitymas
 
             //AddListOfLecturesToDepartment();
 
+            //AddStudent();
+
             //MoveStudentToNewDepartment();
 
-            GetAllDeparmentSudents();
+            //GetAllDeparmentSudents();
 
             //GetAllDepartamentLectures();
+
+            GetAllLecturesByStudent();
         }
 
         //1 Sukurti departamentą ir pridėti studentus
@@ -51,20 +55,30 @@ namespace Tarpinis_atsikaitymas
                 new Lecture { Title = "Istorija"},
                 new Lecture { Title = "Fizika"}
             };
+
+            AddDepartment(department);
+            AddLectures(lectures);
+            AddDepartmentsAndLectures(department, lectures);
+        }
+        static void AddDepartment(Department department)
+        {
             DepartmentRepository departmentRepository = new DepartmentRepository();
             departmentRepository.Add(department);
-
+        }
+        static void AddLectures(List<Lecture> lectures)
+        {
             LectureRepository lectureRepository = new LectureRepository();
             lectureRepository.AddListOfLectures(lectures);
-
+        }
+        static void AddDepartmentsAndLectures(Department department, List<Lecture> lectures)
+        {
             DepartmentLectureRepository departmentLectureRepository = new DepartmentLectureRepository();
             foreach (var lecture in lectures)
             {
-                departmentLectureRepository.Add(new DepartmentLecture { DepartmentId = department.DepartmentId, LectureId= lecture.LectureId });
+                departmentLectureRepository.Add(new DepartmentLecture { DepartmentId = department.DepartmentId, LectureId = lecture.LectureId });
             }
-            
-        }
 
+        }
         //2
         static void AddStudentToDepartment()
         {
@@ -105,6 +119,22 @@ namespace Tarpinis_atsikaitymas
             {
                 departmentLectureRepository.Add(new DepartmentLecture { DepartmentId = departmentGuid, LectureId = lecture.LectureId });
             }
+        }
+        //4
+        static void AddStudent()
+        {
+            Guid guid = Guid.Parse("07CCCCC8-75B3-453B-0E7C-08DBB945DC75");
+            Student student = new Student("Arunas", "ss", "Arunas@gmail.com", "+37033452", guid);
+            StudentRepository studentRepository = new StudentRepository();
+            studentRepository.Add(student);
+            LectureRepository lectureRepository = new LectureRepository();
+            var lectures = lectureRepository.GetAll();
+            StudentLectureRepository studentLectureRepository = new StudentLectureRepository();
+            foreach(var lecture in lectures)
+            {
+                studentLectureRepository.Add(new StudentLecture { StudentId =student.StudentId, LectureId=lecture.LectureId });
+            }
+            
         }
         //5
         static void MoveStudentToNewDepartment()
@@ -150,7 +180,21 @@ namespace Tarpinis_atsikaitymas
             }
         }
        
+        static void GetAllLecturesByStudent()
+        {
+            Guid studentId = Guid.Parse("1DA032D1-EACF-4E64-74B3-08DBB9E88742");
+            StudentLectureRepository studentLectureRepository= new StudentLectureRepository();  
+            var lectures = studentLectureRepository.GetLecturesByStudentId(studentId);
+            OutputLectores(lectures);
 
+        }
+        static void OutputLectores(IEnumerable<Lecture> lectures)
+        {
+            foreach(var lecture in lectures) 
+            { 
+                Console.WriteLine(lecture.Title);
+            }
+        }
         
     }
 }
