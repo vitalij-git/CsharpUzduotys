@@ -9,25 +9,31 @@ namespace Tarpinis_atsikaitymas
     {
         static void Main(string[] args)
         {
+            //1
             //AddDepartment();
 
             //AddDeparmentLecture();
-
+            //2
             //AddStudentToDepartment();
 
             //AddStudentsToDepartment();
 
             //AddListOfLecturesToDepartment();
 
-            //AddStudent();
+            //4
+            //AddStudentToExistDepartment()
 
+            //5
             //MoveStudentToNewDepartment();
 
+            //6
             //GetAllDeparmentSudents();
 
+            //7
             //GetAllDepartamentLectures();
 
-            GetAllLecturesByStudent();
+            //8
+            //GetAllLecturesByStudent();
         }
 
         //1 Sukurti departamentą ir pridėti studentus
@@ -121,20 +127,33 @@ namespace Tarpinis_atsikaitymas
             }
         }
         //4
-        static void AddStudent()
+        static void AddStudentToExistDepartment()
         {
             Guid guid = Guid.Parse("07CCCCC8-75B3-453B-0E7C-08DBB945DC75");
             Student student = new Student("Arunas", "ss", "Arunas@gmail.com", "+37033452", guid);
+            AddStudent(student);
+            var lectures = GetLectures();
+            AddToStudentLectures(lectures, student);   
+        }
+
+        static void AddStudent(Student student)
+        {
             StudentRepository studentRepository = new StudentRepository();
             studentRepository.Add(student);
+        }
+        static IEnumerable<Lecture> GetLectures()
+        {
             LectureRepository lectureRepository = new LectureRepository();
             var lectures = lectureRepository.GetAll();
+            return lectures;
+        }
+        static void AddToStudentLectures(IEnumerable<Lecture> lectures, Student student)
+        {
             StudentLectureRepository studentLectureRepository = new StudentLectureRepository();
-            foreach(var lecture in lectures)
+            foreach (var lecture in lectures)
             {
-                studentLectureRepository.Add(new StudentLecture { StudentId =student.StudentId, LectureId=lecture.LectureId });
+                studentLectureRepository.Add(new StudentLecture { StudentId = student.StudentId, LectureId = lecture.LectureId });
             }
-            
         }
         //5
         static void MoveStudentToNewDepartment()
@@ -180,6 +199,7 @@ namespace Tarpinis_atsikaitymas
             }
         }
        
+        //8
         static void GetAllLecturesByStudent()
         {
             Guid studentId = Guid.Parse("1DA032D1-EACF-4E64-74B3-08DBB9E88742");
