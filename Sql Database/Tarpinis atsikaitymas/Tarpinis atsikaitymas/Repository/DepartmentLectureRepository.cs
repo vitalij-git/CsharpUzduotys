@@ -35,7 +35,7 @@ namespace Tarpinis_atsikaitymas.Repository
         public IEnumerable<Department> GetDeparmtmentsByLectureId(Guid lectureId)
         {
             using var context = new DatabaseConfig();
-            return context.DepartmentLectures.Where(l => l.LectureId == lectureId).Select(d => d.Lecture).ToList(); ;
+            return context.DepartmentLectures.Where(l => l.LectureId == lectureId).Select(d => d.Department).ToList(); ;
         }
     }
 }

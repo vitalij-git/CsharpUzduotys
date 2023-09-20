@@ -24,18 +24,18 @@ namespace Tarpinis_atsikaitymas.Repository
             return context.StudentLectures.ToList();
         }
 
-        public IEnumerable<StudentLecture> GetStudentById(Guid studentId)
+        public IEnumerable<Student> GetStudentsByLectureId(Guid lectureId)
         {
-            using var context = new DatabaseConfig();
-            context.StudentLectures.FirstOrDefault(d => d.StudentId == studentId);
-            return context.StudentLectures.ToList();
+           using var context = new DatabaseConfig();
+           return  context.StudentLectures.Where(l => l.LectureId == lectureId).Select(s => s.Student).ToList();
+           
 
         }
-        public IEnumerable<StudentLecture> GetLectureId(Guid lectureId)
+        public IEnumerable<Lecture> GetLecturesByStudentId(Guid studentId)
         {
             using var context = new DatabaseConfig();
-            context.StudentLectures.FirstOrDefault(l => l.LectureId == lectureId);
-            return context.StudentLectures.ToList();
+            return context.StudentLectures.Where(s => s.StudentId == studentId).Select(l => l.Lecture).ToList();
+            
         }
     }
 }

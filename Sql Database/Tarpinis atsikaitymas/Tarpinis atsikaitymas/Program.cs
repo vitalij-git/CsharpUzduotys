@@ -1,4 +1,5 @@
 ﻿using Tarpinis_atsikaitymas.Database;
+using Tarpinis_atsikaitymas.Interface;
 using Tarpinis_atsikaitymas.Models;
 using Tarpinis_atsikaitymas.Repository;
 
@@ -20,9 +21,9 @@ namespace Tarpinis_atsikaitymas
 
             //MoveStudentToNewDepartment();
 
-            //GetAllDeparmentSudents();
+            GetAllDeparmentSudents();
 
-            GetAllDepartamentLectures();
+            //GetAllDepartamentLectures();
         }
 
         //1 Sukurti departamentą ir pridėti studentus
@@ -118,35 +119,37 @@ namespace Tarpinis_atsikaitymas
         {
             Guid departmentId = Guid.Parse("7084CE29-BABC-4E66-47D4-08DBB9498933");
             var deparmentRepository = new DepartmentRepository();
-            var result = deparmentRepository.GetDeparmentById(departmentId);
+            var students = deparmentRepository.GetDeparmentById(departmentId);
+            StudentsOutput(students);
+        }
 
-           
+        static void StudentsOutput(Department students)
+        {
+            var i = 1;
+            foreach (var student in students.Students)
+            {
+                Console.WriteLine($"{i}.First name is {student.FirstName} \nLast name is {student.LastName} \nPhone number is {student.PhoneNumber} \nEmail is {student.Email}");
+                i++;
+            }
         }
 
         //7
         static void GetAllDepartamentLectures()
         {
             Guid departmentId = Guid.Parse("07CCCCC8-75B3-453B-0E7C-08DBB945DC75");
-            //DepartmentLectureRepository departmentLectureRepository = new DepartmentLectureRepository();
-            //var departmentLectures = departmentLectureRepository.GetLecturesByDepartmentId(departmentId);
-            //foreach(var result in departmentLectures)
-            //{
-                
-            //}
-            using var context = new DatabaseConfig();
-            var result = context.DepartmentLectures.Where(d => d.DepartmentId == departmentId).Select(l => l.Lecture).ToList();
-            foreach (var department in result)
+            DepartmentLectureRepository departmentLectureRepository = new DepartmentLectureRepository();
+            var lectures = departmentLectureRepository.GetLecturesByDepartmentId(departmentId);
+            LecturesOutput(lectures);
+
+        }
+        static void LecturesOutput(IEnumerable<Lecture> lectures)
+        {
+            foreach (var lecture in lectures)
             {
-                Console.WriteLine(department.Title);
+                Console.WriteLine(lecture.Title);
             }
         }
-        static void random()
-        {
-            Guid lectureId = Guid.Parse("CD076515-D6F0-4919-78A5-08DBB8665F36");
-            Guid studendId = Guid.Parse("C58984DA-7B9A-4DAD-248E-08DBB489DD18");
-            StudentLectureRepository studentLectureRepository = new StudentLectureRepository();
-            studentLectureRepository.Add(new StudentLecture() { LectureId = lectureId, StudentId = studendId });
-        }
+       
 
         
     }
